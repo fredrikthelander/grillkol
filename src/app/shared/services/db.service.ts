@@ -26,7 +26,7 @@ export class DbService {
         
         this.socket.emit('gettoken', { token: this.token }, (result) => {
             console.log('gettoken result', result)
-            if (result.err) router.navigate(['/login-form'])
+            //if (result.err) router.navigate(['/login'])
         })
     })
     

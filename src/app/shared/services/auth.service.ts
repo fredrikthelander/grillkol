@@ -38,15 +38,18 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+    console.log('can', route)
     const isLoggedIn = this.authService.isLoggedIn;
     const isLoginForm = route.routeConfig.path === 'login-form';
 
     if (isLoggedIn && isLoginForm) {
+        console.log('-->', 1)
         this.router.navigate(['/']);
         return false;
     }
 
     if (!isLoggedIn && !isLoginForm) {
+        console.log('-->', 2)
         this.router.navigate(['/login']);
     }
 
