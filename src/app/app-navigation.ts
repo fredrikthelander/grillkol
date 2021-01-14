@@ -1,6 +1,7 @@
 import { faCog } from '@fortawesome/pro-light-svg-icons/faCog';
 import { faHome } from '@fortawesome/pro-light-svg-icons/faHome';
 import { faList } from '@fortawesome/pro-light-svg-icons/faList';
+import { faTasks } from '@fortawesome/pro-light-svg-icons/faTasks';
 import { faChartPie } from '@fortawesome/pro-light-svg-icons/faChartPie';
 
 export const navigation = [
@@ -28,6 +29,11 @@ export const navigation = [
     text: 'Ordrar',
     path: '/orders',
     icon: faSvg(faList)
+  },
+  {
+    text: 'Projekt',
+    path: '/projects',
+    icon: faSvg(faTasks)
   },
   {
     text: 'Rapporter',

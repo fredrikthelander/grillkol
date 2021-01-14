@@ -8,6 +8,7 @@ import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 const routes: Routes = [
   
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+  { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
   { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule) },
   { path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule) },
   { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
