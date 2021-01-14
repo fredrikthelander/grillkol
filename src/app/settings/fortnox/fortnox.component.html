@@ -1,5 +1,37 @@
 <div>
 
-    <h2>Fortnox</h2>
+    <h2>Fortnox integration (K49cNDsPvAB1)</h2>
+
+    <div>
+        <table>
+            <tr>
+                <td>Authorization Code: </td>
+                <td style="padding-right: 20px"><dx-text-box [(value)]="authorizationCode" width="280"></dx-text-box></td>
+                <td><dx-button (click)="authorize()" width="100" text="Ok"></dx-button></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin: 20px 0">
+
+        <dx-data-grid #igrid [columnAutoWidth]="true" [dataSource]="dataSource">
+
+            <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"></dxo-remote-operations>
+            <dxo-filter-row visible="true"></dxo-filter-row>
+            <dxo-paging [pageSize]="20"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+        
+            <dxo-editing mode="cell" [allowUpdating]="true" [allowDeleting]="true" [useIcons]="true"></dxo-editing>
+        
+            <dxi-column dataField="ts" caption="Skapad" dataType="string" width="130" sortOrder="asc" [allowEditing]="false"></dxi-column>
+            <dxi-column dataField="authorizationCode" caption="Authorization Code" dataType="string" width="300" [allowEditing]="false"></dxi-column>
+            <dxi-column dataField="AccessToken" caption="Acess Token" dataType="string" width="300" [allowEditing]="false"></dxi-column>
+            <dxi-column dataField="VoucherSeries" caption="Serie" dataType="string" width="80"></dxi-column>
+            <dxi-column dataField="startFromDate" caption="Startdatum" dataType="string" width="100"></dxi-column>
+            <dxi-column dataField="active" caption="Aktiv" dataType="boolean" width="80"></dxi-column>
+
+        </dx-data-grid>
+    </div>
+    
 
 </div>
