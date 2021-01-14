@@ -2,4 +2,55 @@
 
     <h2>Swish</h2>
 
+    <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource" (onInitNewRow)="initCert($event.data)">
+
+        <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"> </dxo-remote-operations>
+        <!--<dxo-filter-row visible="true"></dxo-filter-row>-->
+        <dxo-paging [pageSize]="20"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+      
+        <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true">
+  
+          <dxo-popup title="Swishcertifikat" [showTitle]="true" width="90%" height="90%" [position]="{ my: 'center', at: 'center', of: 'window' }"></dxo-popup>
+  
+          <dxo-form>
+  
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+  
+              <dxi-item dataField="swishnumber"></dxi-item>
+              <dxi-item dataField="orgnr"></dxi-item>
+  
+              <dxi-item dataField="ftg"></dxi-item>
+              <dxi-item dataField="tel"></dxi-item>
+  
+              <dxi-item dataField="adr1"></dxi-item>
+              <dxi-item dataField="adr2"></dxi-item>                
+  
+              <dxi-item *ngIf="db.userlevel > 4" dataField="privateKey" editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ autoResizeEnabled: true, maxHeight: 100 }"></dxi-item>
+              <dxi-item *ngIf="db.userlevel > 4" dataField="swishCrt" editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ autoResizeEnabled: true, maxHeight: 100 }"></dxi-item>
+              <dxi-item dataField="terms" editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ autoResizeEnabled: true, maxHeight: 300 }"></dxi-item>
+  
+              <dxi-item dataField="active"></dxi-item>
+              <dxi-item dataField="sortorder"></dxi-item>
+  
+            </dxi-item>
+  
+          </dxo-form>
+  
+        </dxo-editing>
+  
+        <dxi-column dataField="swishnumber" caption="Swishnummer" dataType="string"></dxi-column>
+        <dxi-column dataField="ftg" caption="Företag" dataType="string"></dxi-column>
+        <dxi-column dataField="adr1" caption="Adressrad 1" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="adr2" caption="Adressrad 2" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="orgnr" caption="Org.nr." dataType="string"></dxi-column>
+        <dxi-column dataField="tel" caption="Telefon" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="privateKey" caption="Private Key" width="80" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="swishCrt" caption="Swish Cert" width="80" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="terms" caption="Terms" width="80" dataType="string" [visible]="false"></dxi-column>
+        <dxi-column dataField="active" caption="Aktiv" dataType="boolean" width="60"></dxi-column>
+        <dxi-column dataField="sortorder" caption="Sortering" dataType="number" width="60"></dxi-column>
+  
+      </dx-data-grid>
+
 </div>
