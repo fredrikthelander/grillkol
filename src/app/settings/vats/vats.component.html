@@ -1,0 +1,28 @@
+<div>
+
+    <h2>Moms</h2>
+    
+    <dx-data-grid
+        [dataSource]="dataSource"
+        (onInitNewRow)="initVat($event.data)">
+
+        <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"> </dxo-remote-operations>
+        <!--<dxo-filter-row visible="true"></dxo-filter-row>-->
+        <dxo-paging [pageSize]="20"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+
+        <dxo-editing mode="batch" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true" [useIcons]="true">
+        </dxo-editing>
+
+        <dxi-column dataField="name" dataType="string" caption="Namn"></dxi-column>
+        <dxi-column dataField="vatPercent" dataType="number" caption="Moms%" width="100"></dxi-column>
+
+        <dxi-column dataField="default" dataType="boolean" caption="Standard" width="100" trueText="Ja" falseText="Nej"></dxi-column>
+
+        <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
+        <dxi-column dataField="sortorder" dataType="number" caption="Sortering" width="100" sortOrder="asc"></dxi-column>
+
+    </dx-data-grid>
+    
+</div>
