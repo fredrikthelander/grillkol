@@ -1,87 +1,100 @@
 <div class="outer">
 
-    <dx-validation-group>
+    <div class="tc">
+        <div class="logo">
+            <a href="https://grillkol.se"><img class="logoimg" src="/assets/images/grillkollogo1.jpg"></a>
+        </div>
+        <div class="fs22" style="padding-bottom: 25px">Registrering</div>
+    </div>
 
-        <div class="tc">
-            <div class="logo">
-                <a href="https://grillkol.se"><img class="logoimg" src="/assets/images/grillkollogo1.jpg"></a>
+    <div *ngIf="step == 0">
+
+        <dx-validation-group>
+
+            <div class="dx-field">
+                <dx-text-box [(value)]="vars.name" placeholder="Föreningens namn" width="100%">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-text-box [(value)]="vars.persons" placeholder="Hur många är ni som ska sälja?" width="100%">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                        <dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-text-box [(value)]="vars.contactName" placeholder="Kontaktperson/säljansvarig" width="100%">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-text-box [(value)]="vars.email" placeholder="Mail kontaktperson" width="100%">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                        <dxi-validation-rule type="email" message="Felaktig E-post"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-text-box [(value)]="vars.phone" placeholder="Telefonnummer kontaktperson" width="100%">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-check-box #catalogcheckbox [(value)]="vars.catalogs" text="Önskar även fysiska säljkataloger. Porto tillkommer 50 kr."></dx-check-box>
             </div>
-            <div class="fs22" style="padding-bottom: 25px">Registrering</div>
+
+            <div *ngIf="catalogcheckbox.value" class="dx-field">
+                <dx-text-box [(value)]="vars.catalogAdr1" placeholder="Skicka kataloger till" width="100%"></dx-text-box>
+            </div> 
+
+            <div *ngIf="catalogcheckbox.value" class="dx-field">
+                <dx-text-box [(value)]="vars.catalogAdr2" placeholder="Adress" width="100%"></dx-text-box>
+            </div> 
+
+            <div *ngIf="catalogcheckbox.value" class="dx-field">
+                <dx-text-box [(value)]="vars.catalogAdr3" placeholder="Postadress" width="100%"></dx-text-box>
+            </div> 
+
+            <div class="dx-field">
+                <dx-check-box [(value)]="vars.newsletter" text="Jag vill ha fortsatt information gällande de senaste nyheterna och priserna via mail."></dx-check-box>
+            </div>
+
+            <div class="dx-field">
+                Vi kommer att skicka ut ett mail med inloggningsuppgifter till ovan angiven mailadress.<br>
+                Du kommer också hamna i vår bokföring enligt bokföringslagen samt i vårt fraktsystem. Vi behandlar dina personuppgifter enligt GDPR.
+            </div>
+
+            <div class="dx-field">
+                <dx-button type="default" text="Registrera" (onClick)="onSubmit($event)" width="100%"></dx-button>
+            </div>
+
+            </dx-validation-group>
+
         </div>
 
-        <div class="dx-field">
-            <dx-text-box [(value)]="vars.name" placeholder="Föreningens namn" width="100%">
-                <dx-validator>
-                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
-                </dx-validator>
-            </dx-text-box>
-        </div> 
+        <div *ngIf="step == 1">
 
-        <div class="dx-field">
-            <dx-text-box [(value)]="vars.persons" placeholder="Hur många är ni som ska sälja?" width="100%">
-                <dx-validator>
-                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
-                    <dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule>
-                </dx-validator>
-            </dx-text-box>
-        </div> 
+            <div class="dx-field">
+                Tack!<br><br>Registreringen har genomfört och ett bekräftelsemail har skickats till er. Efter godkännande från vår sida får ni ytterligare ett mail med länk till försäljningssidan och inloggning till er sammanställning.<br><br>Hälsningar<br>grillkol.se
+            </div>
 
-        <div class="dx-field">
-            <dx-text-box [(value)]="vars.contactName" placeholder="Kontaktperson/säljansvarig" width="100%">
-                <dx-validator>
-                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
-                </dx-validator>
-            </dx-text-box>
-        </div> 
-
-        <div class="dx-field">
-            <dx-text-box [(value)]="vars.email" placeholder="Mail kontaktperson" width="100%">
-                <dx-validator>
-                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
-                    <dxi-validation-rule type="email" message="Felaktig E-post"></dxi-validation-rule>
-                </dx-validator>
-            </dx-text-box>
-        </div> 
-
-        <div class="dx-field">
-            <dx-text-box [(value)]="vars.phone" placeholder="Telefonnummer kontaktperson" width="100%">
-                <dx-validator>
-                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
-                </dx-validator>
-            </dx-text-box>
-        </div> 
-
-        <div class="dx-field">
-            <dx-check-box #catalogcheckbox [(value)]="vars.catalogs" text="Önskar även fysiska säljkataloger. Porto tillkommer 50 kr."></dx-check-box>
         </div>
 
-        <div *ngIf="catalogcheckbox.value" class="dx-field">
-            <dx-text-box [(value)]="vars.catalogAdr1" placeholder="Skicka kataloger till" width="100%"></dx-text-box>
-        </div> 
-
-        <div *ngIf="catalogcheckbox.value" class="dx-field">
-            <dx-text-box [(value)]="vars.catalogAdr2" placeholder="Adress" width="100%"></dx-text-box>
-        </div> 
-
-        <div *ngIf="catalogcheckbox.value" class="dx-field">
-            <dx-text-box [(value)]="vars.catalogAdr3" placeholder="Postadress" width="100%"></dx-text-box>
-        </div> 
-
-
-        <div class="dx-field">
-            <dx-check-box [(value)]="vars.newsletter" text="Jag vill ha fortsatt information gällande de senaste nyheterna och priserna via mail."></dx-check-box>
-        </div>
-
-        <div class="dx-field">
-            Vi kommer att skicka ut ett mail med inloggningsuppgifter till ovan angiven mailadress.<br>
-            Du kommer också hamna i vår bokföring enligt bokföringslagen samt i vårt fraktsystem. Vi behandlar dina personuppgifter enligt GDPR.
-        </div>
-
-        <div class="dx-field">
-            <dx-button type="default" text="Registrera" (onClick)="onSubmit($event)" width="100%"></dx-button>
-        </div>
-
-    </dx-validation-group>
+   
 
     <!--<table style="width: 100%">
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, AppInfoService, DbService, MsgBusService } from '../../shared/services';
-
+import { v4 as uuid } from 'uuid'
+import * as moment from 'moment';
+import { Project } from '../../interfaces/project'
 import { Socket } from 'ngx-socket-io'
 
 @Component({
@@ -10,9 +12,12 @@ import { Socket } from 'ngx-socket-io'
 })
 export class MainComponent implements OnInit {
 
+  step = 0
+
   codeChars = '23456789ABCEFGHJKMNPQRSTWXYZ'
 
-  vars = {
+  vars: Project = {
+    id: uuid(),
     name: '',
     persons: null,
     contactName: '',
@@ -24,7 +29,9 @@ export class MainComponent implements OnInit {
     catalogAdr3: '',
     newsletter: true,
     code: '',
-    password: ''
+    password: '',
+    ts: '',
+    active: false
   }
 
   constructor(private authService: AuthService, private db: DbService, private socket: Socket) {
@@ -40,8 +47,22 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
   
-  onSubmit(e) {
-    
+  onSubmit(args) {
+
+    if (!args.validationGroup.validate().isValid) {
+      return
+    }
+
+    console.log(args)
+
+    this.vars.ts = moment().format('YYYY-MM-DD HH:mm:ss')
+
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'projects', data: this.vars }, (result) => {
+      console.log('Insert', result)
+      if (!result.err) this.step = 1
+      setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
+    })
+
   }
 
   createCode(codeLength = 6) {

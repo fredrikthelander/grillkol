@@ -2,8 +2,85 @@
 
     <h2>Försäljningsprojekt</h2>
 
-    <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource">
+    <dx-data-grid
+    [dataSource]="dataSource"
+    (onInitNewRow)="initProject($event.data)">
 
-    </dx-data-grid> 
+        <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"> </dxo-remote-operations>
+        <dxo-filter-row visible="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="20"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+        <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true">
+
+            <dxo-popup
+                title="Projektinformation"
+                [showTitle]="true"
+                width="90%"
+                height="90%"
+                >
+            </dxo-popup>
+
+            <dxo-form>
+
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+
+                    <dxi-item dataField="name" [colSpan]="2"></dxi-item>
+
+                    <dxi-item dataField="contactName" [colSpan]="2"></dxi-item>
+                    
+                    <dxi-item dataField="email"></dxi-item>
+                    <dxi-item dataField="phone"></dxi-item>
+
+                </dxi-item>
+
+                <dxi-item itemType="group" [colCount]="1" [colSpan]="2" caption="Kataloger">
+
+                    <dxi-item dataField="catalogs"></dxi-item>
+                    <dxi-item dataField="catalogAdr1"></dxi-item>
+                    <dxi-item dataField="catalogAdr2"></dxi-item>
+                    <dxi-item dataField="catalogAdr3"></dxi-item>
+
+                </dxi-item>
+
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2" caption="Övrigt">
+                    
+                    <dxi-item dataField="persons"></dxi-item>
+                    <dxi-item dataField="newsletter"></dxi-item>
+
+                    <dxi-item dataField="code"></dxi-item>
+                    <dxi-item dataField="password"></dxi-item>
+
+                    <dxi-item dataField="active"></dxi-item>
+                    <dxi-item itemType="empty"></dxi-item>
+
+                </dxi-item>
+
+
+            </dxo-form>
+        </dxo-editing>
+
+        <dxi-column dataField="name" dataType="string" caption="Projektnamn" ></dxi-column>
+        <dxi-column dataField="persons" dataType="number" caption="Personer som ska sälja" width="100" [visible]="false"></dxi-column>
+        <dxi-column dataField="ts" dataType="string" caption="Skapad" width="160" sortOrder="asc"></dxi-column>
+        <dxi-column dataField="contactName" dataType="string" caption="Kontaktperson"></dxi-column>
+
+        <dxi-column dataField="email" dataType="string" caption="E-post" [visible]="false"></dxi-column>
+        <dxi-column dataField="phone" dataType="string" caption="Telefon" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="catalogs" dataType="boolean" caption="Skicka katalog" width="100" trueText="Ja" falseText="Nej" [visible]="false"></dxi-column>
+        <dxi-column dataField="catalogAdr1" dataType="string" caption="Adressrad 1" [visible]="false"></dxi-column>
+        <dxi-column dataField="catalogAdr2" dataType="string" caption="Adressrad 2" [visible]="false"></dxi-column>
+        <dxi-column dataField="catalogAdr3" dataType="string" caption="Adressrad 3" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="newsletter" dataType="boolean" caption="Nyhetsbrev" width="100" trueText="Ja" falseText="Nej" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="code" dataType="string" caption="Kod" width="100" [visible]="true"></dxi-column>
+        <dxi-column dataField="password" dataType="string" caption="Lösen" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
+
+    </dx-data-grid>
+
 
 </div>
