@@ -9,9 +9,12 @@ export class MainComponent implements OnInit {
 
   vars = {
     name: '',
+    persons: null,
     contactName: '',
     email: '',
-    phone: ''
+    phone: '',
+    catalogs: false,
+    newsletter: false
   }
 
   constructor() { }
@@ -21,6 +24,10 @@ export class MainComponent implements OnInit {
   
   onSubmit(e) {
     
+  }
+
+  catalogClick(e) {
+    console.log(e)
   }
 
 }

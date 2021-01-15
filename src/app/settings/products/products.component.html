@@ -23,7 +23,10 @@
                     <dxi-item dataField="description2" editorType="dxTextArea" [editorOptions]="{ autoResizeEnabled: true, minHeight: 100 }" [colSpan]="2"></dxi-item>
 
                     <dxi-item dataField="priceIncl"></dxi-item>
+                    <dxi-item dataField="resellerPriceIncl"></dxi-item>
+
                     <dxi-item dataField="idVat"></dxi-item>
+                    <dxi-item itemType="empty"></dxi-item>
                     
                     <dxi-item dataField="image"></dxi-item>
                     <dxi-item dataField="stockLevel"></dxi-item>
@@ -48,6 +51,7 @@
         <dxi-column dataField="image" dataType="string" caption="Bildnamn" [visible]="false"></dxi-column>
 
         <dxi-column dataField="priceIncl" dataType="number" caption="Pris inkl" width="100"></dxi-column>
+        <dxi-column dataField="resellerPriceIncl" dataType="number" caption="ÅF-Pris inkl" width="100"></dxi-column>
         <dxi-column dataField="idVat" dataType="string" caption="Moms" width="100">
             <dxo-lookup
                 [dataSource]="vats"

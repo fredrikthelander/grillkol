@@ -9,6 +9,7 @@ export interface Product {
     image: string
     stockLevel: number
     priceIncl: number
+    resellerPriceIncl: number
     sortorder: number
     active: boolean
 }
