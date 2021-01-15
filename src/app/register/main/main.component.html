@@ -4,7 +4,7 @@
 
         <div class="tc">
             <div class="logo">
-                <a href="https://grillkol.se"><img class="logoimg" src="/assets/images/grillkollogo.jpg"></a>
+                <a href="https://grillkol.se"><img class="logoimg" src="/assets/images/grillkollogo1.jpg"></a>
             </div>
             <div class="fs22" style="padding-bottom: 25px">Registrering</div>
         </div>
@@ -52,8 +52,21 @@
         </div> 
 
         <div class="dx-field">
-            <dx-check-box [(value)]="vars.catalogs" text="Önskar även fysika säljkataloger? Porto tillkommer 50 kr." (onValueChanged)="catalogClick($event)"></dx-check-box>
+            <dx-check-box #catalogcheckbox [(value)]="vars.catalogs" text="Önskar även fysiska säljkataloger. Porto tillkommer 50 kr."></dx-check-box>
         </div>
+
+        <div *ngIf="catalogcheckbox.value" class="dx-field">
+            <dx-text-box [(value)]="vars.catalogAdr1" placeholder="Skicka kataloger till" width="100%"></dx-text-box>
+        </div> 
+
+        <div *ngIf="catalogcheckbox.value" class="dx-field">
+            <dx-text-box [(value)]="vars.catalogAdr2" placeholder="Adress" width="100%"></dx-text-box>
+        </div> 
+
+        <div *ngIf="catalogcheckbox.value" class="dx-field">
+            <dx-text-box [(value)]="vars.catalogAdr3" placeholder="Postadress" width="100%"></dx-text-box>
+        </div> 
+
 
         <div class="dx-field">
             <dx-check-box [(value)]="vars.newsletter" text="Jag vill ha fortsatt information gällande de senaste nyheterna och priserna via mail."></dx-check-box>
@@ -82,3 +95,5 @@
     </table>-->
 
 </div>
+
+<pre>{{vars|json}}</pre>
