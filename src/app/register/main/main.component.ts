@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
+  vars = {
+    name: '',
+    contactName: '',
+    email: '',
+    phone: ''
+  }
+
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  onSubmit(e) {
+    
   }
 
 }
