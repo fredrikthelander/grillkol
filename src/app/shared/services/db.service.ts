@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import * as moment from 'moment';
 import { v4 as uuid } from 'uuid'
@@ -16,16 +16,20 @@ export class DbService {
   username = ''
   userlevel = 0
 
-  constructor(public socket: Socket, private router: Router, private auth: AuthService, private route: ActivatedRoute) {
+  constructor(public socket: Socket, private router: Router, private auth: AuthService) {
 
     this.socket.on('message', (message) => {
         console.log(message)
     })
 
-    console.log('-->', this.route.snapshot)
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        let url = event.urlAfterRedirects
+        if (!this.auth.isLoggedIn && !['/register', '/shop'].includes(url)) router.navigate(['/login'])
+      }
+    })
 
     this.socket.on('connect', (message) => {
-        console.log(router)
         this.socket.emit('gettoken', { token: this.token }, (result) => {
             console.log('gettoken result', result)
             //if (result.err) router.navigate(['/login'])
