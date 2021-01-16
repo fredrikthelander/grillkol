@@ -4,5 +4,6 @@ export interface User {
     password: string
     systems: string[]
     modules: string[]
+    userlevel: number
     active: boolean
 }

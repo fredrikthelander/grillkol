@@ -37,6 +37,7 @@ export class UsersComponent implements OnInit {
       password: '',
       systems: [this.auth.system],
       modules: ['*'],
+      userlevel: 1,
       active: true
     }
 

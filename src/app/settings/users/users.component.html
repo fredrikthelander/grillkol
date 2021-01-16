@@ -11,18 +11,57 @@
         <dxo-paging [pageSize]="20"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
         
-        <dxo-editing mode="batch" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true">
+        <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true">
+            
+            <dxo-popup title="Användare" [showTitle]="true" width="90%" height="90%" [position]="{ my: 'center', at: 'center', of: 'window' }"></dxo-popup>
+            <dxo-form>
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+    
+                    <dxi-item dataField="username" [colSpan]="2"></dxi-item>
+                    
+                    <dxi-item dataField="userlevel"></dxi-item>
+                    <dxi-item itemType="empty"></dxi-item>
+    
+                    <dxi-item dataField="modules" [colSpan]="2"></dxi-item>
 
+                    <dxi-item dataField="active"></dxi-item>
+                    <dxi-item itemType="empty"></dxi-item>
+    
+                    
+                    <dxi-item itemType="empty"></dxi-item>
+                    
+    
+                </dxi-item>
+            </dxo-form>
         </dxo-editing>
 
         <dxo-scrolling useNative="false"></dxo-scrolling>
 
         <dxi-column dataField="username" dataType="string" caption="Användarnamn"></dxi-column>
+        <dxi-column dataField="userlevel" dataType="number" caption="Nivå" width="120">
+            <dxo-lookup [dataSource]="[{ id: 1, name: 'Kund' }, { id: 4, name: 'Admin' }]" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+
+        <dxi-column dataField="modules" dataType="string" caption="Modules" editCellTemplate="modulesTagBoxEditor" [cellTemplate]="cellTemplate">
+            <div *dxTemplate="let cellInfo of 'modulesTagBoxEditor'">
+                <dx-tag-box
+                    [value]="cellInfo.value"
+                    [acceptCustomValue]="true"
+                    [openOnFieldClick]="false"
+                    [showMultiTagOnly]="true"
+                    [searchEnabled]="false"
+                    (onValueChanged)="cellInfo.setValue($event.value)"
+                    (onSelectionChanged)="cellInfo.component.updateDimensions()">
+                </dx-tag-box>
+            </div>
+        </dxi-column>
+
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100"></dxi-column>
 
         <dxi-column type="buttons">
             <dxi-button hint="Visa" icon="key" [onClick]="popup"></dxi-button>
             <dxi-button name="delete" hint="Radera"></dxi-button>
+            <dxi-button name="edit" hint="Edit"></dxi-button>
         </dxi-column>
 
     </dx-data-grid>

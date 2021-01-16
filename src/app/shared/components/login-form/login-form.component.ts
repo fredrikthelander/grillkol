@@ -21,7 +21,7 @@ import notify from 'devextreme/ui/notify';
 export class LoginFormComponent {
 
   vars = {
-    system : '',
+    system : 'grillkol',
     username: '',
     password: '',
     remember: false

@@ -1,15 +1,16 @@
-<div class="outer">
+<div class="outer dx-card p20">
 
 <dx-validation-group>
 
   <div class="login-header">
       <!--<div class="title">{{appInfo.title}}</div>-->
       <div class="logo">
-          <img class="logoimg" src="/assets/images/bokadlogo.png">
+          <img class="logoimg" src="/assets/images/grillkollogo.jpg">
       </div>
-      <div>Sign In to your account</div>
+      <div>Inloggning</div>
   </div>
 
+  <!--
   <div class="dx-field">
       <dx-text-box [(value)]="vars.system" placeholder="System" width="100%">
           <dx-validator>
@@ -17,11 +18,12 @@
           </dx-validator>
       </dx-text-box>
   </div>
+  -->
 
   <div class="dx-field">
       <dx-text-box [(value)]="vars.username" placeholder="Login" width="100%">
           <dx-validator>
-              <dxi-validation-rule type="required" message="Login is required"></dxi-validation-rule>
+              <dxi-validation-rule type="required" message="Användarnamn måste anges"></dxi-validation-rule>
           </dx-validator>
       </dx-text-box>
   </div>
@@ -29,13 +31,13 @@
   <div class="dx-field">
       <dx-text-box mode="password" [(value)]="vars.password" placeholder="Password" width="100%">
           <dx-validator>
-              <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+              <dxi-validation-rule type="required" message="Lösenord måste anges"></dxi-validation-rule>
           </dx-validator>
       </dx-text-box>
   </div>
 
   <div class="dx-field">
-      <dx-check-box [(value)]="vars.remember" text="Remember me"></dx-check-box>
+      <dx-check-box [(value)]="vars.remember" text="Kom ihåg"></dx-check-box>
   </div>
 
   <div class="dx-field">

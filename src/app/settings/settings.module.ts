@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
 
-import { DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule } from 'devextreme-angular';
+import { DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxCheckBoxModule } from 'devextreme-angular';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { UsersComponent } from './users/users.component';
@@ -19,7 +19,7 @@ import { CategoriesComponent } from './categories/categories.component';
     CommonModule,
     SettingsRoutingModule,
     HttpClientModule,
-    DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule
+    DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxCheckBoxModule
   ]
 })
 export class SettingsModule { }
