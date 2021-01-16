@@ -51,8 +51,8 @@
         <dxi-column dataField="image" dataType="string" caption="Bildnamn" [visible]="false"></dxi-column>
 
         <dxi-column dataField="priceIncl" dataType="number" caption="Pris inkl" width="100"></dxi-column>
-        <dxi-column dataField="resellerPriceIncl" dataType="number" caption="ÅF-Pris inkl" width="100"></dxi-column>
-        <dxi-column dataField="idVat" dataType="string" caption="Moms" width="100">
+        <dxi-column dataField="resellerPriceIncl" dataType="number" caption="ÅF-Pris inkl" width="100" [visible]="false"></dxi-column>
+        <dxi-column dataField="idVat" dataType="string" caption="Moms" width="100" [visible]="false">
             <dxo-lookup
                 [dataSource]="vats"
                 valueExpr="id"
@@ -60,7 +60,7 @@
             </dxo-lookup>
         </dxi-column>
 
-        <dxi-column dataField="idCategory" dataType="string" caption="Kategori" width="100">
+        <dxi-column dataField="idCategory" dataType="string" caption="Kategori" width="160">
             <dxo-lookup
                 [dataSource]="categories"
                 valueExpr="id"
