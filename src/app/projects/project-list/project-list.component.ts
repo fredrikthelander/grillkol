@@ -10,7 +10,7 @@ export class ProjectListComponent implements OnInit {
 
   dataSource: any = {}
 
-  constructor(public db: DbService, private auth: AuthService) {
+  constructor(public db: DbService, public auth: AuthService) {
 
     this.db.createDataSource(this.auth.system, 'projects', this.dataSource)
 
