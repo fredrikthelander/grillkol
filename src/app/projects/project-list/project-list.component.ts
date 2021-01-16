@@ -23,4 +23,9 @@ export class ProjectListComponent implements OnInit {
     
   }
 
+  gotoShop = (e) => {
+    console.log(e)
+    window.open(`/shop/${e.row.data.code}`, "_blank");
+  }
+
 }

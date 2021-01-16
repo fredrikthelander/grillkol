@@ -25,7 +25,13 @@ export class DbService {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         let url = event.urlAfterRedirects
-        if (!this.auth.isLoggedIn && !['/register', '/shop'].includes(url)) router.navigate(['/login'])
+        let redirectToLogin = true
+        //if (!this.auth.isLoggedIn && !['/register', '/shop'].includes(url)) router.navigate(['/login'])
+        if (url == '/register') redirectToLogin = false
+        if (url.substr(0, 5) == '/shop') redirectToLogin = false
+        if (this.auth.isLoggedIn) redirectToLogin = false
+        console.log('==>', url, redirectToLogin)
+        if (redirectToLogin) router.navigate(['/login'])
       }
     })
 

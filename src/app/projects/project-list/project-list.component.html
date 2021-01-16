@@ -80,6 +80,12 @@
 
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
 
+        <dxi-column type="buttons">
+            <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
+            <dxi-button name="delete" hint="Radera"></dxi-button>
+            <dxi-button name="edit" hint="Edit"></dxi-button>
+        </dxi-column>
+
     </dx-data-grid>
 
 

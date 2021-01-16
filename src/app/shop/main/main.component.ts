@@ -25,7 +25,7 @@ export class MainComponent implements OnInit {
     })
 
     this.routeSubscription = this.route.params.subscribe(params => {
-      console.log('Shop params')
+      console.log('Shop params', params)
       this.setup()
     })
 
