@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginFormComponent } from './shared/components';
 import { AuthGuardService } from './shared/services';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   
@@ -13,11 +14,11 @@ const routes: Routes = [
   { path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule) },
   { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
 
-  //{
-  //  path: 'home',
-  //  component: HomeComponent,
-  //  canActivate: [ AuthGuardService ]
-  //},
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [ AuthGuardService ]
+  },
   {
     path: 'login',
     component: LoginFormComponent

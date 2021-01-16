@@ -9,6 +9,7 @@ export class AuthService {
   system = ''
   systems = []
   modules = []
+  userlevel = 0
 
   constructor(private router: Router) { }
 

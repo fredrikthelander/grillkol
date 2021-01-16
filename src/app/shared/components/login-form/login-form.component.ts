@@ -54,6 +54,7 @@ export class LoginFormComponent {
         this.authService.system = this.vars.system
         this.authService.systems = result.systems || []
         this.authService.modules = result.modules || []
+        this.authService.userlevel = result.userlevel || 1
         this.msgBus.sendMessage('login')
 
         this.vars.password = ''
