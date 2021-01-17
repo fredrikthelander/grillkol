@@ -40,14 +40,6 @@
     <div class="info">
       <div [innerHTML]="project.infotext | nl2br | sanitizeHtml"></div>
     </div>
-
-    <!-- Menyer 
-    <div *ngIf="db.takeoutType && db.takeoutType.idMenus && db.takeoutType.idMenus.length > 1">
-      <div *ngFor="let mid of db.takeoutType.idMenus" class="menus" [ngStyle]="{ 'font-family': db.fonts[1] }" (click)="setMenu(mid)" [class.menuselected]="selectedMid == mid">
-        {{ (mid | ref : "displayName" : "id" : db.menus) || (mid | ref : "name" : "id" : db.menus) }}
-      </div>
-    </div>
-    -->
     
     <!-- Kategorier -->
     <div *ngIf="categories.length > 1" class="catdiv">
@@ -59,7 +51,6 @@
       </div>
     </div>
     
-
     <!-- Kategoriinfo -->
     <div *ngIf="selectedCategory" class="info" [innerHTML]="selectedCategory.infotext | nl2br | sanitizeHtml"></div>
 
@@ -74,7 +65,6 @@
         <div class="itemrubriksub">
           <span *ngIf="p.priceIncl">{{p.priceIncl | number : '1.0-0' : 'sv_SE'}} kr</span>
         </div>
-
         
         <div *ngIf="p.image">
           <img [src]="'/assets/images/products/' + p.image" class="img">
