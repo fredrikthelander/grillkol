@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { v4 as uuid } from 'uuid'
 import CustomStore from 'devextreme/data/custom_store'
 import { AuthService} from './auth.service'
+import { registerLocaleData } from '@angular/common'
+import localeSwedish from '@angular/common/locales/sv'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,8 @@ export class DbService {
   userlevel = 0
 
   constructor(public socket: Socket, private router: Router, private auth: AuthService) {
+
+    registerLocaleData(localeSwedish)
 
     this.socket.on('message', (message) => {
         console.log(message)

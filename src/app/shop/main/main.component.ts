@@ -7,6 +7,7 @@ import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
 import { Product } from '../../interfaces/product'
 import { faShoppingCart, faPlusCircle, faMinusCircle } from '@fortawesome/pro-light-svg-icons'
+import { v4 as uuid } from 'uuid'
 
 @Component({
   selector: 'app-main',
@@ -25,6 +26,7 @@ export class MainComponent implements OnInit {
   products: Product[] = []
 
   selectedCategory: Category
+  selectedItems = []
 
   routeSubscription: Subscription
 
@@ -96,7 +98,7 @@ export class MainComponent implements OnInit {
   }
 
   productCount() {
-    return 0
+    return this.selectedItems.reduce((acc, si) => acc += si.amount, 0)
   }
 
   cartClick() {
@@ -106,6 +108,38 @@ export class MainComponent implements OnInit {
   setCat(cat) {
     console.log('Setting cat', cat)
     this.selectedCategory = cat
+  }
+
+  del(p) {
+
+    let si = this.selectedItems.find(si => si.idProduct == p.id)
+
+    if (si) {
+      si.amount -= 1
+      if (si.amount < 1) this.selectedItems = this.selectedItems.filter(si => si.idProduct != p.id)
+    } 
+
+  }
+
+  add(p) {
+
+    let si = this.selectedItems.find(si => si.idProduct == p.id)
+
+    if (si) {
+      si.amount += 1
+    } else {
+      
+      let itemToAdd = {
+        id: uuid(),
+        idProduct: p.id,
+        product: p,
+        amount: 1
+      }
+
+      this.selectedItems.push(itemToAdd)
+      
+    }
+
   }
 
 }
