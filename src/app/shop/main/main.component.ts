@@ -31,6 +31,7 @@ export class MainComponent implements OnInit {
   routeSubscription: Subscription
 
   setupCounter = 0
+  pipeHelper = 0
 
   constructor(public db: DbService, public auth: AuthService, private socket: Socket, private route: ActivatedRoute) {
 
@@ -117,7 +118,9 @@ export class MainComponent implements OnInit {
     if (si) {
       si.amount -= 1
       if (si.amount < 1) this.selectedItems = this.selectedItems.filter(si => si.idProduct != p.id)
-    } 
+    }
+    
+    this.pipeHelper++
 
   }
 
@@ -139,6 +142,8 @@ export class MainComponent implements OnInit {
       this.selectedItems.push(itemToAdd)
       
     }
+
+    this.pipeHelper++
 
   }
 

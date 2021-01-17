@@ -86,7 +86,7 @@
         <div class="itemantal noselect">
           <span class="ri">Antal</span>
           <span class="ri po" (click)="del(p)">-</span>
-          <span class="ri"><!--{{antal(mi.id)}}-->0</span>
+          <span class="ri">{{ p | itemAmount : selectedItems : pipeHelper }}</span>
           <span class="po" (click)="add(p)">+</span>
         </div>
         
