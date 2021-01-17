@@ -3,6 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxCheckBoxModule } from 'devextreme-angular/ui/check-box';
+import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
+import { DxValidatorModule } from 'devextreme-angular/ui/validator';
+import { DxValidationGroupModule } from 'devextreme-angular/ui/validation-group';
+
+import { NgxSmartModalModule } from 'ngx-smart-modal';
+
 import { ShopRoutingModule } from './shop-routing.module';
 import { MainComponent } from './main/main.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
@@ -18,7 +26,13 @@ import { TotalQuantityPipe } from './pipes/total-quantity.pipe';
   imports: [
     CommonModule,
     ShopRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DxButtonModule,
+    DxCheckBoxModule,
+    DxTextBoxModule,
+    DxValidatorModule,
+    DxValidationGroupModule,
+    NgxSmartModalModule.forChild()
   ]
 })
 export class ShopModule { }

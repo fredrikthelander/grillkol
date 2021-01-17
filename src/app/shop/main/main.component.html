@@ -55,7 +55,7 @@
     <div *ngIf="selectedCategory" class="info" [innerHTML]="selectedCategory.infotext | nl2br | sanitizeHtml"></div>
 
     <!-- Produkter -->
-    <div *ngIf="products.length" class="outer" [class.outer1]="(products | catPipe : selectedCategory.id).length == 1" [class.outer2]="(products | catPipe : selectedCategory.id).length == 2"
+    <div *ngIf="products.length && selectedCategory" class="outer" [class.outer1]="(products | catPipe : selectedCategory.id).length == 1" [class.outer2]="(products | catPipe : selectedCategory.id).length == 2"
          [class.outer3]="(products | catPipe : selectedCategory.id).length == 3">
 
       <div *ngFor="let p of products | catPipe : selectedCategory.id" class="item noselect">
@@ -82,6 +82,10 @@
         </div>
         
       </div>
+    </div>
+
+    <div class="footer">
+      <dx-button type="normal" text="Allmänna villkor" (click)="showTerms()"></dx-button>
     </div>
     
   </div>
@@ -110,8 +114,77 @@
       <div style="display: flex; justify-content: space-between; margin-right: 28px;">
         <div class="fat">TOTALT</div>
         <div class="fat">{{ selectedItems | totalAmount : pipeHelper | number : '1.0-0' : 'sv_SE' }} kr</div>
-      </div>      
+      </div>
 
+      <div style="margin-top: 20px">
+
+        <dx-validation-group>
+
+          <div class="dx-field">
+            <dx-text-box [(value)]="order.fnamn" placeholder="Förnamn" width="100%">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+          </div> 
+
+          <div class="dx-field">
+            <dx-text-box [(value)]="order.enamn" placeholder="Efternamn" width="100%">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+          </div> 
+
+          <div class="dx-field">
+              <dx-text-box [(value)]="order.phone" placeholder="Mobilnummer för Swish (10 siffror)" width="100%">
+                  <dx-validator>
+                      <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                      <dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule>
+                  </dx-validator>
+              </dx-text-box>
+          </div> 
+
+          <div class="dx-field">
+              <dx-text-box [(value)]="order.email" placeholder="E-post (för kvitto)" width="100%">
+                  <dx-validator>
+                      <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                      <dxi-validation-rule type="email" message="Felaktig E-post"></dxi-validation-rule>
+                  </dx-validator>
+              </dx-text-box>
+          </div> 
+
+          <div class="dx-field">
+            <dx-text-box [(value)]="order.adr1" placeholder="Adress" width="100%">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+          </div> 
+
+          <div class="dx-field">
+            <dx-text-box [(value)]="order.adr2" placeholder="Postadress" width="100%">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+          </div>
+
+          <div class="dx-field">
+            <dx-check-box [(value)]="order.termsAccepted" text="Jag godkänner härmed köpvillkoren">
+              <dx-validator>
+                <dxi-validation-rule type="compare" [comparisonTarget]="checkComparison" message="Du måste godkänna köpvillkoren"></dxi-validation-rule>
+              </dx-validator>
+            </dx-check-box>
+          </div>
+
+          <div class="dx-field" style="margin: 25px 0">
+            <dx-button type="default" text="Beställ och betala med Swish" (onClick)="orderClick($event)" width="100%"></dx-button>
+          </div>
+
+        </dx-validation-group>
+
+      </div>
 
     </div>
 
@@ -119,6 +192,12 @@
 
 </div>
     
+<ngx-smart-modal #termsModal identifier="termsModal">
+
+  <div style="text-align: left;">123
+  </div>
+
+</ngx-smart-modal>
 
   <!--
   <div style="background-color: white;">
@@ -127,4 +206,4 @@
     <pre>{{products|json}}</pre>
   </div>
 -->
-  
+<div style="background-color: white;"><pre>{{order|json}}</pre></div>

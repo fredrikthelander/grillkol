@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { DxLoadPanelModule } from 'devextreme-angular'
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 import { AppComponent } from './app.component';
 import { SideNavOuterToolbarModule, SideNavInnerToolbarModule, SingleCardModule } from './layouts';
@@ -30,7 +31,8 @@ const config: SocketIoConfig = { url: 'https://db10.bokad.se:443', options: { re
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     FontAwesomeModule,
-    DxLoadPanelModule
+    DxLoadPanelModule,
+    NgxSmartModalModule.forRoot()
   ],
   providers: [AuthService, ScreenService, AppInfoService, DbService],
   bootstrap: [AppComponent]
