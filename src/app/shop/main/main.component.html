@@ -79,7 +79,7 @@
           <img [src]="'/assets/images/products/' + p.image" class="img">
         </div>
 
-        <div class="itemtext" [innerHTML]="(p.descrioption1 || '')  | sanitizeHtml"></div>
+        <div class="itemtext" [innerHTML]="(p.description1 || '')  | sanitizeHtml"></div>
 
         <div style="flex:1"></div>
     
@@ -95,10 +95,11 @@
     
   </div>
 
-  
+  <!--
   <div style="background-color: white;">
     <pre>{{selectedItems|json}}</pre>
-    <!--<pre>{{project|json}}</pre>
-    <pre>{{products|json}}</pre>-->
+    <pre>{{project|json}}</pre>
+    <pre>{{products|json}}</pre>
   </div>
+-->
   
