@@ -1,3 +1,4 @@
+<div style="width:95%; margin: auto; height: 100%; text-align: center;">
 
   <!-- Steg 5 Välj produkter-->
   <div *ngIf="step == 5 && this.project">
@@ -22,7 +23,7 @@
           <div>
               <fa-layers [fixedWidth]="true" class="carticon">
                 <fa-icon [icon]="faShoppingCart"></fa-icon>
-                <fa-layers-counter [content]="productCount().toString()" style="font-size: 50px"></fa-layers-counter>
+                <fa-layers-counter [content]="(selectedItems | totalQuantity : pipeHelper) || '0'" style="font-size: 50px"></fa-layers-counter>
               </fa-layers>
           </div>
 
@@ -86,7 +87,7 @@
         <div class="itemantal noselect">
           <span class="ri">Antal</span>
           <span class="ri po" (click)="del(p)">-</span>
-          <span class="ri">{{ p | itemAmount : selectedItems : pipeHelper }}</span>
+          <span class="ri">{{ p | itemQuantity : selectedItems : pipeHelper }}</span>
           <span class="po" (click)="add(p)">+</span>
         </div>
         
@@ -94,6 +95,40 @@
     </div>
     
   </div>
+
+  <div *ngIf="step == 6" style="width: 100%">
+
+    <div class="total">
+
+      <div class="square" style="cursor: pointer;" (click)="close()">
+        <fa-icon [icon]="faTimes" size="1x" style="font-size:20px;color: rgb(150, 150, 150)"></fa-icon>
+      </div>
+
+      <div style="border-bottom: 10px;">Sammanställning<br>------------------------------<div>
+
+      <!-- Order rows -->
+      <div *ngFor="let si of selectedItems" class="row">
+        <div style="display: flex; padding: 4px 0; align-items: center">
+          <div class="row1">{{ si.quantity }} st {{ si.product.name }}</div>
+          <div class="row2"><span *ngIf="si.amount">{{ si.amount | number : '1.0-0' : 'sv_SE' }} kr</span></div>
+          <div class="row2 pointer" (click)="delItem(si)"><fa-icon [icon]="faTimes" size="1x" style="font-size:16px;color: rgb(150, 150, 150); padding-left: 8px"></fa-icon></div>
+        </div>
+      </div>
+      
+      <!-- Total -->
+      <div style="text-align: right;margin-top: 10px; margin-right: 28px">---------</div>
+      <div style="display: flex; justify-content: space-between; margin-right: 28px;">
+        <div class="fat">TOTALT</div>
+        <div class="fat">{{ selectedItems | totalAmount : pipeHelper | number : '1.0-0' : 'sv_SE' }} kr</div>
+      </div>      
+
+
+    </div>
+
+  </div>
+
+</div>
+    
 
   <!--
   <div style="background-color: white;">

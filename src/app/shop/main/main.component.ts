@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs'
 import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
 import { Product } from '../../interfaces/product'
-import { faShoppingCart, faPlusCircle, faMinusCircle } from '@fortawesome/pro-light-svg-icons'
+import { faShoppingCart, faPlusCircle, faMinusCircle, faTimes } from '@fortawesome/pro-light-svg-icons'
 import { v4 as uuid } from 'uuid'
 
 @Component({
@@ -16,7 +16,7 @@ import { v4 as uuid } from 'uuid'
 })
 export class MainComponent implements OnInit {
 
-  faShoppingCart = faShoppingCart; faPlusCircle = faPlusCircle; faMinusCircle = faMinusCircle;
+  faShoppingCart = faShoppingCart; faPlusCircle = faPlusCircle; faMinusCircle = faMinusCircle; faTimes = faTimes;
 
   code = ''
   step = 5
@@ -98,12 +98,8 @@ export class MainComponent implements OnInit {
     document.body.style.backgroundAttachment = 'fixed'
   }
 
-  productCount() {
-    return this.selectedItems.reduce((acc, si) => acc += si.amount, 0)
-  }
-
   cartClick() {
-
+    if (this.selectedItems.length) this.step = 6
   }
 
   setCat(cat) {
@@ -129,14 +125,16 @@ export class MainComponent implements OnInit {
     let si = this.selectedItems.find(si => si.idProduct == p.id)
 
     if (si) {
-      si.amount += 1
+      si.quantity += 1
+      si.amount = si.quantity * si.product.priceIncl
     } else {
       
       let itemToAdd = {
         id: uuid(),
         idProduct: p.id,
         product: p,
-        amount: 1
+        quantity: 1,
+        amount: p.priceIncl
       }
 
       this.selectedItems.push(itemToAdd)
@@ -145,6 +143,16 @@ export class MainComponent implements OnInit {
 
     this.pipeHelper++
 
+  }
+
+  close() {
+    this.step = 5
+  }
+
+  delItem(selectedItem) {
+    this.selectedItems = this.selectedItems.filter(si => si.id != selectedItem.id)
+    if (!this.selectedItems.length) this.step = 5
+    this.pipeHelper++
   }
 
 }
