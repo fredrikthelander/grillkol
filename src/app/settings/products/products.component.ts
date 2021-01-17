@@ -24,11 +24,11 @@ export class ProductsComponent implements OnInit {
 
     this.db.createDataSource(this.auth.system, 'products', this.dataSource)
 
-    this.db.sendMessagePromise('mget', { system: this.auth.system, table: 'vats', token: this.db.token, condition: { active: true}, sort: { name: 1 } }).then((result: any) => {
-      this.vats = result.data
-      let v = this.vats.find(v => v.default)
-      if (v) this.defaultIdVat = v.id
-    })
+    //this.db.sendMessagePromise('mget', { system: this.auth.system, table: 'vats', token: this.db.token, condition: { active: true}, sort: { name: 1 } }).then((result: any) => {
+    //  this.vats = result.data
+    //  let v = this.vats.find(v => v.default)
+    //  if (v) this.defaultIdVat = v.id
+    //})
 
     Promise.all([
 

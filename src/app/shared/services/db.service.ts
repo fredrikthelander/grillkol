@@ -64,9 +64,21 @@ export class DbService {
 
   public sendMessagePromise(room, message) {
       
+    let promise = new Promise((resolve, reject) => {
+        this.socket.emit(room, message, (data) => {
+            resolve(data)
+        })
+    })
+  
+    return promise
+  
+  }
+
+  public sendMessagePromiseData(room, message) {
+      
       let promise = new Promise((resolve, reject) => {
           this.socket.emit(room, message, (data) => {
-              resolve(data)
+              resolve(data.data)
           })
       })
     

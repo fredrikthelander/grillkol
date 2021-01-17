@@ -12,6 +12,8 @@ export interface Project {
     newsletter: boolean
     code: string
     password: string
+    infotext: string
+    idCategories: string[]
     ts: string
     active: boolean
 }

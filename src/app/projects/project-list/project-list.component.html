@@ -34,7 +34,11 @@
 
                 </dxi-item>
 
-                <dxi-item itemType="group" [colCount]="1" [colSpan]="2" caption="Kataloger">
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                    <dxi-item dataField="infotext" editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ autoResizeEnabled: true, minHeight: 100 }"></dxi-item>
+                </dxi-item>
+
+                <dxi-item *ngIf="auth.userlevel > 1" itemType="group" [colCount]="1" [colSpan]="2" caption="Kataloger">
 
                     <dxi-item dataField="catalogs"></dxi-item>
                     <dxi-item dataField="catalogAdr1"></dxi-item>
@@ -44,6 +48,8 @@
                 </dxi-item>
 
                 <dxi-item itemType="group" [colCount]="2" [colSpan]="2" caption="Övrigt">
+
+                    <dxi-item dataField="idCategories" editorType="dxTagBox" [colSpan]="2" [editorOptions]="{ dataSource: categories, displayExpr: 'name', valueExpr: 'id' }"></dxi-item>
                     
                     <dxi-item dataField="persons"></dxi-item>
                     <dxi-item dataField="newsletter"></dxi-item>
@@ -77,6 +83,10 @@
 
         <dxi-column dataField="code" dataType="string" caption="Kod" width="100" [visible]="true"></dxi-column>
         <dxi-column dataField="password" dataType="string" caption="Lösen" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="infotext" dataType="string" caption="Infotext i webshoppen" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="idCategories" caption="Produktkategorier i webshoppen" [visible]="false"></dxi-column>
 
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
 

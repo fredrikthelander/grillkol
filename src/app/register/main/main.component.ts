@@ -30,6 +30,8 @@ export class MainComponent implements OnInit {
     newsletter: true,
     code: '',
     password: '',
+    infotext: '',
+    idCategories: [],
     ts: '',
     active: false
   }

@@ -1,26 +1,28 @@
 
   <!-- Steg 5 Välj produkter-->
-  <div *ngIf="db.step == 5">
+  <div *ngIf="step == 5 && this.project">
 
     <!-- Sticky div -->
-    <div class="sticky" [ngStyle]="{ 'font-family': db.fonts[0] }" (click)="cartClick()">
+    <div class="sticky" (click)="cartClick()">
 
       <div class="rubrik">
 
+        <!--
         <div *ngIf="db.takeoutType.logo">
           <img class="logo" [src]="'https://cdn.bokad.se/' + db.system + '/logoavh.png'">
         </div>
+        -->
 
         <div style="display: flex; align-items: center;">
       
           <div class="noselect">
-            <span>{{db.takeoutType.displayName || db.takeoutType.name}}</span>
+            <span>GRILLKOL</span>
           </div>
 
           <div>
               <fa-layers [fixedWidth]="true" class="carticon">
                 <fa-icon [icon]="faShoppingCart"></fa-icon>
-                <fa-layers-counter [content]="db.productCount().toString()" style="font-size: 50px"></fa-layers-counter>
+                <fa-layers-counter [content]="productCount().toString()" style="font-size: 50px"></fa-layers-counter>
               </fa-layers>
           </div>
 
@@ -28,33 +30,25 @@
 
       </div>
 
-      <!--
-      <div class="subrubrik">Hello</div>
-      -->
       
     </div>
 
     <div style="height: 105px"></div>
 
-    <div *ngIf="db.system=='1854123'">
-      <img src="/assets/images/flow.png" style="width:80%">
+    
+    <div class="info">
+      <div [innerHTML]="project.infotext | sanitizeHtml"></div>
     </div>
 
-    <div class="info" [ngStyle]="{ 'font-family': db.fonts[1] }">
-      <div *ngIf="db.system == 'foodburst'" style="text-align: center; padding: 12px;">
-        <img style="max-width: 300px;" [src]="'https://cdn.bokad.se/' + db.system + '/logoavh.png'">
-      </div>
-      <div [innerHTML]="db.takeoutType.text | sanitizeHtml"></div>
-    </div>
-
-    <!-- Menyer -->
+    <!-- Menyer 
     <div *ngIf="db.takeoutType && db.takeoutType.idMenus && db.takeoutType.idMenus.length > 1">
       <div *ngFor="let mid of db.takeoutType.idMenus" class="menus" [ngStyle]="{ 'font-family': db.fonts[1] }" (click)="setMenu(mid)" [class.menuselected]="selectedMid == mid">
         {{ (mid | ref : "displayName" : "id" : db.menus) || (mid | ref : "name" : "id" : db.menus) }}
       </div>
     </div>
+    -->
     
-    <!-- Kategorier -->
+    <!-- Kategorier 
     <div *ngIf="db.cats.length > 1" class="catdiv">
       <div class="catmobile">
         <div *ngFor="let cat of db.cats" class="cats" [ngStyle]="{ 'font-family': db.fonts[1] }" [class.catselected]="db.selectedCat == cat" (click)="setCat(cat)">
@@ -62,8 +56,9 @@
         </div>
       </div>
     </div>
+    -->
 
-    <!-- Kategoriinfo -->
+    <!-- Kategoriinfo 
     <div *ngIf="db.catInfo" class="info" [ngStyle]="{ 'font-family': db.fonts[1] }" [innerHTML]="db.catInfo | sanitizeHtml"></div>
 
     <div *ngIf="db.menu" class="outer" [class.outer1]="(db.menu.menuItems | catPipe : db.selectedCat).length == 1" [class.outer2]="(db.menu.menuItems | catPipe : db.selectedCat).length == 2"
@@ -85,7 +80,6 @@
 
         <div class="itemtext" [ngStyle]="{ 'font-family': db.fonts[2] }" [innerHTML]="(mi.subtext || '')  | sanitizeHtml"></div>
 
-        <!-- Dummy div to fill space -->
         <div style="flex:1"></div>
 
         <div class="itemantal noselect" [ngStyle]="{ 'font-family': db.fonts[0] }">
@@ -97,7 +91,11 @@
 
       </div>
     </div>
+    -->
+    
+  </div>
 
-    <div *ngIf="!db.menu" class="info nomenu">Tyvärr går det inte att beställa just nu!</div>
-
+  <div style="background-color: white;">
+    <pre>{{project|json}}</pre>
+    <pre>{{products|json}}</pre>
   </div>
