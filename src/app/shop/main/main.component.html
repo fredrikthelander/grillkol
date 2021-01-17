@@ -37,7 +37,7 @@
 
     
     <div class="info">
-      <div [innerHTML]="project.infotext | sanitizeHtml"></div>
+      <div [innerHTML]="project.infotext | nl2br | sanitizeHtml"></div>
     </div>
 
     <!-- Menyer 
@@ -48,18 +48,21 @@
     </div>
     -->
     
-    <!-- Kategorier 
-    <div *ngIf="db.cats.length > 1" class="catdiv">
+    <!-- Kategorier -->
+    <div *ngIf="categories.length > 1" class="catdiv">
       <div class="catmobile">
-        <div *ngFor="let cat of db.cats" class="cats" [ngStyle]="{ 'font-family': db.fonts[1] }" [class.catselected]="db.selectedCat == cat" (click)="setCat(cat)">
-          {{ cat | ref : "name" : "id" : db.mealtypes }}
+        <div *ngFor="let cat of categories" class="cats" [class.catselected]="selectedCategory == cat" (click)="setCat(cat)">
+          <!--{{ cat | ref : "name" : "id" : db.mealtypes }}-->
+          {{ cat.displayName || cat.name }}
         </div>
       </div>
     </div>
-    -->
+    
 
-    <!-- Kategoriinfo 
-    <div *ngIf="db.catInfo" class="info" [ngStyle]="{ 'font-family': db.fonts[1] }" [innerHTML]="db.catInfo | sanitizeHtml"></div>
+    <!-- Kategoriinfo -->
+    <div *ngIf="selectedCategory" class="info" [innerHTML]="selectedCategory.infotext | nl2br | sanitizeHtml"></div>
+
+    <!--
 
     <div *ngIf="db.menu" class="outer" [class.outer1]="(db.menu.menuItems | catPipe : db.selectedCat).length == 1" [class.outer2]="(db.menu.menuItems | catPipe : db.selectedCat).length == 2"
          [class.outer3]="(db.menu.menuItems | catPipe : db.selectedCat).length == 3">

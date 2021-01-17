@@ -21,8 +21,10 @@ export class MainComponent implements OnInit {
   step = 5
 
   project: Project
-  categories: Category[]
-  products: Product[]
+  categories: Category[] = []
+  products: Product[] = []
+
+  selectedCategory: Category
 
   routeSubscription: Subscription
 
@@ -75,24 +77,8 @@ export class MainComponent implements OnInit {
     this.categories = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'categories', token: this.db.token, condition: { id: { $in: this.project.idCategories }, active: true }, sort: { sortorder: 1 } })
     this.products = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'products', token: this.db.token, condition: { idCategory: { $in: this.project.idCategories }, active: true }, sort: { sortorder: 1 } })
     
+    if (this.categories.length) this.selectedCategory = this.categories[0]
 
-
-//    Promise.all([
-//      this.db.sendMessagePromise('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { code: this.code, active: true }, sort: { } }),
-//      
-//    ]).then((results: any[]) => {
-//
-//      console.log(results)
-//
-//      if (results[0].data.length) this.project = results[0].data[0]
-//
-//      if (this.project)  this.socket.emit('mget', { system: this.auth.system, table: 'categories', token: this.db.token, condition: { id: { $in: this.project.idCategories }, active: true }, sort: { sortorder: 1 } }, (result) => {
-//        this.categories = result.data
-//      })
-//
-//    }).catch((err) => {
-//      console.log(err)
-//    })
 
   }
 
@@ -115,6 +101,11 @@ export class MainComponent implements OnInit {
 
   cartClick() {
 
+  }
+
+  setCat(cat) {
+    console.log('Setting cat', cat)
+    this.selectedCategory = cat
   }
 
 }

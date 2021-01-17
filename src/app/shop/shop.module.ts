@@ -6,10 +6,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ShopRoutingModule } from './shop-routing.module';
 import { MainComponent } from './main/main.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { Nl2brPipe } from './pipes/nl2br.pipe';
 
 
 @NgModule({
-  declarations: [MainComponent, SanitizeHtmlPipe],
+  declarations: [MainComponent, SanitizeHtmlPipe, Nl2brPipe],
   imports: [
     CommonModule,
     ShopRoutingModule,

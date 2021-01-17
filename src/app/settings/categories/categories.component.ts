@@ -12,7 +12,7 @@ export class CategoriesComponent implements OnInit {
 
   dataSource: any = {}
 
-  constructor(private db: DbService, private auth: AuthService) {
+  constructor(public db: DbService, public auth: AuthService) {
 
     this.db.createDataSource(this.auth.system, 'categories', this.dataSource)
 
@@ -26,6 +26,8 @@ export class CategoriesComponent implements OnInit {
     let cat: Category = {
       id: uuid(),
       name: '',
+      displayName: '',
+      infotext: '',
       sortorder: 10,
       active: true
     }
