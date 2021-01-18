@@ -10,6 +10,7 @@ export interface Product {
     stockLevel: number
     priceIncl: number
     resellerPriceIncl: number
+    volume: number
     sortorder: number
     active: boolean
 }

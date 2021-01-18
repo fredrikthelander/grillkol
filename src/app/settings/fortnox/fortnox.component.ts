@@ -18,7 +18,7 @@ export class FortnoxComponent implements OnInit {
 
   constructor(private db: DbService, private auth: AuthService, private http: HttpClient) {
 
-    this.db.createDataSource(this.auth.system, 'fortnox', this.dataSource)
+    this.db.createDataSource(this.auth.system, 'fortnoxintegrations', this.dataSource)
 
   }
 
@@ -28,7 +28,9 @@ export class FortnoxComponent implements OnInit {
   authorize() {
     
     console.log(this.authorizationCode)
-return
+
+    return
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

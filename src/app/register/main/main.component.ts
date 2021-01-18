@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
     code: '',
     password: '',
     infotext: '',
-    idCategories: [],
+    idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6', '83bdca30-d674-486a-8907-a152b7134cbf'],
     ts: '',
     active: false
   }
@@ -64,6 +64,24 @@ export class MainComponent implements OnInit {
       if (!result.err) this.step = 1
       setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
     })
+
+    let user = {
+      id: uuid(),
+      username: this.vars.email,
+      password: '',
+      systems: ['grillkol'],
+      modules: ['Home', 'Ordrar', 'Projekt', 'Rapporter'],
+      userlevel: 1,
+      active: true,
+      system: 'grillkol'
+    }
+
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'users', data: user }, (result1) => {
+      this.db.socket.emit('setpw', { system: 'grillkol', id: user.id, password: this.vars.password }, (result2) => {
+        console.log(result1, result2)
+      })
+    })
+
 
   }
 

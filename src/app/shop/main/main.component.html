@@ -190,8 +190,17 @@
 
   </div>
 
+
 </div>
-    
+  </div>
+
+<div *ngIf="step == 10" style="margin-top: 50px;font-size: 18px">
+  <div class="total">
+    Tack för din order!<br><br>
+    En bekräftelse har skickats till din mailadress.
+  </div>
+</div>    
+
 <ngx-smart-modal #termsModal identifier="termsModal">
 
   <div style="text-align: left;">123
@@ -206,4 +215,7 @@
     <pre>{{products|json}}</pre>
   </div>
 -->
+
+<!--
 <div style="background-color: white;"><pre>{{order|json}}</pre></div>
+-->

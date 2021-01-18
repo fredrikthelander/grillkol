@@ -66,6 +66,7 @@ export class ProductsComponent implements OnInit {
       stockLevel: 0,
       priceIncl: 0,
       resellerPriceIncl: 0,
+      volume: 0,
       sortorder: 10,
       active: true
     }

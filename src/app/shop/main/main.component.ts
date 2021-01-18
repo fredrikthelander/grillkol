@@ -213,6 +213,11 @@ export class MainComponent implements OnInit {
 
     })
 
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'orders', data: this.order }, (result) => {
+      this.step = 10
+      setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
+    })
+
 
   }
 

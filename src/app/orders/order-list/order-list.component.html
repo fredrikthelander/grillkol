@@ -4,6 +4,21 @@
 
     <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource">
 
+        <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"> </dxo-remote-operations>
+        <dxo-filter-row visible="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="20"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+        <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175"></dxi-column>
+        <dxi-column dataField="fnamn" dataType="string" caption="Förnamn" ></dxi-column>
+        <dxi-column dataField="enamn" dataType="string" caption="Efternamn" ></dxi-column>
+
+        <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" width="100"></dxi-column>
+
+        <dxo-summary>      
+            <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+        </dxo-summary> 
+
     </dx-data-grid> 
 
 </div>
