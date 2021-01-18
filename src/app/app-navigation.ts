@@ -26,14 +26,14 @@ export const navigation = [
   //  ]
   //}
   {
-    text: 'Ordrar',
-    path: '/orders',
-    icon: faSvg(faList)
-  },
-  {
     text: 'Projekt',
     path: '/projects',
     icon: faSvg(faTasks)
+  },
+  {
+    text: 'Ordrar',
+    path: '/orders',
+    icon: faSvg(faList)
   },
   {
     text: 'Rapporter',
@@ -45,6 +45,7 @@ export const navigation = [
     text: 'Inställningar',
     icon: faSvg(faCog),
     items: [
+      { text: 'Allmänt ', path: '/settings/general' },
       { text: 'Produkter ', path: '/settings/products' },
       { text: 'Kategorier ', path: '/settings/categories' },
       { text: 'Swish', path: '/settings/swish' },

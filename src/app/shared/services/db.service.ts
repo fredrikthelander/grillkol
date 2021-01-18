@@ -7,6 +7,7 @@ import CustomStore from 'devextreme/data/custom_store'
 import { AuthService} from './auth.service'
 import { registerLocaleData } from '@angular/common'
 import localeSwedish from '@angular/common/locales/sv'
+import { Setting } from '../../interfaces/setting'
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +89,38 @@ export class DbService {
     
       return promise
     
+  }
+
+  async getStringSetting(name: string) {
+    let s: Setting = await <any>this.sendMessagePromise('mgetone', { system: this.auth.system, table: 'settings', token: this.token, condition: { name: name }, sort: { } })
+    console.log('S is now', s)
+    return s ? s.stringValue : ''
+  }
+
+  async setStringSetting(name: string, value: string) {
+    
+    let s: Setting = await <any>this.sendMessagePromise('mgetone', { system: this.auth.system, table: 'settings', token: this.token, condition: { name: name }, sort: { } })
+    console.log('S is', s)
+    if (!s) {
+      console.log('Inserting')
+      let setting: Setting = {
+        id: uuid(),
+        name: name,
+        stringValue: value,
+        numericValue: null,
+        booleanValue: null,
+        type: 0
+      }
+
+      await this.sendMessagePromise('minsert', { system: 'grillkol', table: 'settings', data: setting }) 
+      return 'insert'
+
+    } else {
+      console.log('Updating')
+      await this.sendMessagePromise('mupdate', { system: 'grillkol', table: 'settings', id: s.id, data: { stringValue: value } })
+      return 'update'
+
+    }
   }
 
 }

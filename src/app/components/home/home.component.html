@@ -1,5 +1,7 @@
 <div class="outer">
 
+    <div class="dx-card p20" [innerHTML]="homeText | sanitizeHtml"></div>
+
     <div class="dx-card p20" *ngIf="auth.userlevel > 1">
         Länk till registrering: <a [routerLink]="['/register']" target="_blank">https://grillkol.bokad.se/register</a>
     </div>

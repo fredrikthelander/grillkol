@@ -52,7 +52,7 @@
     </div>
     
     <!-- Kategoriinfo -->
-    <div *ngIf="selectedCategory" class="info" [innerHTML]="selectedCategory.infotext | nl2br | sanitizeHtml"></div>
+    <div *ngIf="selectedCategory && selectedCategory.infotext" class="info" [innerHTML]="selectedCategory.infotext | nl2br | sanitizeHtml"></div>
 
     <!-- Produkter -->
     <div *ngIf="products.length && selectedCategory" class="outer" [class.outer1]="(products | catPipe : selectedCategory.id).length == 1" [class.outer2]="(products | catPipe : selectedCategory.id).length == 2"

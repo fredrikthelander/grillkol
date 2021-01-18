@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services'
+import { DbService, AuthService } from '../../shared/services'
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,13 @@ import { AuthService } from '../../shared/services'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  homeText = ''
+
+  constructor(public db: DbService, public auth: AuthService) { 
+    this.db.getStringSetting('hometext').then(result => {
+      this.homeText = result
+    })
+  }
 
   ngOnInit() {
   }

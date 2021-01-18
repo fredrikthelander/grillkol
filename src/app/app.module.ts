@@ -13,13 +13,15 @@ import { AuthService, ScreenService, AppInfoService, DbService } from './shared/
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './components/home/home.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
 const config: SocketIoConfig = { url: 'https://db10.bokad.se:443', options: { rejectUnauthorized: false, origins: "*" } };
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SanitizeHtmlPipe
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { SwishComponent } from './swish/swish.component';
 import { FortnoxComponent } from './fortnox/fortnox.component';
 import { VatsComponent } from './vats/vats.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { GeneralComponent } from './general/general.component';
 
 const routes: Routes = [
   { path: '', component: ProductsComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'fortnox', component: FortnoxComponent },
   { path: 'vats', component: VatsComponent },
   { path: 'products', component: ProductsComponent },
-  { path: 'categories', component: CategoriesComponent }
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'general', component: GeneralComponent }
 ];
 
 @NgModule({
