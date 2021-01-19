@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, AuthService } from '../../shared/services';
 import { v4 as uuid } from 'uuid'
-import { Product } from '../../interfaces/product'
+import { Product, FortnoxProduct } from '../../interfaces/product'
 import { Vat } from '../../interfaces/vat'
 import { Category } from '../../interfaces/category'
-import { fromEventPattern } from 'rxjs';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-products',
@@ -76,6 +76,26 @@ export class ProductsComponent implements OnInit {
       p[key] = value
     })
 
+  }
+
+  initFortnoxProduct(fp: FortnoxProduct) {
+    
+    let fortnoxProduct = {
+      id: uuid,
+      sku: '',
+      quantity: 0,
+      sortorder: 10
+    }
+
+    Object.entries(fortnoxProduct).forEach(([key, value]) => {
+      fp[key] = value
+    })
+
+  }
+
+  saveDetail(grid: DxDataGridComponent, row, field) {
+    grid.instance.cellValue(row.rowIndex - 1, field, row.data[field])
+    grid.instance.saveEditData()
   }
 
 }

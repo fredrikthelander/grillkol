@@ -20,4 +20,5 @@ export interface FortnoxProduct {
     id: string
     sku: string
     quantity: number
+    sortorder: number
 }
