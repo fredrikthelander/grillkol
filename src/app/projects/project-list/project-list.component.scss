@@ -1,0 +1,20 @@
+.table1 {
+    width: 100%;
+}
+
+.table1 td {
+    padding: 10px 10px;
+    vertical-align: top;
+}
+
+.table1 td:nth-child(1) {
+    width: 150px;
+    padding-top: 18px;
+}
+
+.ta {
+    border: 1px solid lightgray;
+    padding: 0 8px;
+    border-radius: 0;
+}
+

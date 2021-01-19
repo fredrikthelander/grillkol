@@ -57,7 +57,7 @@ export class DbService {
           if (!loadOptions.sort) loadOptions.sort = [{selector: "sortorder", desc: false}]
           return this.sendMessagePromise('loaddata', { system, table, loadOptions }) 
         },
-        update: (key, values) => { return this.sendMessagePromise('mupdate', { system, table, id: key, data: values }) },
+        update: (key, values) => { console.log('hello', key, values); return this.sendMessagePromise('mupdate', { system, table, id: key, data: values }) },
         insert: (values) => { 
           values.system = system
           return this.sendMessagePromise('minsert', { system, table, data: values }) 
@@ -93,14 +93,13 @@ export class DbService {
 
   async getStringSetting(name: string) {
     let s: Setting = await <any>this.sendMessagePromise('mgetone', { system: this.auth.system, table: 'settings', token: this.token, condition: { name: name }, sort: { } })
-    console.log('S is now', s)
     return s ? s.stringValue : ''
   }
 
   async setStringSetting(name: string, value: string) {
     
     let s: Setting = await <any>this.sendMessagePromise('mgetone', { system: this.auth.system, table: 'settings', token: this.token, condition: { name: name }, sort: { } })
-    console.log('S is', s)
+    
     if (!s) {
       console.log('Inserting')
       let setting: Setting = {

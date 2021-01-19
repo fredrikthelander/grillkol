@@ -3,6 +3,7 @@
     <h2>Försäljningsprojekt</h2>
 
     <dx-data-grid
+    *ngIf="auth.userlevel > 1"
     [dataSource]="dataSource"
     (onInitNewRow)="initProject($event.data)">
 
@@ -98,5 +99,56 @@
 
     </dx-data-grid>
 
+    <div *ngIf="auth.userlevel == 1">
 
+        <div *ngFor="let project of projects" class="dx-card p20">
+            <dx-validation-group>
+            
+                <table class="table1">
+
+                    <tr>
+                        <td>Försäljningsprojekt</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.name" width="100%"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Skapad</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.ts" width="100%" [disabled]="true"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Kontaktperson</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.contactName" width="100%"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>E-post</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.email" width="100%" [disabled]="true"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule><dxi-validation-rule type="email" message="Felaktig E-post"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Telefon</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.phone" width="100%"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule><dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Informationstext i webshoppen</td>
+                        <td>
+                            <div class="dx-field">
+                                <dx-text-area [(value)]="project.infotext" width="100%" minHeight="200" class="ta">
+                                </dx-text-area>
+                            </div> 
+                        </td>
+                    </tr>
+                
+                </table>
+                
+                <div class="dx-field">
+                    <dx-button type="default" text="Spara" (onClick)="saveProject($event, project)"></dx-button>
+                </div>
+
+            </dx-validation-group>
+        </div>
+
+    </div>
 </div>
