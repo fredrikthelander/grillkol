@@ -11,6 +11,13 @@ export interface Product {
     priceIncl: number
     resellerPriceIncl: number
     volume: number
+    fortnoxProducts: FortnoxProduct[]
     sortorder: number
     active: boolean
+}
+
+export interface FortnoxProduct {
+    id: string
+    sku: string
+    quantity: number
 }

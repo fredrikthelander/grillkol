@@ -67,6 +67,7 @@ export class ProductsComponent implements OnInit {
       priceIncl: 0,
       resellerPriceIncl: 0,
       volume: 0,
+      fortnoxProducts: [],
       sortorder: 10,
       active: true
     }
