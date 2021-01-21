@@ -30,6 +30,7 @@ export class MainComponent implements OnInit {
     password: '',
     infotext: '',
     bankinfo: '',
+    serviceRate: 2,
     idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6'],
     ts: '',
     active: true

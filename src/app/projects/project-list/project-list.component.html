@@ -60,8 +60,8 @@
                     <dxi-item dataField="code"></dxi-item>
                     <dxi-item dataField="password"></dxi-item>
 
+                    <dxi-item dataField="serviceRate"></dxi-item>
                     <dxi-item dataField="active"></dxi-item>
-                    <dxi-item itemType="empty"></dxi-item>
 
                 </dxi-item>
 
@@ -91,6 +91,8 @@
         <dxi-column dataField="bankinfo" dataType="string" caption="Bankinformation för utbetalning av provision" [visible]="false"></dxi-column>
 
         <dxi-column dataField="idCategories" caption="Produktkategorier i webshoppen" [visible]="false"></dxi-column>
+        
+        <dxi-column dataField="serviceRate" dataType="number" caption="Serviceavgift %" width="100" [visible]="false"></dxi-column>
 
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
 

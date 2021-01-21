@@ -14,6 +14,7 @@ export interface Project {
     password: string
     infotext: string
     bankinfo: string
+    serviceRate: number
     idCategories: string[]
     ts: string
     active: boolean
