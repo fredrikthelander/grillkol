@@ -29,8 +29,6 @@ export class FortnoxComponent implements OnInit {
     
     console.log(this.authorizationCode)
 
-    return
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

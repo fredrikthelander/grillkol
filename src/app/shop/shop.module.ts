@@ -20,10 +20,11 @@ import { CatPipePipe } from './pipes/cat-pipe.pipe';
 import { ItemQuantityPipe } from './pipes/item-quantity.pipe';
 import { TotalAmountPipe } from './pipes/total-amount.pipe';
 import { TotalQuantityPipe } from './pipes/total-quantity.pipe';
+import { StockLevelPipe } from './pipes/stock-level.pipe';
 
 
 @NgModule({
-  declarations: [MainComponent, SanitizeHtmlPipe, Nl2brPipe, CatPipePipe, ItemQuantityPipe, TotalAmountPipe, TotalQuantityPipe],
+  declarations: [MainComponent, SanitizeHtmlPipe, Nl2brPipe, CatPipePipe, ItemQuantityPipe, TotalAmountPipe, TotalQuantityPipe, StockLevelPipe],
   imports: [
     CommonModule,
     ShopRoutingModule,

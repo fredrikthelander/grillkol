@@ -70,6 +70,8 @@
           <img [src]="'/assets/images/products/' + p.image" class="img">
         </div>
 
+        <div class="stocklevel">{{p.stocklevel | stockLevel}}</div>
+
         <div class="itemtext" [innerHTML]="(p.description1 || '')  | sanitizeHtml"></div>
 
         <div style="flex:1"></div>
@@ -125,7 +127,7 @@
             <div class="sprubrik">Välj person som försäljningen ska registreras på</div>
 
             <div class="dx-field">
-              <dx-select-box displayExpr="name" valueExpr="id" [dataSource]="salesPersons" [(value)]="idSelectedSalesPerson" width="100%">
+              <dx-select-box displayExpr="name" placeholder="Välj..." valueExpr="id" [dataSource]="salesPersons" [(value)]="idSelectedSalesPerson" width="100%">
                 <dx-validator>
                   <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
               </dx-validator>
