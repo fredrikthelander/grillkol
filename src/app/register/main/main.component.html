@@ -7,10 +7,6 @@
         <div class="fs22" style="padding-bottom: 25px">Registrering</div>
     </div>
 
-    <div style="margin: 25px 0" *ngIf="step == 0">
-        Försäljning sker online. Man bestämmer själv när en säljperiod startar samt hur länge den varar. Tänk på att ordern ska komma in till oss 10 dagar innan önskat leveransdatum.
-    </div>
-
     <div *ngIf="step == 0">
 
         <dx-validation-group>
@@ -56,6 +52,10 @@
                     </dx-validator>
                 </dx-text-box>
             </div> 
+
+            <div style="margin: 25px 0" *ngIf="step == 0">
+                Man bestämmer själv när en säljperiod startar samt hur länge den varar. Tänk på att ordern ska komma in till oss 10 dagar innan önskat leveransdatum.
+            </div>
 
             <div class="dx-field">
                 <dx-check-box #catalogcheckbox [(value)]="vars.catalogs" text="Önskar även fysiska säljkataloger. Porto tillkommer 50 kr."></dx-check-box>
