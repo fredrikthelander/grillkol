@@ -29,7 +29,7 @@ export class HeaderComponent {
 
   subscription: Subscription
 
-  constructor(private auth: AuthService, private msgBus: MsgBusService) {
+  constructor(public auth: AuthService, private msgBus: MsgBusService) {
 
     this.createUserMenuItems()
 
