@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
     infotext: '',
     idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6', '83bdca30-d674-486a-8907-a152b7134cbf'],
     ts: '',
-    active: false
+    active: true
   }
 
   constructor(private authService: AuthService, private db: DbService, private socket: Socket) {
@@ -82,6 +82,23 @@ export class MainComponent implements OnInit {
       })
     })
 
+    let message = `Hej ${this.vars.contactName}!\n\nTack för att du registerat dig hos grillkol.se. Nedan hittar du inloggningsuppgifter till försäljningssystemet.\n\n`
+    message += `https://grillkol.bokad.se\nAnvändarnamn: ${this.vars.email}\nLösenord: ${this.vars.password}\n\n`
+    message += `Länk till er webshop: https://grillkol.bokad.se/shop/${this.vars.code}\n\n`
+    message += `Lycka till med försäljningen!\n\nVänliga hälsningar,\nGrillkol.se`
+
+    let mailCommand = {
+      system: 'grillkol',
+      sender: 'grillkol@bokad.se',
+      subject: 'Registrering',
+      to: this.vars.email + ',info@grillkol.se',
+      id: this.vars.id,
+      message: message
+    }
+
+    this.socket.emit('sendmail', mailCommand, result => {
+      console.log('Mail result', result)
+    })
 
   }
 
