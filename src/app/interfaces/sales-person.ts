@@ -3,5 +3,5 @@ export interface SalesPerson {
     owner: string
     name: string
     email: string
-    info: string
+    code: string
 }

@@ -17,15 +17,12 @@
 
         <dxi-column dataField="name" dataType="string" caption="Namn" ></dxi-column>
         <dxi-column dataField="email" dataType="string" caption="E-post" ></dxi-column>
-        <dxi-column dataField="info" dataType="string" caption="Info" ></dxi-column>
+        <dxi-column dataField="code" dataType="string" caption="Kod" [allowEditing]="false" width="100"></dxi-column>
         
-        <!--
         <dxi-column type="buttons">
             <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
             <dxi-button name="delete" hint="Radera"></dxi-button>
-            <dxi-button name="edit" hint="Edit"></dxi-button>
         </dxi-column>
-        -->
 
     </dx-data-grid>
 

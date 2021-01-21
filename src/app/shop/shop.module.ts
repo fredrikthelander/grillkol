@@ -8,6 +8,7 @@ import { DxCheckBoxModule } from 'devextreme-angular/ui/check-box';
 import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
 import { DxValidatorModule } from 'devextreme-angular/ui/validator';
 import { DxValidationGroupModule } from 'devextreme-angular/ui/validation-group';
+import { DxSelectBoxModule } from 'devextreme-angular/ui/select-box'
 
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 
@@ -31,7 +32,7 @@ import { TotalQuantityPipe } from './pipes/total-quantity.pipe';
     DxCheckBoxModule,
     DxTextBoxModule,
     DxValidatorModule,
-    DxValidationGroupModule,
+    DxValidationGroupModule, DxSelectBoxModule,
     NgxSmartModalModule.forChild()
   ]
 })

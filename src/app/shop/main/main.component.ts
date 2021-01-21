@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs'
 import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
 import { Product } from '../../interfaces/product'
+import { SalesPerson } from '../../interfaces/sales-person'
 import { Vat } from '../../interfaces/vat'
 import { faShoppingCart, faPlusCircle, faMinusCircle, faTimes } from '@fortawesome/pro-light-svg-icons'
 import { v4 as uuid } from 'uuid'
@@ -22,12 +23,16 @@ export class MainComponent implements OnInit {
   faShoppingCart = faShoppingCart; faPlusCircle = faPlusCircle; faMinusCircle = faMinusCircle; faTimes = faTimes;
 
   code = ''
+  spcode = ''
+
   step = 5
 
   project: Project
   categories: Category[] = []
   products: Product[] = []
   vats: Vat[] = []
+  salesPersons: SalesPerson[] = []
+  idSelectedSalesPerson = ''
 
   selectedCategory: Category
   selectedItems = []
@@ -40,7 +45,7 @@ export class MainComponent implements OnInit {
   order = {
     id: uuid(),
     project: null,
-    nr: 0,
+    orderid: 0,
     fnamn: '',
     enamn: '',
     phone: '',
@@ -52,7 +57,8 @@ export class MainComponent implements OnInit {
     termsAccepted: false,
     totalIncl: 0,
     totalExcl: 0,
-    totalVat: 0
+    totalVat: 0,
+    salesPerson: {}
   }
 
   constructor(public db: DbService, public auth: AuthService, private socket: Socket, private route: ActivatedRoute, private modal: NgxSmartModalService) {
@@ -69,6 +75,10 @@ export class MainComponent implements OnInit {
     this.routeSubscription = this.route.params.subscribe(params => {
 
       console.log('Shop params', params)
+
+      if (params.spcode) {
+        this.spcode = params.spcode
+      }
 
       if (params.code) {
         this.code = params.code
@@ -103,7 +113,13 @@ export class MainComponent implements OnInit {
     this.categories = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'categories', token: this.db.token, condition: { id: { $in: this.project.idCategories }, active: true }, sort: { sortorder: 1 } })
     this.products = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'products', token: this.db.token, condition: { idCategory: { $in: this.project.idCategories }, active: true }, sort: { sortorder: 1 } })
     this.vats = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'vats', token: this.db.token, condition: { active: true }, sort: { } })
-    
+    this.salesPersons = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { owner: this.project.email }, sort: { name: 1 } })
+
+    if (this.spcode) {
+      let sp = this.salesPersons.find(sp => sp.code == this.spcode)
+      if (sp) this.idSelectedSalesPerson = sp.id
+    }
+
     if (this.categories.length) this.selectedCategory = this.categories[0]
 
 
@@ -183,6 +199,21 @@ export class MainComponent implements OnInit {
     
     if (!args.validationGroup.validate().isValid) return
 
+    this.createOrder().then(result => {
+      console.log('Createorder result', result)
+    }).catch(err => {
+      console.log('Createorder err', err)
+    })
+
+  }
+
+  async createOrder() {
+
+    let next: any = await this.db.sendMessagePromise('nextorderid', { system: 'grillkol' })
+    let orderid = next.result.nextOrderid || null
+    if (!orderid) return false
+
+    this.order.orderid = orderid
     this.order.ts = moment().format('YYYY-MM-DD HH:mm:ss')
 
     this.order.items = []
@@ -213,11 +244,37 @@ export class MainComponent implements OnInit {
 
     })
 
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'orders', data: this.order }, (result) => {
-      this.step = 10
-      setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
+    if (this.idSelectedSalesPerson) {
+      let sp = this.salesPersons.find(sp => sp.id == this.idSelectedSalesPerson)
+      if (sp) this.order.salesPerson = sp
+    }
+
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'unpaidorders', data: this.order }, (result) => {
+      //  this.step = 10
+      //  setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
     })
 
+    let swishRequest = {
+      system: 'grillkol',
+      payerAlias: `46${this.order.phone.substr(1)}`,
+      payeePaymentReference: this.order.orderid.toString(),
+      amount: this.order.totalIncl,
+      message: `Order ${this.order.orderid}`
+    }
+
+    let sr: any = await this.db.sendMessagePromise('swishrequest', swishRequest)
+    console.log('swishrequest result', sr)
+
+    if (sr.err) {
+
+    } else {
+      this.step = 8
+    }
+
+    //this.socket.emit('swishrequest', swishRequest, result => {
+    //  console.log('swishrequest result', result)
+    //  this.step = 8
+    //})
 
   }
 

@@ -14,8 +14,6 @@ export class MainComponent implements OnInit {
 
   step = 0
 
-  codeChars = '23456789ABCEFGHJKMNPQRSTWXYZ'
-
   vars: Project = {
     id: uuid(),
     name: '',
@@ -32,7 +30,7 @@ export class MainComponent implements OnInit {
     password: '',
     infotext: '',
     bankinfo: '',
-    idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6', '83bdca30-d674-486a-8907-a152b7134cbf'],
+    idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6'],
     ts: '',
     active: true
   }
@@ -45,8 +43,8 @@ export class MainComponent implements OnInit {
 
     this.auth.system = 'grillkol'
 
-    this.vars.code = this.createCode()
-    this.vars.password = this.createCode()
+    this.vars.code = this.db.createCode()
+    this.vars.password = this.db.createCode()
 
     this.socket.emit('login', { token: this.db.token, system: 'grillkol', username: 'web', password: 'web' }, (result) => {
       
@@ -89,7 +87,7 @@ export class MainComponent implements OnInit {
       username: this.vars.email,
       password: '',
       systems: ['grillkol'],
-      modules: ['Home', 'Ordrar', 'Projekt', 'Rapporter'],
+      modules: ['Home', 'Ordrar', 'Projekt', 'Säljare', 'Rapporter'],
       userlevel: 1,
       active: true,
       system: 'grillkol'
@@ -122,22 +120,6 @@ export class MainComponent implements OnInit {
       .replace(/{code}/g, this.vars.code)
       .replace(/{email}/g, this.vars.email)
       .replace(/{password}/g, this.vars.password)
-  }
-
-  createCode(codeLength = 6) {
-
-    // Create code
-    var s = ''
-    for (var n = 1; n <= codeLength; n++) {
-      s += this.codeChars[this.getRndInteger(0, this.codeChars.length - 1)]
-    }
-
-    return s
-    
-  }
-
-  getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
   }
 
 }

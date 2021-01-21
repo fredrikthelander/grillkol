@@ -122,4 +122,23 @@ export class DbService {
     }
   }
 
+  codeChars = '23456789ABCEFGHJKMNPQRSTWXYZ'
+
+  createCode(codeLength = 6) {
+
+    // Create code
+    var s = ''
+    for (var n = 1; n <= codeLength; n++) {
+      s += this.codeChars[this.getRndInteger(0, this.codeChars.length - 1)]
+    }
+
+    return s
+    
+  }
+
+  getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
+
 }

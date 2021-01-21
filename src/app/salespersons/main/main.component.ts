@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, AuthService } from '../../shared/services';
+import { Project } from '../../interfaces/project'
 import { SalesPerson } from '../../interfaces/sales-person'
 import { v4 as uuid } from 'uuid'
 
@@ -11,12 +12,18 @@ import { v4 as uuid } from 'uuid'
 export class MainComponent implements OnInit {
 
   salesPersons: SalesPerson[] = []
+  project: Project
 
   constructor(public db: DbService, public auth: AuthService) {
 
     this.db.sendMessagePromise('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { owner: this.auth.username }, sort: { } }).then((result: any) => {
       this.salesPersons = result.data
     })
+
+    this.db.sendMessagePromise('mgetone', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } }).then((result: any) => {
+      this.project = result
+    })
+
 
   }
 
@@ -30,7 +37,7 @@ export class MainComponent implements OnInit {
       owner: this.auth.username,
       name: '',
       email: '',
-      info: ''
+      code: this.db.createCode()
     }
 
     Object.entries(salesPerson).forEach(([key, value]) => {
@@ -53,6 +60,10 @@ export class MainComponent implements OnInit {
   removed(e) {
     let sp = e.data
     this.db.sendMessagePromise('mdelete', { system: this.auth.system, id: sp.id, table: 'salespersons' })
+  }
+
+  gotoShop = (e) => {
+    if (this.project) window.open(`/shop/${this.project.code}/${e.row.data.code}`, "_blank");
   }
 
 }
