@@ -1,0 +1,32 @@
+<div>
+
+    <h2>Säljare</h2>
+
+    <dx-data-grid
+        [dataSource]="salesPersons"
+        (onRowUpdated)="updated($event)"
+        (onRowInserted)="inserted($event)"
+        (onRowRemoved)="removed($event)"
+        (onInitNewRow)="initSalesPerson($event.data)">
+
+        <dxo-filter-row visible="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="20"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+        <dxo-editing [selectTextOnEditStart]="true" mode="cell" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true"></dxo-editing>
+
+        <dxi-column dataField="name" dataType="string" caption="Namn" ></dxi-column>
+        <dxi-column dataField="email" dataType="string" caption="E-post" ></dxi-column>
+        <dxi-column dataField="info" dataType="string" caption="Info" ></dxi-column>
+        
+        <!--
+        <dxi-column type="buttons">
+            <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
+            <dxi-button name="delete" hint="Radera"></dxi-button>
+            <dxi-button name="edit" hint="Edit"></dxi-button>
+        </dxi-column>
+        -->
+
+    </dx-data-grid>
+
+</div>
