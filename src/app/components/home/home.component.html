@@ -6,4 +6,10 @@
         Länk till registrering: <a [routerLink]="['/register']" target="_blank">https://grillkol.bokad.se/register</a>
     </div>
 
+    <div class="dx-card p20">
+        <div *ngFor="let project of projects">
+            Länk till webshop: <a [routerLink]="['/shop/' + project.code]" target="_blank">https://grillkol.bokad.se/shop/{{project.code}}</a>
+        </div>
+    </div>
+
 </div>

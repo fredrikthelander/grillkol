@@ -13,7 +13,8 @@
       </dxi-item>
       <dxi-item location="before">
           <div class="logo">
-              <img style="width: 100%" src="/assets/images/bokadlogo.png">
+              <img *ngIf="auth.userlevel > 1" style="width: 100%" src="/assets/images/bokadlogo.png">
+              <img *ngIf="auth.userlevel == 1" style="width: 100%" src="/assets/images/grillkollogo.jpg">
           </div>
       </dxi-item>
       <!--
