@@ -7,7 +7,7 @@
         <div class="fs22" style="padding-bottom: 25px">Registrering</div>
     </div>
 
-    <div style="margin: 25px 0">
+    <div style="margin: 25px 0" *ngIf="step == 0">
         Försäljning sker online. Man bestämmer själv när en säljperiod startar samt hur länge den varar. Tänk på att ordern ska komma in till oss 10 dagar innan önskat leveransdatum.
     </div>
 
@@ -93,22 +93,9 @@
         <div *ngIf="step == 1">
 
             <div class="dx-field">
-                Tack!<br><br>Registreringen har genomfört och ett bekräftelsemail har skickats till er. Efter godkännande från vår sida får ni ytterligare ett mail med länk till försäljningssidan och inloggning till er sammanställning.<br><br>Hälsningar<br>grillkol.se
+                Tack!<br><br>Registreringen har genomfört och vi har skickat ett bekräftelsemail med länk till försäljningssidan och inloggning till er sammanställning.<br><br>Hälsningar<br>Grillkol.se
             </div>
 
         </div>
-
-   
-
-    <!--<table style="width: 100%">
-
-        <tr>
-            <td class="tc"><img src="/assets/images/grillkollogo.jpg"></td>
-        </tr>
-
-        <tr>
-            <td class="r1">Registrering</td>
-        </tr>
-    </table>-->
 
 </div>

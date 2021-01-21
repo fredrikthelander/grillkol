@@ -13,6 +13,7 @@ export interface Project {
     code: string
     password: string
     infotext: string
+    bankinfo: string
     idCategories: string[]
     ts: string
     active: boolean

@@ -33,6 +33,8 @@
                     <dxi-item dataField="email"></dxi-item>
                     <dxi-item dataField="phone"></dxi-item>
 
+                    <dxi-item dataField="bankinfo" [colSpan]="2"></dxi-item>
+
                 </dxi-item>
 
                 <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
@@ -86,6 +88,7 @@
         <dxi-column dataField="password" dataType="string" caption="Lösen" [visible]="false"></dxi-column>
 
         <dxi-column dataField="infotext" dataType="string" caption="Infotext i webshoppen" [visible]="false"></dxi-column>
+        <dxi-column dataField="bankinfo" dataType="string" caption="Bankinformation för utbetalning av provision" [visible]="false"></dxi-column>
 
         <dxi-column dataField="idCategories" caption="Produktkategorier i webshoppen" [visible]="false"></dxi-column>
 
@@ -130,6 +133,11 @@
                         <td>Telefon</td>
                         <td><div class="dx-field"><dx-text-box [(value)]="project.phone" width="100%"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule><dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
                     </tr>
+
+                    <tr>
+                        <td>Bankinformation för utbetalning av provision</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.bankinfo" width="100%"></dx-text-box></div></td>
+                    </tr>                    
 
                     <tr>
                         <td>Informationstext i webshoppen</td>

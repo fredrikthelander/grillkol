@@ -31,22 +31,41 @@ export class MainComponent implements OnInit {
     code: '',
     password: '',
     infotext: '',
+    bankinfo: '',
     idCategories: ['d9eaa04d-487d-4d4b-8e46-f60988880ff6', '83bdca30-d674-486a-8907-a152b7134cbf'],
     ts: '',
     active: true
   }
 
-  constructor(private authService: AuthService, private db: DbService, private socket: Socket) {
+  registerSubject = ''
+  registerMessage = ''
+  registerMailcopy = ''
+
+  constructor(private auth: AuthService, private db: DbService, private socket: Socket) {
+
+    this.auth.system = 'grillkol'
 
     this.vars.code = this.createCode()
     this.vars.password = this.createCode()
 
     this.socket.emit('login', { token: this.db.token, system: 'grillkol', username: 'web', password: 'web' }, (result) => {
+      
       console.log(result)
+      this.setup().then().catch()
+
     })
+
+
   }
 
   ngOnInit() {
+  }
+
+  async setup() {
+    this.registerSubject = await this.db.getStringSetting('registersubject')
+    this.registerMessage = await this.db.getStringSetting('registermessage')
+    this.registerMailcopy = await this.db.getStringSetting('registermailcopy')
+    return true
   }
   
   onSubmit(args) {
@@ -82,24 +101,27 @@ export class MainComponent implements OnInit {
       })
     })
 
-    let message = `Hej ${this.vars.contactName}!\n\nTack för att du registerat dig hos grillkol.se. Nedan hittar du inloggningsuppgifter till försäljningssystemet.\n\n`
-    message += `https://grillkol.bokad.se\nAnvändarnamn: ${this.vars.email}\nLösenord: ${this.vars.password}\n\n`
-    message += `Länk till er webshop: https://grillkol.bokad.se/shop/${this.vars.code}\n\n`
-    message += `Lycka till med försäljningen!\n\nVänliga hälsningar,\nGrillkol.se`
-
     let mailCommand = {
       system: 'grillkol',
       sender: 'grillkol@bokad.se',
-      subject: 'Registrering',
-      to: this.vars.email + ',info@grillkol.se',
+      subject: this.registerSubject,
+      to: this.vars.email + `,${this.registerMailcopy}`,
       id: this.vars.id,
-      message: message
+      message: this.parse(this.registerMessage)
     }
 
     this.socket.emit('sendmail', mailCommand, result => {
       console.log('Mail result', result)
     })
 
+  }
+
+  parse(s) {
+    return s
+      .replace(/{contactName}/g, this.vars.contactName)
+      .replace(/{code}/g, this.vars.code)
+      .replace(/{email}/g, this.vars.email)
+      .replace(/{password}/g, this.vars.password)
   }
 
   createCode(codeLength = 6) {
