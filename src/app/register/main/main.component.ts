@@ -60,10 +60,15 @@ export class MainComponent implements OnInit {
   }
 
   async setup() {
+
     this.registerSubject = await this.db.getStringSetting('registersubject')
     this.registerMessage = await this.db.getStringSetting('registermessage')
     this.registerMailcopy = await this.db.getStringSetting('registermailcopy')
+    
+    this.vars.infotext = await this.db.getStringSetting('webshopinfotext')
+
     return true
+
   }
   
   onSubmit(args) {
@@ -75,6 +80,8 @@ export class MainComponent implements OnInit {
     console.log(args)
 
     this.vars.ts = moment().format('YYYY-MM-DD HH:mm:ss')
+
+    this.vars.infotext = this.vars.infotext.replace(/{name}/g, this.vars.name)
 
     this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'projects', data: this.vars }, (result) => {
       console.log('Insert', result)

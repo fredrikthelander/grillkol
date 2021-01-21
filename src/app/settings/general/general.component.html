@@ -1,4 +1,4 @@
-<div class="dx-card p20" style="margin-top: 10px">
+<div class="dx-card p20 m20" style="margin-top: 10px">
     <div class="rubrik">Text på startsidan</div>
     <dx-html-editor #editor1 height="400px" [value]="homeText">
         <dxo-toolbar [multiline]="true">
@@ -46,7 +46,7 @@
     <dx-button style="margin-top: 12px" type="default" text="Spara" (onClick)="saveHomeText(editor1.value)"></dx-button>
 </div>
 
-<div class="dx-card p20" style="margin-top: 10px">
+<div class="dx-card p20 m20" style="margin-top: 10px">
     
     <div class="rubrik">Registreringsmail</div>
 
@@ -78,3 +78,17 @@
     
 
 </div>
+
+<div class="dx-card p20 m20" style="margin-top: 10px">
+    
+    <div class="rubrik">Standardtext för inforuta i webshop</div>
+
+    <div class="dx-field">
+        <dx-text-area [(value)]="webshopInfoText" width="100%" minHeight="200" class="ta"></dx-text-area>
+    </div> 
+
+    <dx-button style="margin-top: 12px" type="default" text="Spara" (onClick)="saveInfoText()"></dx-button>
+    
+
+</div>
+

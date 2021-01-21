@@ -14,6 +14,7 @@ export class GeneralComponent implements OnInit {
   registerSubject = ''
   registerMessage = ''
   registerMailcopy = ''
+  webshopInfoText = ''
 
   constructor(public db: DbService, public auth: AuthService) { 
     this.go().then().catch()
@@ -27,6 +28,7 @@ export class GeneralComponent implements OnInit {
     this.registerSubject = await this.db.getStringSetting('registersubject')
     this.registerMessage = await this.db.getStringSetting('registermessage')
     this.registerMailcopy = await this.db.getStringSetting('registermailcopy')
+    this.webshopInfoText = await this.db.getStringSetting('webshopinfotext')
   }
 
   saveHomeText(v) {
@@ -37,6 +39,10 @@ export class GeneralComponent implements OnInit {
     this.db.setStringSetting('registersubject', this.registerSubject).then().catch()
     this.db.setStringSetting('registermessage', this.registerMessage).then().catch()
     this.db.setStringSetting('registermailcopy', this.registerMailcopy).then().catch()
+  }
+
+  saveInfoText() {
+    this.db.setStringSetting('webshopinfotext', this.webshopInfoText).then().catch()
   }
 
 }
