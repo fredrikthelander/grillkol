@@ -1,0 +1,29 @@
+.rubrik {
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.subrub {
+    font-size: 12px;
+    font-weight: 700;
+    color: gray;
+}
+
+.tdiv {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.tdiv td:nth-child(1) {
+    width: 240px;
+}
+
+.tdiv td:nth-child(2) {
+    width: 100px;
+    text-align: right;
+}
+
+.f {
+    font-weight: 700;
+}

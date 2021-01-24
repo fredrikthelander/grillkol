@@ -43,9 +43,8 @@ export const navigation = [
   },
   {
     text: 'Rapporter',
+    path: '/reports',
     icon: faSvg(faChartPie),
-    items: [
-    ]
   },
   {
     text: 'Inställningar',

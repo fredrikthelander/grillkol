@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, AuthService } from '../../shared/services';
+import { Order } from '../../interfaces/order'
 
 @Component({
   selector: 'app-order-list',
@@ -12,7 +13,7 @@ export class OrderListComponent implements OnInit {
 
   constructor(public db: DbService, private auth: AuthService) {
 
-    this.db.createDataSource(this.auth.system, 'orders', this.dataSource)
+    if (this.auth.userlevel > 1) this.db.createDataSource(this.auth.system, 'orders', this.dataSource)
 
   }
 

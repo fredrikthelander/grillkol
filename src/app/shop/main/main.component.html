@@ -179,7 +179,7 @@
           </div> 
 
           <div class="dx-field">
-            <dx-text-box [(value)]="order.adr2" placeholder="Postadress" width="100%">
+            <dx-text-box [(value)]="order.adr2" placeholder="Postnummer och Ort" width="100%">
                 <dx-validator>
                     <dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule>
                 </dx-validator>
@@ -210,7 +210,7 @@
 </div>
   </div>
 
-  <div *ngIf="step == 8" style="margin-top: 50px;font-size: 18px">
+  <div *ngIf="step == 8" class="step8">
     Öppna swish och följ instruktioner för att betala.
   </div>
 

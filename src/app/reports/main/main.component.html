@@ -1,0 +1,87 @@
+<div class="dx-card p20 m20">
+
+    <div *ngFor="let project of projects">
+
+        <div class="rubrik">{{project.name}}</div>
+
+        <div class="rubrik">Sammanställning</div>
+        <div class="tdiv">
+            <table *ngIf="orders | sammanst : project as sammanst">
+                <tr>
+                    <td>Total försäljning</td>
+                    <td>{{sammanst.total | number : '1.0-0' : 'sv_SE' }} kr</td>
+                </tr>
+                <tr>
+                    <td>Antal ordrar</td>
+                    <td>{{sammanst.count | number : '1.0-0' : 'sv_SE' }} st</td>
+                </tr>
+                <tr>
+                    <td>Frakt</td>
+                    <td>{{sammanst.deliveryFee }} kr</td>
+                </tr>
+                <tr *ngIf="project.serviceRate">
+                    <td>Serviceavgift</td>
+                    <td>{{sammanst.serviceFee | number : '1.0-0' : 'sv_SE' }} kr</td>                
+                </tr>
+                <tr>
+                    <td class="f">Er förtjänst</td>
+                    <td class="f">{{(sammanst.earnings > 0 ? sammanst.earnings : 0) | number : '1.0-0' : 'sv_SE' }} kr</td>                
+                </tr>
+            </table>
+        </div>
+
+        <dx-data-grid
+            [dataSource]="orders | orderFilter : project"
+            [masterDetail]="{ enabled: true, template: 'detail' }"
+            (onToolbarPreparing)="onToolbarPreparing($event)"
+            [export]="{ enabled: true, fileName: 'ordrar' }">
+
+            <dxo-filter-row visible="true"></dxo-filter-row>
+            <dxo-paging [pageSize]="20"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+            <dxo-editing [selectTextOnEditStart]="true" mode="cell" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false" [useIcons]="true"></dxo-editing>
+
+            <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175"></dxi-column>
+            <dxi-column dataField="orderid" dataType="number" caption="Ordernr" width="120"></dxi-column>
+            <dxi-column dataField="fnamn" dataType="string" caption="Förnamn" ></dxi-column>
+            <dxi-column dataField="enamn" dataType="string" caption="Efternamn"></dxi-column>
+            <dxi-column dataField="salesPerson.name" dataType="string" caption="Säljare"></dxi-column>
+            <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
+        
+            <dxi-column type="buttons">
+                <dxi-button hint="Visa" icon="search" [onClick]="showOrder"></dxi-button>
+            </dxi-column>
+
+            <!--
+            <dxo-summary>      
+                <dxi-total-item summaryType="count" column="orderid" displayFormat="Antal: {0}" valueFormat="###,##0"></dxi-total-item>
+                <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+            </dxo-summary> 
+            -->
+
+            <div *dxTemplate="let data of 'rubrik'">
+                <div class="rubrik">Orderlista</div>
+            </div>
+
+            <div *dxTemplate="let row of 'detail'">
+
+                <dx-data-grid
+                [dataSource]="row.data.items">
+
+                    <dxi-column dataField="product.sku" dataType="string" caption="Artikelnr" width="120"></dxi-column>
+                    <dxi-column dataField="product.name" dataType="string" caption="Produkt"></dxi-column>
+                    <dxi-column dataField="quantity" dataType="number" caption="Antal" width="100"></dxi-column>
+                    <dxi-column dataField="product.priceIncl" dataType="number" caption="A-pris" width="100"></dxi-column>
+                    <dxi-column dataField="total" dataType="number" caption="Summa" width="100"></dxi-column>
+
+                </dx-data-grid>
+
+            </div>
+            
+        </dx-data-grid>
+
+    </div>
+
+
+</div>

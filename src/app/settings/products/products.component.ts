@@ -81,7 +81,7 @@ export class ProductsComponent implements OnInit {
   initFortnoxProduct(fp: FortnoxProduct) {
     
     let fortnoxProduct = {
-      id: uuid,
+      id: uuid(),
       sku: '',
       quantity: 0,
       sortorder: 10

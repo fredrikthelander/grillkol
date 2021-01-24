@@ -41,7 +41,7 @@
                     <dxi-item dataField="infotext" editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ autoResizeEnabled: true, minHeight: 100 }"></dxi-item>
                 </dxi-item>
 
-                <dxi-item *ngIf="auth.userlevel > 1" itemType="group" [colCount]="1" [colSpan]="2" caption="Kataloger">
+                <dxi-item itemType="group" [colCount]="1" [colSpan]="2" caption="Kataloger">
 
                     <dxi-item dataField="catalogs"></dxi-item>
                     <dxi-item dataField="catalogAdr1"></dxi-item>
@@ -50,7 +50,16 @@
 
                 </dxi-item>
 
-                <dxi-item itemType="group" [colCount]="2" [colSpan]="2" caption="Övrigt">
+                <dxi-item itemType="group" [colCount]="1" [colSpan]="2" caption="Leverans">
+
+                    <dxi-item dataField="deliveryAdr1"></dxi-item>
+                    <dxi-item dataField="deliveryAdr1"></dxi-item>
+                    <dxi-item dataField="deliveryZipCode"></dxi-item>
+                    <dxi-item dataField="deliveryCity"></dxi-item>
+
+                </dxi-item>
+
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2" caption="Övrigt" style="background-color: bisque;">
 
                     <dxi-item dataField="idCategories" editorType="dxTagBox" [colSpan]="2" [editorOptions]="{ dataSource: categories, displayExpr: 'name', valueExpr: 'id' }"></dxi-item>
                     
@@ -81,6 +90,11 @@
         <dxi-column dataField="catalogAdr1" dataType="string" caption="Adressrad 1" [visible]="false"></dxi-column>
         <dxi-column dataField="catalogAdr2" dataType="string" caption="Adressrad 2" [visible]="false"></dxi-column>
         <dxi-column dataField="catalogAdr3" dataType="string" caption="Adressrad 3" [visible]="false"></dxi-column>
+
+        <dxi-column dataField="deliveryAdr1" dataType="string" caption="Leverera till" [visible]="false"></dxi-column>
+        <dxi-column dataField="deliveryAdr2" dataType="string" caption="Adress" [visible]="false"></dxi-column>
+        <dxi-column dataField="deliveryZipCode" dataType="string" caption="´Postnummer" [visible]="false"></dxi-column>
+        <dxi-column dataField="deliveryCity" dataType="string" caption="Ort" [visible]="false"></dxi-column>
 
         <dxi-column dataField="newsletter" dataType="boolean" caption="Nyhetsbrev" width="100" trueText="Ja" falseText="Nej" [visible]="false"></dxi-column>
 
@@ -134,12 +148,7 @@
                     <tr>
                         <td>Telefon</td>
                         <td><div class="dx-field"><dx-text-box [(value)]="project.phone" width="100%"><dx-validator><dxi-validation-rule type="required" message="Måste anges"></dxi-validation-rule><dxi-validation-rule type="numeric" message="Endast siffror"></dxi-validation-rule></dx-validator></dx-text-box></div></td>
-                    </tr>
-
-                    <tr>
-                        <td>Bankinformation för utbetalning av provision</td>
-                        <td><div class="dx-field"><dx-text-box [(value)]="project.bankinfo" width="100%"></dx-text-box></div></td>
-                    </tr>                    
+                    </tr>                 
 
                     <tr>
                         <td>Informationstext i webshoppen</td>
@@ -150,6 +159,31 @@
                             </div> 
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>Leverera varor till</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.deliveryAdr1" width="100%"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Leveransadress</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.deliveryAdr2" width="100%"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Postnummer</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.deliveryZipCode" width="200"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Ort</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.deliveryCity" width="100%"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Bankinformation för utbetalning av provision</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.bankinfo" width="100%"></dx-text-box></div></td>
+                    </tr>                       
                 
                 </table>
                 

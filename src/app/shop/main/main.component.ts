@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs'
 import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
 import { Product } from '../../interfaces/product'
+import { Order, OrderItem } from '../../interfaces/order'
 import { SalesPerson } from '../../interfaces/sales-person'
 import { Vat } from '../../interfaces/vat'
 import { faShoppingCart, faPlusCircle, faMinusCircle, faTimes } from '@fortawesome/pro-light-svg-icons'
@@ -42,7 +43,7 @@ export class MainComponent implements OnInit {
   setupCounter = 0
   pipeHelper = 0
 
-  order = {
+  order: Order = {
     id: uuid(),
     project: null,
     orderid: 0,
@@ -58,7 +59,7 @@ export class MainComponent implements OnInit {
     totalIncl: 0,
     totalExcl: 0,
     totalVat: 0,
-    salesPerson: {}
+    salesPerson: null
   }
 
   constructor(public db: DbService, public auth: AuthService, private socket: Socket, private route: ActivatedRoute, private modal: NgxSmartModalService) {
@@ -86,6 +87,16 @@ export class MainComponent implements OnInit {
       }
 
     })
+
+    if (window.location.hostname == 'localhost') {
+      this.order.fnamn = 'Fredrik'
+      this.order.enamn = 'Thelander'
+      this.order.phone = '0702696222'
+      this.order.email = 'fredrikthelander@outlook.com'
+      this.order.adr1 = 'Salladsvägen 10'
+      this.order.adr2 = '582 75 Linköping'
+      this.order.termsAccepted = true
+    }
 
   }
 
@@ -230,9 +241,9 @@ export class MainComponent implements OnInit {
       this.order.totalExcl += totalExcl
       this.order.totalVat += si.amount - totalExcl
 
-      let orderItem = {
+      let orderItem: OrderItem = {
         id: uuid(),
-        idProduct: si.product.id,
+        product: si.product,
         quantity: si.quantity,
         total: si.amount,
         totalExcl: totalExcl,
@@ -249,10 +260,12 @@ export class MainComponent implements OnInit {
       if (sp) this.order.salesPerson = sp
     }
 
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'unpaidorders', data: this.order }, (result) => {
-      //  this.step = 10
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'orders', data: this.order }, (result) => {
+        this.step = 10
       //  setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
     })
+
+    return
 
     let swishRequest = {
       system: 'grillkol',

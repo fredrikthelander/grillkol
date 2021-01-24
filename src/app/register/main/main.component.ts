@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid'
 import * as moment from 'moment';
 import { Project } from '../../interfaces/project'
 import { Socket } from 'ngx-socket-io'
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-main',
@@ -24,7 +25,12 @@ export class MainComponent implements OnInit {
     catalogs: false,
     catalogAdr1: '',
     catalogAdr2: '',
-    catalogAdr3: '',
+    catalogZipCode: '',
+    catalogCity: '',
+    deliveryAdr1: '',
+    deliveryAdr2: '',
+    deliveryZipCode: '',
+    deliveryCity: '',
     newsletter: true,
     code: '',
     password: '',
@@ -72,19 +78,23 @@ export class MainComponent implements OnInit {
 
   }
   
-  onSubmit(args) {
+  async onSubmit(args) {
 
     if (!args.validationGroup.validate().isValid) {
-      return
+      return false
     }
-
-    console.log(args)
 
     this.vars.ts = moment().format('YYYY-MM-DD HH:mm:ss')
 
     this.vars.infotext = this.vars.infotext.replace(/{name}/g, this.vars.name)
 
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'projects', data: this.vars }, (result) => {
+    let mailCheck: any = await this.db.sendMessagePromise('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.vars.email }, sort: { } })
+    if (mailCheck.err || mailCheck.data.length) {
+      notify('Mailadressen är redan registrerad', "error", 2000); 
+      return
+    }
+
+    await this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'projects', data: this.vars }, (result) => {
       console.log('Insert', result)
       if (!result.err) this.step = 1
       setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
@@ -95,13 +105,13 @@ export class MainComponent implements OnInit {
       username: this.vars.email,
       password: '',
       systems: ['grillkol'],
-      modules: ['Home', 'Ordrar', 'Projekt', 'Säljare', 'Rapporter'],
+      modules: ['Home', 'Projekt', 'Säljare', 'Rapporter'],
       userlevel: 1,
       active: true,
       system: 'grillkol'
     }
 
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'users', data: user }, (result1) => {
+    await this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'users', data: user }, (result1) => {
       this.db.socket.emit('setpw', { system: 'grillkol', id: user.id, password: this.vars.password }, (result2) => {
         console.log(result1, result2)
       })
@@ -119,6 +129,10 @@ export class MainComponent implements OnInit {
     this.socket.emit('sendmail', mailCommand, result => {
       console.log('Mail result', result)
     })
+
+    await this.db.sendMessagePromise('sendmail', mailCommand)
+
+    return true
 
   }
 

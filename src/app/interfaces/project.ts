@@ -8,7 +8,12 @@ export interface Project {
     catalogs: boolean
     catalogAdr1: string
     catalogAdr2: string
-    catalogAdr3: string
+    catalogZipCode: string
+    catalogCity: string
+    deliveryAdr1: string
+    deliveryAdr2: string
+    deliveryZipCode: string
+    deliveryCity: string
     newsletter: boolean
     code: string
     password: string

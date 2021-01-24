@@ -70,8 +70,13 @@
             </div> 
 
             <div *ngIf="catalogcheckbox.value" class="dx-field">
-                <dx-text-box [(value)]="vars.catalogAdr3" placeholder="Postnummer och ort" width="100%"></dx-text-box>
+                <dx-text-box [(value)]="vars.catalogZipCode" placeholder="Postnummer" width="200"></dx-text-box>
             </div> 
+
+            <div *ngIf="catalogcheckbox.value" class="dx-field">
+                <dx-text-box [(value)]="vars.catalogCity" placeholder="Postort" width="100%"></dx-text-box>
+            </div> 
+
 
             <div class="dx-field">
                 <dx-check-box [(value)]="vars.newsletter" text="Jag vill ha fortsatt information gällande de senaste nyheterna och priserna via mail."></dx-check-box>
