@@ -75,6 +75,8 @@ export class ProjectListComponent implements OnInit {
       return
     }
 
+    project.active = false
+
     await this.saveProject(project)
 
     let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
@@ -88,6 +90,8 @@ export class ProjectListComponent implements OnInit {
 
     let closeResult = await this.db.sendMessagePromise('closeproject', { system: 'grillkol', id: project.id })
     console.log(closeResult)
+
+    notify('Projektet har stängts och beställningen är gjord hos Grillkol.se', "success", 2000)
 
   }
 
