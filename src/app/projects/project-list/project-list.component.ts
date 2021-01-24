@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DbService, AuthService } from '../../shared/services';
 import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
+import notify from 'devextreme/ui/notify';
+import { confirm } from 'devextreme/ui/dialog';
 
 @Component({
   selector: 'app-project-list',
@@ -47,17 +49,45 @@ export class ProjectListComponent implements OnInit {
     window.open(`/shop/${e.row.data.code}`, "_blank");
   }
 
-  saveProject(args, project) {
+  saveProjectButton(args, project) {
 
-    if (!args.validationGroup.validate().isValid) {
+    if (!args.validationGroup.validate().isValid) return
+
+    this.saveProject(project)
+
+  }
+
+  async saveProject(project) {
+
+    delete project._id
+    await this.db.sendMessagePromise('mupdate', { system: 'grillkol', table: 'projects', id: project.id, data: project })
+
+    return true
+
+  }
+
+  async closeProjectButton(args, project: Project) {
+
+    if (!args.validationGroup.validate().isValid) return
+
+    if (!project.bankinfo || !project.deliveryAdr1 || !project.deliveryAdr2 || !project.deliveryCity || !project.deliveryZipCode) {
+      notify('Leverans- eller bankinformation saknas!', "error", 2000)
       return
     }
 
-    delete project._id
+    await this.saveProject(project)
 
-    this.db.sendMessagePromise('mupdate', { system: 'grillkol', table: 'projects', id: project.id, data: project }).then((result) => {
-      //console.log('Save result', result)
-    })
+    let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
+
+    console.log(answer)
+
+    if (!answer) return false
+
+    //project.active = false
+    //await this.saveProject(project)
+
+    let closeResult = await this.db.sendMessagePromise('closeproject', { system: 'grillkol', id: project.id })
+    console.log(closeResult)
 
   }
 

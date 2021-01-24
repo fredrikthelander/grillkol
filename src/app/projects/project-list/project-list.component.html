@@ -188,7 +188,11 @@
                 </table>
                 
                 <div class="dx-field">
-                    <dx-button type="default" text="Spara" (onClick)="saveProject($event, project)"></dx-button>
+                    <dx-button type="default" text="Spara" (onClick)="saveProjectButton($event, project)"></dx-button>
+                </div>
+
+                <div class="dx-field" style="margin-top: 40px">
+                    <dx-button type="default" text="Avsluta försäljningen och begär leverans av beställda produkter" (onClick)="closeProjectButton($event, project)"></dx-button>
                 </div>
 
             </dx-validation-group>

@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td>Frakt</td>
-                    <td>{{sammanst.deliveryFee }} kr</td>
+                    <td>{{sammanst.deliveryFee | number : '1.0-0' : 'sv_SE' }} kr</td>
                 </tr>
                 <tr *ngIf="project.serviceRate">
                     <td>Serviceavgift</td>
@@ -49,9 +49,11 @@
             <dxi-column dataField="salesPerson.name" dataType="string" caption="Säljare"></dxi-column>
             <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
         
+            <!--
             <dxi-column type="buttons">
                 <dxi-button hint="Visa" icon="search" [onClick]="showOrder"></dxi-button>
             </dxi-column>
+            -->
 
             <!--
             <dxo-summary>      
