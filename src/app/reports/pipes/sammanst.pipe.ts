@@ -9,9 +9,9 @@ export class SammanstPipe implements PipeTransform {
 
   transform(orders: Order[], project: Project): any {
     
-    let r = 0
     let total = 0
     let count = 0
+    let portoFee = 0
     let serviceFee = 0
     let deliveryFee = 0
     let totalVolume = 0
@@ -37,9 +37,13 @@ export class SammanstPipe implements PipeTransform {
     if (totalVolume <= 2 * palletVolume) deliveryFee = 1950
     if (totalVolume <= 1 * palletVolume) deliveryFee = 1150
 
-    earnings = total - resellerCost - deliveryFee - serviceFee
+    if (project.catalogs) portoFee = 50
+
+    earnings = total - resellerCost - deliveryFee - serviceFee - portoFee
+
+    let pallets = Math.floor(totalVolume / palletVolume * 10) / 10
     
-    return { total, count, serviceFee, totalVolume, deliveryFee, earnings }
+    return { total, count, serviceFee, totalVolume, deliveryFee, earnings, portoFee, pallets }
 
   }
 

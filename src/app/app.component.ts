@@ -2,6 +2,7 @@ import { Component, HostBinding } from '@angular/core';
 import { Router, NavigationStart, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 import { AuthService, ScreenService, AppInfoService, DbService, MsgBusService } from './shared/services';
 import { Subscription } from 'rxjs'
+import { locale } from "devextreme/localization" 
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,8 @@ export class AppComponent  {
 
   constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService, private db: DbService, private msgBus: MsgBusService, private router: Router) {
 
+    locale("sv")
+    
     this.subscription = this.msgBus.getMessage().subscribe(message => {
       console.log('app.component.ts received msgbus message', message) 
     })

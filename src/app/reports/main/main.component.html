@@ -23,11 +23,19 @@
                     <td>Serviceavgift</td>
                     <td>{{sammanst.serviceFee | number : '1.0-0' : 'sv_SE' }} kr</td>                
                 </tr>
+                <tr *ngIf="project.catalogs">
+                    <td>Porto kataloger</td>
+                    <td>{{sammanst.portoFee | number : '1.0-0' : 'sv_SE' }} kr</td>                
+                </tr>
                 <tr>
                     <td class="f">Er förtjänst</td>
                     <td class="f">{{(sammanst.earnings > 0 ? sammanst.earnings : 0) | number : '1.0-0' : 'sv_SE' }} kr</td>                
                 </tr>
             </table>
+        </div>
+
+        <div class="pallets" *ngIf="orders | sammanst : project as sammanst">
+            Er beställning upptar just nu {{ sammanst.pallets }} pallar. När ni kommer över 2 pallar bjuder vi på frakten!
         </div>
 
         <dx-data-grid

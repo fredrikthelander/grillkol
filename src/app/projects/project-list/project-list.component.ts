@@ -4,6 +4,7 @@ import { Project } from '../../interfaces/project'
 import { Category } from '../../interfaces/category'
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-project-list',
@@ -70,14 +71,17 @@ export class ProjectListComponent implements OnInit {
 
     if (!args.validationGroup.validate().isValid) return
 
-    if (!project.bankinfo || !project.deliveryAdr1 || !project.deliveryAdr2 || !project.deliveryCity || !project.deliveryZipCode) {
+    if (!project.bankinfo || !project.deliveryAdr1 || !project.deliveryAdr2 || !project.deliveryCity || !project.deliveryZipCode || !project.deliveryPhone) {
       notify('Leverans- eller bankinformation saknas!', "error", 2000)
       return
     }
 
-    let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
+    if (!project.deliveryDate || moment(project.deliveryDate).isBefore(moment().add(11, 'days'))) {
+      notify('Felaktigt leveransdatum', "error", 2000)
+      return
+    }
 
-    console.log(answer)
+    let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
 
     if (!answer) return false
 
@@ -90,6 +94,17 @@ export class ProjectListComponent implements OnInit {
     console.log(closeResult)
 
     notify('Projektet har stängts och beställningen är gjord hos Grillkol.se', "success", 2000)
+
+  }
+
+  disabledDates = (e) => {
+
+    let d = moment(e.date)
+
+    if (d.isBefore(moment().add(11, 'days'))) return true
+    if (d.isoWeekday() > 5) return true
+
+    return false
 
   }
 

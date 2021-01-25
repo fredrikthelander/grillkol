@@ -14,6 +14,8 @@ export interface Project {
     deliveryAdr2: string
     deliveryZipCode: string
     deliveryCity: string
+    deliveryPhone: string
+    deliveryDate: string
     newsletter: boolean
     code: string
     password: string

@@ -31,6 +31,8 @@ export class MainComponent implements OnInit {
     deliveryAdr2: '',
     deliveryZipCode: '',
     deliveryCity: '',
+    deliveryPhone: '',
+    deliveryDate: '',
     newsletter: true,
     code: '',
     password: '',

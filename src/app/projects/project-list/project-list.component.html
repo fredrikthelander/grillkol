@@ -181,6 +181,16 @@
                     </tr>
 
                     <tr>
+                        <td>Telefonnummer vid leverans</td>
+                        <td><div class="dx-field"><dx-text-box [(value)]="project.deliveryPhone" width="100%" [disabled]="!project.active"></dx-text-box></div></td>
+                    </tr>
+
+                    <tr>
+                        <td>Önskat leveransdatum</td>
+                        <td><div class="dx-field"><dx-date-box [(value)]="project.deliveryDate" width="200" [disabled]="!project.active"  [disabledDates]="disabledDates"></dx-date-box></div></td>
+                    </tr>
+
+                    <tr>
                         <td>Bankinformation för utbetalning av provision</td>
                         <td><div class="dx-field"><dx-text-box [(value)]="project.bankinfo" width="100%" [disabled]="!project.active"></dx-text-box></div></td>
                     </tr>                       
