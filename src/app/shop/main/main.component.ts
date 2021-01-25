@@ -164,6 +164,7 @@ export class MainComponent implements OnInit {
 
     if (si) {
       si.quantity -= 1
+      p.stocklevel += 1
       if (si.quantity < 1) this.selectedItems = this.selectedItems.filter(si => si.idProduct != p.id)
     }
     
@@ -172,6 +173,8 @@ export class MainComponent implements OnInit {
   }
 
   add(p) {
+
+    if (p.stocklevel < 1) return
 
     let si = this.selectedItems.find(si => si.idProduct == p.id)
 
@@ -192,6 +195,7 @@ export class MainComponent implements OnInit {
       
     }
 
+    p.stocklevel -= 1
     this.pipeHelper++
 
   }

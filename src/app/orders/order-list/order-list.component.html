@@ -2,7 +2,7 @@
 
     <h2>Ordrar</h2>
 
-    <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource">
+    <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource" [masterDetail]="{ enabled: true, template: 'detail' }">
 
         <dxo-remote-operations [filtering]="true" [sorting]="true" [paging]="true"> </dxo-remote-operations>
         <dxo-filter-row visible="true"></dxo-filter-row>
@@ -20,6 +20,22 @@
         <dxo-summary>      
             <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
         </dxo-summary> 
+
+        
+        <div *dxTemplate="let row of 'detail'">
+
+            <dx-data-grid
+            [dataSource]="row.data.items">
+
+                <dxi-column dataField="product.sku" dataType="string" caption="Artikelnr" width="120"></dxi-column>
+                <dxi-column dataField="product.name" dataType="string" caption="Produkt"></dxi-column>
+                <dxi-column dataField="quantity" dataType="number" caption="Antal" width="100"></dxi-column>
+                <dxi-column dataField="product.priceIncl" dataType="number" caption="A-pris" width="100"></dxi-column>
+                <dxi-column dataField="total" dataType="number" caption="Summa" width="100"></dxi-column>
+
+            </dx-data-grid>
+
+        </div>
 
     </dx-data-grid> 
 
