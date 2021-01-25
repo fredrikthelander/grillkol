@@ -75,21 +75,16 @@ export class ProjectListComponent implements OnInit {
       return
     }
 
-    project.active = false
-
-    await this.saveProject(project)
-
     let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
 
     console.log(answer)
 
     if (!answer) return false
 
-    //project.active = false
-    //await this.saveProject(project)
+    project.active = false
+    await this.saveProject(project)
 
     notify('Vänta...', "success", 2000)
-
 
     let closeResult = await this.db.sendMessagePromise('closeproject', { system: 'grillkol', id: project.id })
     console.log(closeResult)

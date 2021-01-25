@@ -269,6 +269,9 @@ export class MainComponent implements OnInit {
       //  setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
     })
 
+    let receipt = await this.db.sendMessagePromise('grillkolreceipt', { orderid: this.order.orderid })
+    console.log('Receipt result', receipt)
+
     return
 
     let swishRequest = {
