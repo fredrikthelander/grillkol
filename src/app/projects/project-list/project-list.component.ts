@@ -6,6 +6,7 @@ import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
 import * as moment from 'moment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { Socket } from 'ngx-socket-io'
 
 @Component({
   selector: 'app-project-list',
@@ -21,7 +22,11 @@ export class ProjectListComponent implements OnInit {
 
   rbtext = ''
 
-  constructor(public db: DbService, public auth: AuthService, private modal: NgxSmartModalService) {
+  mailTo = ''
+  mailSubject = ''
+  mailText = ''
+
+  constructor(public db: DbService, public auth: AuthService, private modal: NgxSmartModalService, private socket: Socket) {
 
     if (this.auth.userlevel > 1) {
 
@@ -53,7 +58,6 @@ export class ProjectListComponent implements OnInit {
   }
 
   gotoShop = (e) => {
-    console.log(e)
     window.open(`/shop/${e.row.data.code}`, "_blank");
   }
 
@@ -98,9 +102,22 @@ export class ProjectListComponent implements OnInit {
     notify('Vänta...', "success", 2000)
 
     let closeResult = await this.db.sendMessagePromise('closeproject', { system: 'grillkol', id: project.id })
-    console.log(closeResult)
+    //console.log(closeResult)
 
     notify('Projektet har stängts och beställningen är gjord hos Grillkol.se', "success", 2000)
+
+    let mailCommand = {
+      system: 'grillkol',
+      sender: 'grillkol@bokad.se',
+      subject: 'Bekräftelse',
+      to: project.email,
+      id: project.id,
+      message: `Hej ${project.contactName}\n\nDin order har registrerats och bearbetas nu av oss.\n\nMvh\nGrillkol.se`
+    }
+
+    this.socket.emit('sendmail', mailCommand, result => {
+      //console.log('Mail result', result)
+    })
 
   }
 
@@ -117,6 +134,38 @@ export class ProjectListComponent implements OnInit {
 
   readBefore() {
     this.modal.create('readBeforeOrder', 'content').open()
+  }
+
+  email = (e) => {
+    
+    let project = e.row.data
+
+    this.mailTo = project.email
+    this.mailSubject = 'Leveransbesked'
+    this.mailText = `Hej ${project.contactName}\n\nEr order har nu lämnat vårt lager.\n\nKollinummer: \n\nMvh\nGrillkol.se`
+
+    this.modal.create('mailModal', 'content').open()
+
+  }
+
+  sendMail() {
+
+    let mailCommand = {
+      system: 'grillkol',
+      sender: 'grillkol@bokad.se',
+      subject: this.mailSubject,
+      to: this.mailTo,
+      id: 0,
+      message: this.mailText
+    }
+
+    this.socket.emit('sendmail', mailCommand, result => {
+      console.log('Mail result', result)
+      notify('Mailet har skickats', "success", 2000)
+    })
+
+    this.modal.create('mailModal', 'content').close()
+
   }
 
 

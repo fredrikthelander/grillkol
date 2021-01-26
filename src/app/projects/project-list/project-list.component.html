@@ -111,6 +111,7 @@
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
 
         <dxi-column type="buttons">
+            <dxi-button hint="E-post" icon="email" [onClick]="email"></dxi-button>
             <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
             <dxi-button name="delete" hint="Radera"></dxi-button>
             <dxi-button name="edit" hint="Edit"></dxi-button>
@@ -219,4 +220,45 @@
 
     <div class="terms" [innerHtml]="rbtext | nl2br | sanitizeHtml"></div>
   
-  </ngx-smart-modal>
+</ngx-smart-modal>
+
+<ngx-smart-modal #mailModal [customClass]="'pack-modal-custom'" identifier="mailModal">
+
+    <h4>Skicka E-post</h4>
+
+    <table class="table1">
+        <tr>
+            <td>E-post</td>
+            <td>
+                <div class="dx-field">
+                    <dx-text-box [(value)]="mailTo" width="100%">
+                </dx-text-box></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Ämne</td>
+            <td>
+                <div class="dx-field">
+                    <dx-text-box [(value)]="mailSubject" width="100%">
+                </dx-text-box></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Meddelande</td>
+            <td>
+                <div class="dx-field">
+                    <dx-text-area [(value)]="mailText" width="100%" minHeight="200" class="ta"></dx-text-area>
+                </div> 
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="dx-field" style="margin-top: 40px">
+                    <dx-button type="default" text="skicka" (onClick)="sendMail()"></dx-button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+  
+</ngx-smart-modal>
