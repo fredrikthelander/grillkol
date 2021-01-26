@@ -25,3 +25,15 @@
     margin: 10px;
 }
 
+.terms {
+    text-align: left; 
+    padding: 20px;
+    font-size: 16px;
+}
+
+::ng-deep .pack-modal-custom {
+    min-width: 90% !important;
+    width: 90% !important;
+    height: 90%;
+}
+

@@ -92,3 +92,29 @@
 
 </div>
 
+<div class="dx-card p20 m20">
+    
+    <div class="rubrik">Allmänna villkor i webshop</div>
+
+    <div class="dx-field">
+        <dx-text-area [(value)]="shopTerms" width="100%" minHeight="200" class="ta"></dx-text-area>
+    </div> 
+
+    <dx-button style="margin-top: 12px" type="default" text="Spara" (onClick)="saveShopTerms()"></dx-button>
+    
+
+</div>
+
+<div class="dx-card p20 m20">
+    
+    <div class="rubrik">Läs detta före beställning</div>
+
+    <div class="dx-field">
+        <dx-text-area [(value)]="readBeforeOrder" width="100%" minHeight="200" class="ta"></dx-text-area>
+    </div> 
+
+    <dx-button style="margin-top: 12px" type="default" text="Spara" (onClick)="saveReadBeforeOrder()"></dx-button>
+    
+
+</div>
+

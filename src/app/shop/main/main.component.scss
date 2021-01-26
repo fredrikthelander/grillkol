@@ -380,6 +380,18 @@ input[type=checkbox]
     flex: 0 0 fixed;
 }
 
+.terms {
+    text-align: left; 
+    padding: 20px;
+    font-size: 16px;
+}
+
+::ng-deep .pack-modal-custom {
+    min-width: 90% !important;
+    width: 90% !important;
+    height: 90%;
+}
+
 @media only screen and (max-width: 1200px) {
  
     .outer {

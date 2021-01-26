@@ -5,6 +5,7 @@ import { Category } from '../../interfaces/category'
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
 import * as moment from 'moment';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-project-list',
@@ -18,7 +19,9 @@ export class ProjectListComponent implements OnInit {
 
   categories: Category[] = []
 
-  constructor(public db: DbService, public auth: AuthService) {
+  rbtext = ''
+
+  constructor(public db: DbService, public auth: AuthService, private modal: NgxSmartModalService) {
 
     if (this.auth.userlevel > 1) {
 
@@ -35,6 +38,10 @@ export class ProjectListComponent implements OnInit {
       })
 
     }
+
+    this.db.getStringSetting('readbeforeorder').then(result => {
+      this.rbtext = result
+    })
 
   }
 
@@ -107,5 +114,10 @@ export class ProjectListComponent implements OnInit {
     return false
 
   }
+
+  readBefore() {
+    this.modal.create('readBeforeOrder', 'content').open()
+  }
+
 
 }

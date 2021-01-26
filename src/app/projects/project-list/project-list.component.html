@@ -201,6 +201,10 @@
                     <dx-button type="default" text="Spara" (onClick)="saveProjectButton($event, project)" [disabled]="!project.active"></dx-button>
                 </div>
 
+                <div class="dx-field">
+                    <dx-button type="default" text="Läs före beställning" (onClick)="readBefore()" [disabled]="!project.active"></dx-button>
+                </div>
+
                 <div class="dx-field" style="margin-top: 40px">
                     <dx-button type="default" text="Avsluta försäljningen och begär leverans av beställda produkter" (onClick)="closeProjectButton($event, project)" [disabled]="!project.active"></dx-button>
                 </div>
@@ -210,3 +214,9 @@
 
     </div>
 </div>
+
+<ngx-smart-modal #readBeforeOrder [customClass]="'pack-modal-custom'" identifier="readBeforeOrder">
+
+    <div class="terms" [innerHtml]="rbtext | nl2br | sanitizeHtml"></div>
+  
+  </ngx-smart-modal>

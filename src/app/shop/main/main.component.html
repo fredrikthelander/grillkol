@@ -225,10 +225,9 @@
   </div>
 </div>    
 
-<ngx-smart-modal #termsModal identifier="termsModal">
+<ngx-smart-modal #termsModal [customClass]="'pack-modal-custom'" identifier="termsModal">
 
-  <div style="text-align: left;">123
-  </div>
+  <div class="terms" [innerHtml]="shopTerms | nl2br | sanitizeHtml"></div>
 
 </ngx-smart-modal>
 
