@@ -214,6 +214,10 @@
     Öppna swish och följ instruktioner för att betala.
   </div>
 
+  <div *ngIf="step == 9" class="step8">
+    Betalning avbruten!
+  </div>
+
 <div *ngIf="step == 10" style="margin-top: 50px;font-size: 18px">
   <div class="total">
     Tack för din order!<br><br>

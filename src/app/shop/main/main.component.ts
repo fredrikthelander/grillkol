@@ -98,6 +98,22 @@ export class MainComponent implements OnInit {
       this.order.termsAccepted = true
     }
 
+    this.socket.on('swish', message => {
+
+      if (message.result == 'PAID') {
+        this.step = 10
+      } else {
+        this.step = 9
+      }
+
+      // 15 sek
+      setTimeout(() => { location.assign('https://grillkol.se') }, 15 * 1000)
+
+    })
+
+    // 10 min timeout
+    setTimeout(() => { location.assign('https://grillkol.se') }, 10 * 60 * 1000)
+
   }
 
   ngOnInit() {}
@@ -264,15 +280,15 @@ export class MainComponent implements OnInit {
       if (sp) this.order.salesPerson = sp
     }
 
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'orders', data: this.order }, (result) => {
+    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'unpaidorders', data: this.order }, (result) => {
         this.step = 10
       //  setTimeout(() => { location.assign('https://grillkol.se') }, 30 * 1000)
     })
 
-    let receipt = await this.db.sendMessagePromise('grillkolreceipt', { orderid: this.order.orderid })
-    console.log('Receipt result', receipt)
+    //let receipt = await this.db.sendMessagePromise('grillkolreceipt', { orderid: this.order.orderid })
+    //console.log('Receipt result', receipt)
 
-    return
+    
 
     let swishRequest = {
       system: 'grillkol',
@@ -283,7 +299,7 @@ export class MainComponent implements OnInit {
     }
 
     let sr: any = await this.db.sendMessagePromise('swishrequest', swishRequest)
-    console.log('swishrequest result', sr)
+    //console.log('swishrequest result', sr)
 
     if (sr.err) {
 
