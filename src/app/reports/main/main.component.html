@@ -35,7 +35,7 @@
         </div>
 
         <div class="pallets" *ngIf="orders | sammanst : project as sammanst">
-            Er beställning upptar just nu {{ sammanst.pallets }} pallar. När ni kommer över 2 pallar bjuder vi på frakten!
+            <div>Er beställning upptar just nu <span *ngIf="sammanst.pallets <= 1">1</span><span *ngIf="sammanst.pallets > 1">{{ sammanst.pallets }}</span> pallar. När ni kommer över 3 pallar bjuder vi på frakten!</div>
         </div>
 
         <dx-data-grid

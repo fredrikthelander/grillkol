@@ -106,13 +106,18 @@ export class ProjectListComponent implements OnInit {
 
     notify('Projektet har stängts och beställningen är gjord hos Grillkol.se', "success", 2000)
 
+    let mailText = `Hej ${project.contactName}\n\nDin order har registrerats och bearbetas nu av oss.\n\n`
+    mailText += `${project.name}\n\nLeveransadress:\n${project.deliveryAdr1}\n${project.deliveryAdr2}\n${project.deliveryZipCode} ${project.deliveryCity}\n\n`
+    mailText += `Bankinformation: ${project.bankinfo}\n\n`
+    mailText += `Mvh\nGrillkol.se`
+
     let mailCommand = {
       system: 'grillkol',
       sender: 'grillkol@bokad.se',
       subject: 'Bekräftelse',
-      to: project.email,
+      to: project.email + ',info@grillkol.se',
       id: project.id,
-      message: `Hej ${project.contactName}\n\nDin order har registrerats och bearbetas nu av oss.\n\nMvh\nGrillkol.se`
+      message: mailText
     }
 
     this.socket.emit('sendmail', mailCommand, result => {
