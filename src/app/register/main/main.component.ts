@@ -127,9 +127,9 @@ export class MainComponent implements OnInit {
       message: this.parse(this.registerMessage)
     }
 
-    this.socket.emit('sendmail', mailCommand, result => {
-      console.log('Mail result', result)
-    })
+    //this.socket.emit('sendmail', mailCommand, result => {
+    //  console.log('Mail result', result)
+    //})
 
     await this.db.sendMessagePromise('sendmail', mailCommand)
 
@@ -138,11 +138,20 @@ export class MainComponent implements OnInit {
   }
 
   parse(s) {
-    return s
+
+    let r = s
       .replace(/{contactName}/g, this.vars.contactName)
       .replace(/{code}/g, this.vars.code)
       .replace(/{email}/g, this.vars.email)
       .replace(/{password}/g, this.vars.password)
+
+      let c = ''
+
+      if (this.vars.catalogs) c = `\n${this.vars.persons} kataloger skickas till:\n${this.vars.catalogAdr1}\n${this.vars.catalogAdr2}\n${this.vars.catalogZipCode} ${this.vars.catalogCity}`
+
+      r = r.replace(/{catalogs}/g, c)
+
+    return r
   }
 
 }
