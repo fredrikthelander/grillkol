@@ -9,7 +9,9 @@
         <dxo-paging [pageSize]="20"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
 
-        <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175"></dxi-column>
+        <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175" sortOrder="desc"></dxi-column>
+        <dxi-column dataField="orderid" dataType="number" caption="Ordernr" width="80"></dxi-column>
+        <dxi-column dataField="project.name" dataType="string" caption="Projekt" ></dxi-column>
         <dxi-column dataField="fnamn" dataType="string" caption="Förnamn" ></dxi-column>
         <dxi-column dataField="enamn" dataType="string" caption="Efternamn" ></dxi-column>
 
