@@ -25,6 +25,8 @@ export class AdminComponent implements OnInit {
 
     this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { active: true }, sort: {} })
 
+    let projectIds = this.projects.map(p => { return p.id })
+    console.log(projectIds)
     
   }
 
