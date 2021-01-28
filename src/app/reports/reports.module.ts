@@ -7,10 +7,11 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { MainComponent } from './main/main.component';
 import { OrderFilterPipe } from './pipes/order-filter.pipe';
 import { SammanstPipe } from './pipes/sammanst.pipe';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
-  declarations: [MainComponent, OrderFilterPipe, SammanstPipe],
+  declarations: [MainComponent, OrderFilterPipe, SammanstPipe, AdminComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule,
