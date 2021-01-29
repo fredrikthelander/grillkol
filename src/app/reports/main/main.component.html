@@ -1,4 +1,6 @@
-<div class="dx-card p20 m20">
+<app-admin *ngIf="auth.userlevel >= 4"></app-admin>
+
+<div *ngIf="auth.userlevel < 4" class="dx-card p20 m20">
 
     <div *ngFor="let project of projects">
 

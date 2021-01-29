@@ -14,9 +14,9 @@ export class MainComponent implements OnInit {
   projects: Project[] = []
   orders: Order[] = []
 
-  constructor(private auth: AuthService, private db: DbService, private router: Router) {
+  constructor(public auth: AuthService, private db: DbService, private router: Router) {
 
-    if (this.auth.userlevel >= 4) this.router.navigate(['/reports/admin'])
+    //if (this.auth.userlevel >= 4) this.router.navigate(['/reports/admin'])
 
     this.setup().then((result) => {}).catch((err) => {}) 
 

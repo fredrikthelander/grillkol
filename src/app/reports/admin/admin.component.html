@@ -1,5 +1,19 @@
-<div class="dx-card" *ngFor="let p of projects">
-    <h5>{{p.name}}</h5>
+<div class="dx-card p20">
+
+    <div class="rubrik">Ordersammanställning aktiva projekt</div>
+    
+    <dx-data-grid [dataSource]="projects">
+
+        <dxi-column dataField="name" dataType="string" caption="Projekt"></dxi-column>
+        <dxi-column dataField="count" dataType="number" caption="Antal" format="###,##0" width="80"></dxi-column>
+        <dxi-column dataField="sum" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
+        <dxi-column *ngIf="auth.userlevel > 4" [calculateCellValue]="calculateCommission" dataType="number" caption="Provision" format="###,##0.00" width="120"></dxi-column>
+        
+
+    </dx-data-grid>
+    
 </div>
 
+<!--
 <pre>{{projects|json}}</pre>
+-->

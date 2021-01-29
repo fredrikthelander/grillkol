@@ -12,7 +12,7 @@ export class AdminComponent implements OnInit {
 
   projects: Project[] = []
 
-  constructor(private auth: AuthService, private db: DbService) {
+  constructor(public auth: AuthService, private db: DbService) {
 
     this.setup().then().catch()
 
@@ -23,11 +23,22 @@ export class AdminComponent implements OnInit {
 
   async setup() {
 
-    this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { active: true }, sort: {} })
+    let projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { active: true, id: { $ne: '05935b5f-56ff-4a8a-86ae-5ee6fea7cf01'} }, sort: {} })
 
-    let projectIds = this.projects.map(p => { return p.id })
-    console.log(projectIds)
+    let projectIds = projects.map(p => { return p.id })
+
+    var aggr = [
+      { $match: { "project.id": { $in: projectIds } } },
+      { $group: { _id: "$project.id", count: { $sum: 1 }, sum: { $sum: "$totalIncl"}, name: { $first: "$project.name"}  } },
+    ]
+
+    this.projects = await <any>this.db.sendMessagePromiseData('maggr', { system: this.auth.system, table: 'orders', token: this.db.token, aggr: aggr, sort: {} })
     
+    
+  }
+
+  calculateCommission = (e) => {
+    return e.sum * 0.03
   }
 
 }
