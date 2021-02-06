@@ -1,8 +1,10 @@
 <div class="dx-card p20 m20">
 
-    <div *ngFor="let project of projects">       
+    <div class="rubrik">Orderlista</div>
 
-        <div class="rubrik">{{project.name}}</div> 
+    <app-project-selector (selectedProjectChanged)="projectChanged($event)"></app-project-selector>
+
+    <div *ngIf="project">        
         
         <dx-data-grid
             [dataSource]="orders | orderFilter : project"

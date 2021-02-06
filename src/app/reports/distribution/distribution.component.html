@@ -1,12 +1,13 @@
 <div class="dx-card p20 m20">
 
-    <div *ngFor="let project of projects">       
+    <div class="rubrik">Försäljning per säljare</div>
 
-        <div class="rubrik">{{project.name}}</div> 
+    <app-project-selector (selectedProjectChanged)="projectChanged($event)"></app-project-selector>
+
+    <div *ngIf="project">       
         
         <dx-data-grid
             [dataSource]="distribution"
-            (onToolbarPreparing)="onToolbarPreparing($event)"
             [export]="{ enabled: true, fileName: 'fördelning' }">
 
             <dxo-filter-row visible="true"></dxo-filter-row>
@@ -22,10 +23,6 @@
                 <dxi-total-item summaryType="sum" column="orderCount" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
                 <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
             </dxo-summary> 
-
-            <div *dxTemplate="let data of 'rubrik'">
-                <div class="rubrik">Försäljning per säljare</div>
-            </div>
             
         </dx-data-grid>
 

@@ -10,22 +10,19 @@ import { Order } from '../../interfaces/order'
 })
 export class OrdersComponent implements OnInit {
 
-  projects: Project[] = []
+  //projects: Project[] = []
+  project: Project
   orders: Order[] = []  
 
-  constructor(public auth: AuthService, private db: DbService) {
-
-    this.setup().then((result) => {}).catch((err) => {}) 
-
-  }
+  constructor(public auth: AuthService, private db: DbService) {}
 
   ngOnInit() {
   }
 
   async setup() {
 
-    this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } })
-    this.orders = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "project.email": this.auth.username }, sort: { } })
+    //this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } })
+    this.orders = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "project.id": this.project.id }, sort: { } })
 
   }
 
@@ -34,6 +31,11 @@ export class OrdersComponent implements OnInit {
         location: 'before',
         template: 'rubrik'
     })
+  }
+
+  projectChanged(project) {
+    this.project = project
+    this.setup().then((result) => {}).catch((err) => {}) 
   }
 
 }
