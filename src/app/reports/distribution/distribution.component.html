@@ -1,0 +1,38 @@
+<div class="dx-card p20 m20">
+
+    <div *ngFor="let project of projects">       
+
+        <div class="rubrik">{{project.name}}</div> 
+        
+        <dx-data-grid
+            [dataSource]="distribution"
+            (onToolbarPreparing)="onToolbarPreparing($event)"
+            [export]="{ enabled: true, fileName: 'fördelning' }">
+
+            <dxo-filter-row visible="true"></dxo-filter-row>
+            <dxo-paging [pageSize]="20"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+
+            <dxi-column dataField="name" dataType="string" caption="Namn"></dxi-column>
+            <dxi-column dataField="orderCount" dataType="number" caption="Antal" width="120" format="###,##0"></dxi-column>
+            <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" width="120" format="###,##0.00" sortOrder="desc"></dxi-column>
+            <dxi-column dataField="percentage" dataType="number" caption="Andel %" width="120" format="###,##0.00"></dxi-column>
+
+            <dxo-summary>      
+                <dxi-total-item summaryType="sum" column="orderCount" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+                <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+            </dxo-summary> 
+
+            <div *dxTemplate="let data of 'rubrik'">
+                <div class="rubrik">Försäljning per säljare</div>
+            </div>
+            
+        </dx-data-grid>
+
+    </div>
+
+</div>
+
+<!--
+<pre>{{distribution|json}}</pre>
+-->

@@ -1,0 +1,10 @@
+<dx-select-box
+    *ngIf="projects.length > 1"
+    [dataSource]="projects"
+    displayExpr="name"
+    valueExpr="id"
+    (onValueChanged)="valueChanged($event)"
+    placeholder="Välj projekt..."
+></dx-select-box>
+
+<div class="rubrik" *ngIf="projects.length == 1">{{projects[0].name}}</div>

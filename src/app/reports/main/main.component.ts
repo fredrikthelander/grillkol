@@ -11,37 +11,25 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  projects: Project[] = []
+  //projects: Project[] = []
+  project: Project
   orders: Order[] = []
 
-  constructor(public auth: AuthService, private db: DbService, private router: Router) {
-
-    //if (this.auth.userlevel >= 4) this.router.navigate(['/reports/admin'])
-
-    this.setup().then((result) => {}).catch((err) => {}) 
-
-  }
+  constructor(public auth: AuthService, private db: DbService, private router: Router) {}
 
   ngOnInit() {
   }
 
   async setup() {
 
-    this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } })
-    this.orders = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "project.email": this.auth.username }, sort: { } })
+    this.orders = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "project.id": this.project.id }, sort: { } })
 
   }
 
-  showOrder = (e) => {
-    console.log(e)
+  projectChanged(project) {
+    this.project = project
+    this.setup().then((result) => {}).catch((err) => {}) 
   }
 
-  onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-        location: 'before',
-        template: 'rubrik'
-    })
-
-  }
 
 }

@@ -43,8 +43,13 @@ export const navigation = [
   },
   {
     text: 'Rapporter',
-    path: '/reports',
+    //path: '/reports',
     icon: faSvg(faChartPie),
+    items: [
+      { text: 'Sammanställning ', path: '/reports' },
+      { text: 'Ordrar ', path: '/reports/orders' },
+      { text: 'Fördelning ', path: '/reports/distribution' }      
+    ]
   },
   {
     text: 'Inställningar',
