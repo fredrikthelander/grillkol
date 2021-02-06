@@ -43,6 +43,7 @@ export const navigation = [
   },
   {
     text: 'Rapporter',
+    expanded: false,
     //path: '/reports',
     icon: faSvg(faChartPie),
     items: [
@@ -53,6 +54,7 @@ export const navigation = [
   },
   {
     text: 'Inställningar',
+    expanded: false,
     icon: faSvg(faCog),
     items: [
       { text: 'Allmänt ', path: '/settings/general' },

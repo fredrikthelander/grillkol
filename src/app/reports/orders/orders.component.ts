@@ -27,10 +27,10 @@ export class OrdersComponent implements OnInit {
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-        location: 'before',
-        template: 'rubrik'
-    })
+    //e.toolbarOptions.items.unshift({
+    //    location: 'before',
+    //    template: 'rubrik'
+    //})
   }
 
   projectChanged(project) {

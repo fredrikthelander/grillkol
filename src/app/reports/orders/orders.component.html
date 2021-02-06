@@ -24,23 +24,12 @@
             <dxi-column dataField="enamn" dataType="string" caption="Efternamn"></dxi-column>
             <dxi-column dataField="salesPerson.name" dataType="string" caption="Säljare"></dxi-column>
             <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
-        
-            <!--
-            <dxi-column type="buttons">
-                <dxi-button hint="Visa" icon="search" [onClick]="showOrder"></dxi-button>
-            </dxi-column>
-            -->
 
             <!--
-            <dxo-summary>      
-                <dxi-total-item summaryType="count" column="orderid" displayFormat="Antal: {0}" valueFormat="###,##0"></dxi-total-item>
-                <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
-            </dxo-summary> 
-            -->
-
             <div *dxTemplate="let data of 'rubrik'">
                 <div class="rubrik">Orderlista</div>
             </div>
+            -->
 
             <div *dxTemplate="let row of 'detail'">
 
