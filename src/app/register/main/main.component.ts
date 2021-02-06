@@ -86,6 +86,7 @@ export class MainComponent implements OnInit {
     }
 
     this.vars.ts = moment().format('YYYY-MM-DD HH:mm:ss')
+    this.vars.email = this.vars.email.toLowerCase()
 
     this.vars.infotext = this.vars.infotext.replace(/{name}/g, this.vars.name)
 
