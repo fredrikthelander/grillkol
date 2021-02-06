@@ -6,21 +6,15 @@
     <!-- Sticky div -->
     <div class="sticky" (click)="cartClick()">
 
-      <div class="rubrik">
-
-        <!--
-        <div *ngIf="db.takeoutType.logo">
-          <img class="logo" [src]="'https://cdn.bokad.se/' + db.system + '/logoavh.png'">
-        </div>
-        -->
-
         <div style="display: flex; align-items: center;">
       
           <div class="noselect">
-            <span>GRILLKOL</span>
+            <div class="logo">
+              <img class="logoimg" src="/assets/images/grillkollogo.jpg">
+            </div>
           </div>
 
-          <div>
+          <div class="cart">
               <fa-layers [fixedWidth]="true" class="carticon">
                 <fa-icon [icon]="faShoppingCart"></fa-icon>
                 <fa-layers-counter [content]="(selectedItems | totalQuantity : pipeHelper) || '0'" style="font-size: 50px"></fa-layers-counter>
@@ -28,8 +22,6 @@
           </div>
 
         </div>
-
-      </div>
 
       
     </div>
