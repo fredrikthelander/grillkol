@@ -13,6 +13,7 @@ import { faShoppingCart, faPlusCircle, faMinusCircle, faTimes } from '@fortaweso
 import { v4 as uuid } from 'uuid'
 import * as moment from 'moment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-main',
@@ -283,10 +284,6 @@ export class MainComponent implements OnInit {
       let sp = this.salesPersons.find(sp => sp.id == this.idSelectedSalesPerson)
       if (sp) this.order.salesPerson = sp
     }
-
-    this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'unpaidorders', data: this.order }, (result) => {
-        this.step = 10
-    })
     
     let swishRequest = {
       system: 'grillkol',
@@ -300,8 +297,9 @@ export class MainComponent implements OnInit {
     //console.log('swishrequest result', sr)
 
     if (sr.err) {
-
+      notify('Kan inte aktivera Swishbetalning på angivet nummer', 'error', 2000);
     } else {
+      this.socket.emit('minsert', { token: this.db.token, system: 'grillkol', table: 'unpaidorders', data: this.order }, (result) => {})
       this.step = 8
     }
 

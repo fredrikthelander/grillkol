@@ -19,18 +19,18 @@ export class CreateAccountFormComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   async onSubmit(e) {
-    e.preventDefault();
-    const { email, password } = this.formData;
-    this.loading = true;
-
-    const result = await this.authService.createAccount(email, password);
-    this.loading = false;
-
-    if (result.isOk) {
-      this.router.navigate(['/login-form']);
-    } else {
-      notify(result.message, 'error', 2000);
-    }
+//    e.preventDefault();
+//    const { email, password } = this.formData;
+//    this.loading = true;
+//
+//    const result = await this.authService.createAccount(email, password);
+//    this.loading = false;
+//
+//    if (result.isOk) {
+//      this.router.navigate(['/login-form']);
+//    } else {
+//      notify(result.message, 'error', 2000);
+//    }
   }
 
   confirmPassword = (e: { value: string }) => {

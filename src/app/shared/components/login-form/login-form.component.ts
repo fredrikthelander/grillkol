@@ -21,7 +21,7 @@ import notify from 'devextreme/ui/notify';
 export class LoginFormComponent {
 
   vars = {
-    system : 'grillkol',
+    system : '',
     username: '',
     password: '',
     remember: false
@@ -31,6 +31,7 @@ export class LoginFormComponent {
 
     let v = localStorage.getItem('loginvars')
     if (v) this.vars = JSON.parse(v)
+    this.vars.system = 'grillkol'
 
   }
 
