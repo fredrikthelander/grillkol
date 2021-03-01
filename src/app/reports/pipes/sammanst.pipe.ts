@@ -34,7 +34,7 @@ export class SammanstPipe implements PipeTransform {
 
     serviceFee = total * project.serviceRate / 100 || 0
 
-    if (totalVolume <= 2 * palletVolume) deliveryFee = 1950
+    if (totalVolume <= 3 * palletVolume) deliveryFee = 1950
     if (totalVolume <= 1 * palletVolume) deliveryFee = 1150
 
     if (project.catalogs) portoFee = 50
