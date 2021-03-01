@@ -11,7 +11,7 @@ export class MsgBusService {
   private msgBusSubject = new Subject<any>();
 
   sendMessage(message: string, data?: any) {
-    console.log("MsgBus sending message:", message);
+    //console.log("MsgBus sending message:", message);
     this.msgBusSubject.next({ text: message, data: data });
   }
 
@@ -20,7 +20,7 @@ export class MsgBusService {
   }
 
   getMessage(): Observable<any> {
-    console.log('Msg bus observable created')
+    //console.log('Msg bus observable created')
     return this.msgBusSubject.asObservable();
   }
 

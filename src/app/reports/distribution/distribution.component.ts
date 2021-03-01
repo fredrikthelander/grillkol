@@ -39,7 +39,7 @@ export class DistributionComponent implements OnInit {
           d.orders.push(this.stripOrder(order))
           d.orderCount++
         } else {
-          this.distribution.push({ idSalesPerson: order.salesPerson.id, name: '', totalIncl: order.totalIncl, percentage: 0, orderCount: 1, orders: [this.stripOrder(order)] })
+          this.distribution.push({ idSalesPerson: order.salesPerson.id, code: '', name: '', totalIncl: order.totalIncl, percentage: 0, orderCount: 1, orders: [this.stripOrder(order)] })
         }
 
       })
@@ -50,6 +50,7 @@ export class DistributionComponent implements OnInit {
 
         if (d) {
           d.name = salesPerson.name
+          d.code = salesPerson.code
         } else {
           this.distribution.push({ idSalesPerson: salesPerson.id, name: salesPerson.name, totalIncl: 0, percentage: 0, orderCount: 0, orders: [] })
         }
@@ -91,6 +92,11 @@ export class DistributionComponent implements OnInit {
   projectChanged(project) {
     this.project = project
     this.setup().then((result) => {}).catch((err) => {}) 
+  }
+
+  showReport = (e) => {
+    console.log(e)
+    if (this.project) window.open(`/rapport/${this.project.code}/${e.row.data.code}`, "_blank");
   }
 
 }

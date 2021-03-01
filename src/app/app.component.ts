@@ -23,7 +23,7 @@ export class AppComponent  {
     locale("sv")
     
     this.subscription = this.msgBus.getMessage().subscribe(message => {
-      console.log('app.component.ts received msgbus message', message) 
+      //console.log('app.component.ts received msgbus message', message) 
     })
 
     router.events.subscribe(event => {

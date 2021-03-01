@@ -34,7 +34,7 @@ export class RapportMainComponent implements OnInit {
 
     this.routeSubscription = this.route.params.subscribe(params => {
 
-      console.log('Shop params', params)
+      //console.log('Params', params)
 
       if (params.spcode) {
         this.spcode = params.spcode

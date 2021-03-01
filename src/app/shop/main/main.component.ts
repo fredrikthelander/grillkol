@@ -78,7 +78,7 @@ export class MainComponent implements OnInit {
 
     this.routeSubscription = this.route.params.subscribe(params => {
 
-      console.log('Shop params', params)
+      //console.log('Shop params', params)
 
       if (params.spcode) {
         this.spcode = params.spcode

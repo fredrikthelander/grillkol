@@ -46,7 +46,7 @@ export class LoginFormComponent {
 
     this.socket.emit('login', { token: this.db.token, system: this.vars.system, username: this.vars.username, password: this.vars.password }, (result) => {
       
-      console.log('Login result', result)
+      //console.log('Login result', result)
 
       if (result.result && result.result == 'Ok') {
 

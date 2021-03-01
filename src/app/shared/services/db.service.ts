@@ -24,7 +24,7 @@ export class DbService {
     registerLocaleData(localeSwedish)
 
     this.socket.on('message', (message) => {
-        console.log(message)
+        //console.log(message)
     })
 
     this.router.events.subscribe(event => {
@@ -43,7 +43,7 @@ export class DbService {
 
     this.socket.on('connect', (message) => {
         this.socket.emit('gettoken', { token: this.token }, (result) => {
-            console.log('gettoken result', result)
+            //console.log('gettoken result', result)
             //if (result.err) router.navigate(['/login'])
         })
     })
