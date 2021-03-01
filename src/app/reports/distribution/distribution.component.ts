@@ -24,13 +24,11 @@ export class DistributionComponent implements OnInit {
 
   async setup() {
 
-    //this.projects = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } })
     this.orders = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "project.id": this.project.id }, sort: { } })
     this.salesPersons = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { owner: this.project.email }, sort: { } })
 
     this.distribution = []
     
-    //this.projects.forEach(project => {
 
       this.orders.filter(order => order.project.id == this.project.id).forEach(order => {
 
@@ -38,10 +36,12 @@ export class DistributionComponent implements OnInit {
 
         if (d) {
           d.totalIncl += order.totalIncl
+          d.orders.push(this.stripOrder(order))
           d.orderCount++
         } else {
-          this.distribution.push({ idSalesPerson: order.salesPerson.id, name: '', totalIncl: order.totalIncl, percentage: 0, orderCount: 1 })
+          this.distribution.push({ idSalesPerson: order.salesPerson.id, name: '', totalIncl: order.totalIncl, percentage: 0, orderCount: 1, orders: [this.stripOrder(order)] })
         }
+
       })
 
       this.salesPersons.forEach(salesPerson => {
@@ -51,7 +51,7 @@ export class DistributionComponent implements OnInit {
         if (d) {
           d.name = salesPerson.name
         } else {
-          this.distribution.push({ idSalesPerson: salesPerson.id, name: salesPerson.name, totalIncl: 0, percentage: 0, orderCount: 0 })
+          this.distribution.push({ idSalesPerson: salesPerson.id, name: salesPerson.name, totalIncl: 0, percentage: 0, orderCount: 0, orders: [] })
         }
 
       })
@@ -62,7 +62,29 @@ export class DistributionComponent implements OnInit {
         if (d.totalIncl) d.percentage = Math.round(d.totalIncl / total * 10000) / 100
       })
 
-    //})
+
+  }
+
+  stripOrder(order: Order): any {
+    
+    let so: any = {}
+
+    so.orderid = order.orderid
+    so.fnamn = order.fnamn
+    so.enamn = order.enamn
+    so.items = []
+
+    order.items.forEach(oi => {
+      
+      so.items.push({
+        product:{ sku: oi.product.sku, name: oi.product.name, priceIncl: oi.product.priceIncl },
+        quantity: oi.quantity,
+        total: oi.total
+      })
+
+    })
+
+    return so
 
   }
 

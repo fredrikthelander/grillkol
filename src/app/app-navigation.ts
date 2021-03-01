@@ -49,7 +49,7 @@ export const navigation = [
     items: [
       { text: 'Sammanställning ', path: '/reports' },
       { text: 'Ordrar ', path: '/reports/orders' },
-      { text: 'Fördelning ', path: '/reports/distribution' }      
+      { text: 'Ordrar per säljare ', path: '/reports/distribution' }      
     ]
   },
   {

@@ -7,6 +7,7 @@
     <div *ngIf="project">       
         
         <dx-data-grid
+            [masterDetail]="{ enabled: true, template: 'detail' }"
             [dataSource]="distribution"
             [export]="{ enabled: true, fileName: 'fördelning' }">
 
@@ -22,7 +23,30 @@
             <dxo-summary>      
                 <dxi-total-item summaryType="sum" column="orderCount" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
                 <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
-            </dxo-summary> 
+            </dxo-summary>
+
+            <div *dxTemplate="let row of 'detail'">
+                
+                <div *ngFor="let order of row.data.orders" class="orderdetail">
+
+                    <div class="orderheader">Order {{order.orderid}}, {{order.fnamn}} {{order.enamn}}</div>
+                
+                    <dx-data-grid [dataSource]="order.items">
+
+                        <dxi-column dataField="product.sku" dataType="string" caption="Artikelnr" width="120"></dxi-column>
+                        <dxi-column dataField="product.name" dataType="string" caption="Produkt"></dxi-column>
+                        <dxi-column dataField="quantity" dataType="number" caption="Antal" width="100"></dxi-column>
+                        <dxi-column dataField="product.priceIncl" dataType="number" caption="A-pris" width="100"></dxi-column>
+                        <dxi-column dataField="total" dataType="number" caption="Summa" width="100"></dxi-column>
+
+                        <dxo-summary>      
+                            <dxi-total-item summaryType="sum" column="total" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+                        </dxo-summary>
+
+                    </dx-data-grid>
+                
+                </div>
+            </div>
             
         </dx-data-grid>
 
