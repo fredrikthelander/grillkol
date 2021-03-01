@@ -66,4 +66,8 @@ export class MainComponent implements OnInit {
     if (this.project) window.open(`/shop/${this.project.code}/${e.row.data.code}`, "_blank");
   }
 
+  showReport = (e) => {
+    if (this.project) window.open(`/rapport/${this.project.code}/${e.row.data.code}`, "_blank");
+  }
+
 }

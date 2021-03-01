@@ -72,7 +72,7 @@ export class MainComponent implements OnInit {
     this.auth.system = 'grillkol'
 
     this.socket.emit('login', { token: this.db.token, system: 'grillkol', username: 'web', password: 'web' }, (result) => {
-      console.log('Shop login', result)
+      //console.log('Shop login', result)
       this.setup().then((result) => {}).catch((err) => {}) 
     })
 
@@ -91,15 +91,15 @@ export class MainComponent implements OnInit {
 
     })
 
-    if (window.location.hostname == 'localhost') {
-      this.order.fnamn = 'Fredrik'
-      this.order.enamn = 'Thelander'
-      this.order.phone = '0702696222'
-      this.order.email = 'fredrikthelander@outlook.com'
-      this.order.adr1 = 'Salladsvägen 10'
-      this.order.adr2 = '582 75 Linköping'
-      this.order.termsAccepted = true
-    }
+    //if (window.location.hostname == 'localhost') {
+    //  this.order.fnamn = 'Fredrik'
+    //  this.order.enamn = 'Thelander'
+    //  this.order.phone = '0702696222'
+    //  this.order.email = 'fredrikthelander@outlook.com'
+    //  this.order.adr1 = 'Salladsvägen 10'
+    //  this.order.adr2 = '582 75 Linköping'
+    //  this.order.termsAccepted = true
+    //}
 
     this.socket.on('swish', message => {
 

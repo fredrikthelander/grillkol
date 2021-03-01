@@ -1,0 +1,36 @@
+<div class="logo">
+    <img class="logoimg" src="/assets/images/grillkollogo.jpg">
+</div>
+
+<div class="section" *ngIf="salesPerson">
+    <div class="s1">Orderlista</div>
+    <div class="s2">{{salesPerson.name}}</div>
+</div>
+
+<div class="section" *ngIf="salesPerson && orders.length">
+
+    <div *ngFor="let order of orders" class="orderdetail">
+
+        <div class="orderheader">Order {{order.orderid}}, {{order.fnamn}} {{order.enamn}}</div>
+    
+        <dx-data-grid [dataSource]="order.items">
+
+            <dxi-column dataField="product.sku" dataType="string" caption="Artikelnr" width="120"></dxi-column>
+            <dxi-column dataField="product.name" dataType="string" caption="Produkt"></dxi-column>
+            <dxi-column dataField="quantity" dataType="number" caption="Antal" width="100"></dxi-column>
+            <dxi-column dataField="product.priceIncl" dataType="number" caption="A-pris" width="100"></dxi-column>
+            <dxi-column dataField="total" dataType="number" caption="Summa" width="100"></dxi-column>
+
+            <dxo-summary>      
+                <dxi-total-item summaryType="sum" column="total" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+            </dxo-summary>
+
+        </dx-data-grid>
+    
+    </div>
+
+</div>
+
+<div *ngIf="salesPerson && !orders.length" class="s2 section" style="text-align: center; padding: 20px">Orderlistan är tyvärr tom</div>
+
+<div style="height: 25px;"></div>

@@ -20,7 +20,8 @@
         <dxi-column dataField="code" dataType="string" caption="Kod" [allowEditing]="false" width="100"></dxi-column>
         
         <dxi-column type="buttons">
-            <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
+            <dxi-button hint="Visa rapport" icon="doc" [onClick]="showReport"></dxi-button>
+            <dxi-button hint="Gå till shop" icon="globe" [onClick]="gotoShop"></dxi-button>
             <dxi-button name="delete" hint="Radera"></dxi-button>
         </dxi-column>
 

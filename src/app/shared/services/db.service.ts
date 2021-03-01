@@ -34,8 +34,9 @@ export class DbService {
         //if (!this.auth.isLoggedIn && !['/register', '/shop'].includes(url)) router.navigate(['/login'])
         if (url == '/register') redirectToLogin = false
         if (url.substr(0, 5) == '/shop') redirectToLogin = false
+        if (url.substr(0, 8) == '/rapport') redirectToLogin = false
         if (this.auth.isLoggedIn) redirectToLogin = false
-        console.log('==>', url, redirectToLogin)
+        //console.log('==>', url, redirectToLogin)
         if (redirectToLogin) router.navigate(['/login'])
       }
     })
@@ -57,7 +58,7 @@ export class DbService {
           if (!loadOptions.sort) loadOptions.sort = [{selector: "sortorder", desc: false}]
           return this.sendMessagePromise('loaddata', { system, table, loadOptions }) 
         },
-        update: (key, values) => { console.log('hello', key, values); return this.sendMessagePromise('mupdate', { system, table, id: key, data: values }) },
+        update: (key, values) => { return this.sendMessagePromise('mupdate', { system, table, id: key, data: values }) },
         insert: (values) => { 
           values.system = system
           return this.sendMessagePromise('minsert', { system, table, data: values }) 
