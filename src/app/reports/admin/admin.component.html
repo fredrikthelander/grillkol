@@ -8,7 +8,11 @@
         <dxi-column dataField="count" dataType="number" caption="Antal" format="###,##0" width="80"></dxi-column>
         <dxi-column dataField="sum" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
         <dxi-column *ngIf="auth.userlevel > 4" [calculateCellValue]="calculateCommission" dataType="number" caption="Provision" format="###,##0.00" width="120"></dxi-column>
-        
+
+        <dxo-summary>      
+            <dxi-total-item summaryType="sum" column="sum" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+            <dxi-total-item summaryType="sum" column="Provision" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+        </dxo-summary> 
 
     </dx-data-grid>
     
