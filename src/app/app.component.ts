@@ -16,9 +16,8 @@ export class AppComponent  {
   }
 
   subscription: Subscription
-  loading = false
 
-  constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService, private db: DbService, private msgBus: MsgBusService, private router: Router) {
+  constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService, public db: DbService, private msgBus: MsgBusService, private router: Router) {
 
     locale("sv")
     
@@ -31,10 +30,10 @@ export class AppComponent  {
       // Show spinner while lazy loading
       if (event instanceof RouteConfigLoadStart) {
         //console.log('Start loading')
-        this.loading = true
+        this.db.loading = true
       } else if (event instanceof RouteConfigLoadEnd) {
         //console.log('Loading done')
-        this.loading = false 
+        this.db.loading = false 
       }
 
     })

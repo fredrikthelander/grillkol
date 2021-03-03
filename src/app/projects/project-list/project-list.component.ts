@@ -92,7 +92,7 @@ export class ProjectListComponent implements OnInit {
       return
     }
 
-    let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?");
+    let answer = await confirm("Vill du stänga försäljningsprojektet?", "Är du säker?")
 
     if (!answer) return false
 

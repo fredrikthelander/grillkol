@@ -3,6 +3,8 @@ import { DbService, AuthService } from '../../shared/services';
 import { Project } from '../../interfaces/project'
 import { SalesPerson } from '../../interfaces/sales-person'
 import { v4 as uuid } from 'uuid'
+import { confirm } from 'devextreme/ui/dialog';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +15,7 @@ export class MainComponent implements OnInit {
 
   salesPersons: SalesPerson[] = []
   project: Project
+  selectedRowKeys = []
 
   constructor(public db: DbService, public auth: AuthService) {
 
@@ -68,6 +71,27 @@ export class MainComponent implements OnInit {
 
   showReport = (e) => {
     if (this.project) window.open(`/rapport/${this.project.code}/${e.row.data.code}`, "_blank");
+  }
+
+  async sendMail(spgrid) {
+
+    let answer = await confirm("Vill du skicka mail till valda säljare?", 'Är du säker?')
+    if (!answer) return false
+
+    this.db.loading = true
+
+    //let ids = this.selectedRowKeys.map(srk => { return srk.id })
+    let adresses  = this.selectedRowKeys.filter(srk => srk.email).map(srk => { return srk.email })
+    console.log(1, adresses)
+
+    //let salesPersons = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { id: this.selectedRowKeys }, sort: { } })
+    //console.log(2, salesPersons)
+
+    setTimeout(() => {
+      this.db.loading = false
+      spgrid.instance.deselectAll()
+      notify('Mail har skickats!', "success", 2000)
+    }, 3000)
   }
 
 }

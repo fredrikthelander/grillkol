@@ -19,6 +19,8 @@ export class DbService {
   username = ''
   userlevel = 0
 
+  loading = false
+
   constructor(public socket: Socket, private router: Router, private auth: AuthService) {
 
     registerLocaleData(localeSwedish)
