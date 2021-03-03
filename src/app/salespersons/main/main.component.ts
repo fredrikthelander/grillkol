@@ -80,18 +80,48 @@ export class MainComponent implements OnInit {
 
     this.db.loading = true
 
-    //let ids = this.selectedRowKeys.map(srk => { return srk.id })
-    let adresses  = this.selectedRowKeys.filter(srk => srk.email).map(srk => { return srk.email })
-    console.log(1, adresses)
+    let mailCommand = {
+      system: 'grillkol',
+      sender: 'grillkol@bokad.se',
+      subject: 'Försäljningslänk grillkol.se',
+      to: '',
+      id: '1',
+      message: ''
+    }
 
-    //let salesPersons = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { id: this.selectedRowKeys }, sort: { } })
-    //console.log(2, salesPersons)
+    for (let salesPerson of this.selectedRowKeys) {
 
-    setTimeout(() => {
-      this.db.loading = false
-      spgrid.instance.deselectAll()
-      notify('Mail har skickats!', "success", 2000)
-    }, 3000)
+      console.log('>>', salesPerson.name, salesPerson.email)
+
+      mailCommand.to = salesPerson.email
+      mailCommand.message = `Hej ${salesPerson.name}, \n\nHär kommer din länken till din butik hos grillkol.se. Skicka länken till de som ska handlar i butiken under ditt namn.\n\n`
+      mailCommand.message += `Butikslänk: https://grillkol.bokad.se/shop/${this.project.code}/${salesPerson.code}\n\n`
+      mailCommand.message += `Du har även en personlig länk där du kan se vilka ordrar som gjorts i ditt namn:\n`
+      mailCommand.message += `https://grillkol.bokad.se/rapport/${this.project.code}/${salesPerson.code}\n\n`
+      mailCommand.message += `Med vänliga hälsningar,\n${this.project.name}`
+
+      if (salesPerson.email) await this.db.sendMessagePromise('sendmail', mailCommand)
+
+    }
+
+    this.db.loading = false
+    spgrid.instance.deselectAll()
+    notify('Mail har skickats!', "success", 2000)
+
+    //
+
+//    //let ids = this.selectedRowKeys.map(srk => { return srk.id })
+//    let adresses  = this.selectedRowKeys.filter(srk => srk.email).map(srk => { return srk.email })
+//    console.log(1, adresses)
+//
+//    //let salesPersons = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'salespersons', token: this.db.token, condition: { id: this.selectedRowKeys }, sort: { } })
+//    //console.log(2, salesPersons)
+//
+//    setTimeout(() => {
+//      this.db.loading = false
+//      spgrid.instance.deselectAll()
+//      notify('Mail har skickats!', "success", 2000)
+//    }, 3000)
   }
 
 }
