@@ -94,7 +94,7 @@ export class MainComponent implements OnInit {
       console.log('>>', salesPerson.name, salesPerson.email)
 
       mailCommand.to = salesPerson.email
-      mailCommand.message = `Hej ${salesPerson.name}, \n\nHär kommer din länken till din butik hos grillkol.se. Skicka länken till de som ska handla i butiken under ditt namn.\n\n`
+      mailCommand.message = `Hej ${salesPerson.name}, \n\nHär kommer din länken till din butik hos Grillkol.se. Skicka länken till de som ska handla i butiken under ditt namn.\n\n`
       mailCommand.message += `Butikslänk: https://grillkol.bokad.se/shop/${this.project.code}/${salesPerson.code}\n\n`
       mailCommand.message += `Du har även en personlig länk där du kan se vilka ordrar som gjorts i ditt namn:\n`
       mailCommand.message += `https://grillkol.bokad.se/rapport/${this.project.code}/${salesPerson.code}\n\n`
