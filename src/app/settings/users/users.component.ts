@@ -62,10 +62,10 @@ export class UsersComponent implements OnInit {
     
     this.popupVisible = false
 
-    console.log(this.passwords)
+    //console.log(this.passwords)
 
     this.db.socket.emit('setpw', { system: this.auth.system, id: this.passwords.id, password: this.passwords.p1 }, (result) => {
-      console.log(result)
+      //console.log(result)
     })
 
   }
