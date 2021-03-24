@@ -11,7 +11,16 @@
 
     <div *ngFor="let order of orders" class="orderdetail">
 
-        <div class="orderheader">Order {{order.orderid}}, {{order.fnamn}} {{order.enamn}}</div>
+        <div class="orderheader">
+            <div>Order {{order.orderid}}</div>
+            <div>{{order.fnamn}} {{order.enamn}}</div>
+            <div>{{order.adr1}}</div>
+            <div>{{order.adr2}}</div>
+            <div>{{order.phone}}</div>
+            <div>{{order.email}}</div>
+        </div>
+
+        <!--<div><pre>{{order|json}}</pre></div>-->
     
         <dx-data-grid [dataSource]="order.items">
 
