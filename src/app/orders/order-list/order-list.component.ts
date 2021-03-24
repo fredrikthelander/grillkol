@@ -14,7 +14,7 @@ export class OrderListComponent implements OnInit {
   orders: Order[] = []
   orderList = []
 
-  constructor(public db: DbService, private auth: AuthService) {
+  constructor(public db: DbService, public auth: AuthService) {
 
     if (this.auth.userlevel > 1) this.db.createDataSource(this.auth.system, 'orders', this.dataSource)
     this.setup()
