@@ -49,9 +49,9 @@
 
             <dxi-column dataField="name" dataType="string" caption="Produkt"></dxi-column>
             <dxi-column dataField="quantity" dataType="number" caption="Antal" sortOrder="desc" width="100"></dxi-column>
-            <dxi-column dataField="amount" *ngIf="auth.userlevel > 4" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
+            <dxi-column dataField="amount" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
 
-            <dxo-summary *ngIf="auth.userlevel > 1">      
+            <dxo-summary>      
                 <dxi-total-item summaryType="sum" column="amount" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
             </dxo-summary> 
     
