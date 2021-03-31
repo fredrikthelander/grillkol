@@ -173,5 +173,25 @@ export class ProjectListComponent implements OnInit {
 
   }
 
+  manualFortnox = async (e) => {
+
+    let project = e.row.data
+    
+    if (project.active) {
+      notify('Projektet får inte vara aktivt', "warning", 2000)
+      return
+    }
+
+    let answer = await confirm("Vill du skicka ordern till Fortnox igen?", "Är du säker?")
+
+    if (!answer) return false
+
+    let closeResult = await this.db.sendMessagePromise('closeproject', { system: 'grillkol', id: project.id })
+    //console.log(closeResult)
+
+    notify('Ordern har skickats till Fortnox', "success", 2000)
+
+  }
+
 
 }

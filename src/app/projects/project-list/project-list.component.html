@@ -95,7 +95,7 @@
 
         <dxi-column dataField="deliveryAdr1" dataType="string" caption="Leverera till" [visible]="false"></dxi-column>
         <dxi-column dataField="deliveryAdr2" dataType="string" caption="Adress" [visible]="false"></dxi-column>
-        <dxi-column dataField="deliveryZipCode" dataType="string" caption="´Postnummer" [visible]="false"></dxi-column>
+        <dxi-column dataField="deliveryZipCode" dataType="string" caption="Postnummer" [visible]="false"></dxi-column>
         <dxi-column dataField="deliveryCity" dataType="string" caption="Ort" [visible]="false"></dxi-column>
 
         <dxi-column dataField="newsletter" dataType="boolean" caption="Nyhetsbrev" width="100" trueText="Ja" falseText="Nej" [visible]="false"></dxi-column>
@@ -113,6 +113,7 @@
         <dxi-column dataField="active" dataType="boolean" caption="Aktiv" width="100" trueText="Ja" falseText="Nej"></dxi-column>
 
         <dxi-column type="buttons">
+            <dxi-button hint="Fortnox" icon="export" [onClick]="manualFortnox"></dxi-button>
             <dxi-button hint="E-post" icon="email" [onClick]="email"></dxi-button>
             <dxi-button hint="Visa" icon="globe" [onClick]="gotoShop"></dxi-button>
             <dxi-button name="delete" hint="Radera"></dxi-button>
