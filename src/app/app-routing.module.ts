@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   
   { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
+  { path: 'registersalesperson', loadChildren: () => import('./register-salesperson/register-salesperson.module').then(m => m.RegisterSalespersonModule) },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
   { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
   { path: 'salespersons', loadChildren: () => import('./salespersons/salespersons.module').then(m => m.SalespersonsModule) },

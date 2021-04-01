@@ -186,6 +186,7 @@ export class MainComponent implements OnInit {
     if (si) {
       si.quantity -= 1
       p.stocklevel += 1
+      si.amount = si.quantity * si.product.priceIncl
       if (si.quantity < 1) this.selectedItems = this.selectedItems.filter(si => si.idProduct != p.id)
     }
     

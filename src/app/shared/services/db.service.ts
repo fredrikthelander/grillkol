@@ -35,6 +35,7 @@ export class DbService {
         let redirectToLogin = true
         //if (!this.auth.isLoggedIn && !['/register', '/shop'].includes(url)) router.navigate(['/login'])
         if (url == '/register') redirectToLogin = false
+        if (url.substr(0, 20) == '/registersalesperson') redirectToLogin = false
         if (url.substr(0, 5) == '/shop') redirectToLogin = false
         if (url.substr(0, 8) == '/rapport') redirectToLogin = false
         if (this.auth.isLoggedIn) redirectToLogin = false
