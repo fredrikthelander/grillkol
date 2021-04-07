@@ -1,6 +1,10 @@
-<app-admin *ngIf="auth.userlevel >= 4"></app-admin>
+<dx-tabs #tab
+    *ngIf="auth.userlevel >= 4"
+    [dataSource]="tabs"
+    [(selectedIndex)]="selectedTabIndex"
+></dx-tabs>
 
-<div class="dx-card p20 m20">
+<div *ngIf="selectedTabIndex == 0" class="dx-card p20 m20">
 
     <div class="rubrik">Sammanställning</div>
 
@@ -67,4 +71,8 @@
     </div>
 
 
+</div>
+
+<div *ngIf="selectedTabIndex == 1" class="dx-card p20 m20">
+    <app-admin></app-admin>
 </div>

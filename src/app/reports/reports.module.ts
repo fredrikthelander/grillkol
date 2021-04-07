@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxSelectBoxModule } from 'devextreme-angular';
+import { DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxSelectBoxModule, DxTabsModule } from 'devextreme-angular';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { MainComponent } from './main/main.component';
@@ -18,7 +18,7 @@ import { ProjectSelectorComponent } from './project-selector/project-selector.co
   imports: [
     CommonModule,
     ReportsRoutingModule,
-    DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxSelectBoxModule
+    DxDataGridModule, DxPopupModule, DxButtonModule, DxTextBoxModule, DxValidatorModule, DxValidationGroupModule, DxValidationSummaryModule, DxTagBoxModule, DxTextAreaModule, DxSelectBoxModule, DxTabsModule
   ]
 })
 export class ReportsModule { }

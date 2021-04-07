@@ -1,6 +1,7 @@
 <dx-select-box
     *ngIf="projects.length > 1"
     [dataSource]="projects"
+    [searchEnabled]="true"
     displayExpr="name"
     valueExpr="id"
     (onValueChanged)="valueChanged($event)"

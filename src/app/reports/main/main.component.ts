@@ -16,6 +16,9 @@ export class MainComponent implements OnInit {
   orders: Order[] = []
   orderList = []
 
+  selectedTabIndex = 0
+  tabs = [{ text: 'Projektsammanställning' }, { text: 'Ordersammanställning aktiva projekt' }]
+
   constructor(public auth: AuthService, private db: DbService, private router: Router) {}
 
   ngOnInit() {
