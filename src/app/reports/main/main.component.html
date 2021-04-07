@@ -30,6 +30,10 @@
                     <td>Porto kataloger</td>
                     <td>{{sammanst.portoFee | number : '1.0-0' : 'sv_SE' }} kr</td>                
                 </tr>
+                <tr *ngIf="sammanst.hantering">
+                    <td>Hanteringsavgift bruten pall</td>
+                    <td>{{sammanst.hantering | number : '1.0-0' : 'sv_SE' }} kr</td>                
+                </tr>
                 <tr>
                     <td class="f">Er förtjänst</td>
                     <td class="f">{{(sammanst.earnings > 0 ? sammanst.earnings : 0) | number : '1.0-0' : 'sv_SE' }} kr</td>                

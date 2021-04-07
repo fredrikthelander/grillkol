@@ -17,6 +17,8 @@ export class SammanstPipe implements PipeTransform {
     let totalVolume = 0
     let resellerCost = 0
     let earnings = 0
+    let h1 = 0; let h2 = 0;
+    let hantering = 0
 
     const palletVolume = 2112000 
 
@@ -26,11 +28,22 @@ export class SammanstPipe implements PipeTransform {
       count++
 
       o.items.forEach(oi => {
+
         totalVolume += oi.product.volume * oi.quantity
         resellerCost += oi.product.resellerPriceIncl * oi.quantity
+
+        // Hantering Grillkol
+        if (oi.product.sku == '347111') h1 += oi.quantity
+
+        // Hantering Briketter
+        if (oi.product.sku == '401002') h2 += oi.quantity
+
       })
 
     })
+
+    if (h1 / 60 != Math.round(h1 / 60)) hantering = 250
+    if (h2 / 95 != Math.round(h2 / 95)) hantering = 250
 
     serviceFee = total * project.serviceRate / 100 || 0
 
@@ -39,11 +52,11 @@ export class SammanstPipe implements PipeTransform {
 
     if (project.catalogs) portoFee = 50
 
-    earnings = total - resellerCost - deliveryFee - serviceFee - portoFee
+    earnings = total - resellerCost - deliveryFee - serviceFee - portoFee - hantering
 
     let pallets = Math.floor(totalVolume / palletVolume * 10) / 10
     
-    return { total, count, serviceFee, totalVolume, deliveryFee, earnings, portoFee, pallets }
+    return { total, count, serviceFee, totalVolume, deliveryFee, earnings, portoFee, pallets, hantering }
 
   }
 
