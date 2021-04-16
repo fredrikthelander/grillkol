@@ -39,17 +39,22 @@ export class DistributionComponent implements OnInit {
 
       this.orders.filter(order => order.project.id == this.project.id).forEach(order => {
 
-        let d = this.distribution.find(d => d.idSalesPerson == order.salesPerson.id)
+        let spid = ''
+        if (order.salesPerson) spid = order.salesPerson.id
+
+        let d = this.distribution.find(d => d.idSalesPerson == spid)
 
         if (d) {
           d.totalIncl += order.totalIncl
           d.orders.push(this.stripOrder(order))
           d.orderCount++
         } else {
-          this.distribution.push({ idSalesPerson: order.salesPerson.id, code: '', name: '', totalIncl: order.totalIncl, percentage: 0, orderCount: 1, orders: [this.stripOrder(order)] })
+          this.distribution.push({ idSalesPerson: spid, code: '', name: 'Okänd', totalIncl: order.totalIncl, percentage: 0, orderCount: 1, orders: [this.stripOrder(order)] })
         }
 
       })
+
+      
 
       this.salesPersons.forEach(salesPerson => {
 
@@ -100,6 +105,7 @@ export class DistributionComponent implements OnInit {
   }
 
   projectChanged(project) {
+    console.log('Project changed', project)
     this.project = project
     this.setup().then((result) => {}).catch((err) => {}) 
   }
@@ -111,16 +117,14 @@ export class DistributionComponent implements OnInit {
 
   async pdfReport1() {
 
-    console.log(1)
-
-    let content: any = [ { text: `Orderlista ${this.project.name}\n\n`, fontSize: 16, bold: true } ]
+    let content: any = [ ]
     // { text: `Orderlista ${this.project.name}\n\n`, fontSize: 16, bold: true }
 
-    this.distribution.sort((a, b) => { if (a.name < b.name) return -1; if (a.name > b.name) return 1; return 0; }).forEach(salesPerson => {
+    this.distribution.filter(salesPerson => salesPerson.orderCount).sort((a, b) => { if (a.name < b.name) return -1; if (a.name > b.name) return 1; return 0; }).forEach((salesPerson, salesPersonIndex) => {
 
       let salesPersonItems = []
       
-      content.push({ text: `Säljare: ${salesPerson.name}`, fontSize: 14, bold: true, margin: [0, 10, 0, 10], pageBreak: 'before' })
+      content.push({ text: `Säljare: ${salesPerson.name}`, fontSize: 14, bold: true, margin: [0, 10, 0, 10] })
 
       salesPerson.orders.forEach(order => {
 
@@ -166,7 +170,7 @@ export class DistributionComponent implements OnInit {
 
       })
 
-      content.push({ text: `Produktsammanställning:`, fontSize: 12, bold: true, margin: [10,10,10,10] })
+      content.push({ text: `Produktsammanställning för ${salesPerson.name}:`, fontSize: 12, bold: true, margin: [10,10,10,10] })
 
       let spiItems = []
       spiItems.push([
@@ -182,17 +186,20 @@ export class DistributionComponent implements OnInit {
 
       content.push({ table: { widths: [250, 50], body: spiItems }, margin: [10,0,0,0] })
 
+      content.push({ text: '', pageBreak: 'after' })
 
     })
 
+    let dummy = content.pop() // Remove last pagebreak
+
     var dd = {
-      footer: function (currentPage, pageCount) { return { text: 'Skapad ' + moment().format("YYYY-MM-DD HH:mm:ss") + '. Sida ' + currentPage.toString() + ' av ' + pageCount, margin: [ 20, 20, 20, 20 ], alignment: 'right', fontSize: 9 } },
+      footer: (currentPage, pageCount) => { return { text: this.project.name + '. Skapad ' + moment().format("YYYY-MM-DD HH:mm:ss") + '. Sida ' + currentPage.toString() + ' av ' + pageCount, margin: [ 20, 20, 20, 20 ], alignment: 'right', fontSize: 9 } },
       //header: { text: `Orderlista\n`, fontSize: 18, margin: [ 20, 20, 20, 20 ] },
       pageOrientation: 'portrait',
-      content: content,
       defaultStyle: {
         fontSize: 10
-      }
+      },
+      content: content
     }
 
     pdfMake.createPdf(dd).open()
