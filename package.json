@@ -34,6 +34,7 @@
     "ng-recaptcha": "^7.0.1",
     "ngx-smart-modal": "^7.4.0",
     "ngx-socket-io": "^3.2.0",
+    "pdfmake": "^0.1.71",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "uuid": "^8.3.2",

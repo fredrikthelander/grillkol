@@ -5,11 +5,16 @@
     <app-project-selector (selectedProjectChanged)="projectChanged($event)"></app-project-selector>
 
     <div *ngIf="project">       
+
+        <div class="section">
+            <dx-button type="success" text="Ladda ned lista med ordrar per säljare" (onClick)="pdfReport1()"></dx-button>
+        </div>
         
+        <!-- [export]="{ enabled: true, fileName: 'fördelning' }" -->
         <dx-data-grid
             [masterDetail]="{ enabled: true, template: 'detail' }"
             [dataSource]="distribution"
-            [export]="{ enabled: true, fileName: 'fördelning' }">
+            >
 
             <dxo-filter-row visible="true"></dxo-filter-row>
             <dxo-paging [pageSize]="20"></dxo-paging>
@@ -63,3 +68,4 @@
 <!--
 <pre>{{distribution|json}}</pre>
 -->
+<pre>{{distribution|json}}</pre>
