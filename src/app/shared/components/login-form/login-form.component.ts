@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { Socket } from 'ngx-socket-io'
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 import { AuthService, AppInfoService, DbService, MsgBusService } from '../../services';
 import { DxButtonModule } from 'devextreme-angular/ui/button';
@@ -27,7 +28,7 @@ export class LoginFormComponent {
     remember: false
   }
 
-  constructor(private authService: AuthService, public appInfo: AppInfoService, private db: DbService, private socket: Socket, private msgBus: MsgBusService) {
+  constructor(private authService: AuthService, public appInfo: AppInfoService, private db: DbService, private socket: Socket, private msgBus: MsgBusService, private deviceService: DeviceDetectorService) {
 
     let v = localStorage.getItem('loginvars')
     if (v) this.vars = JSON.parse(v)
@@ -40,6 +41,12 @@ export class LoginFormComponent {
     if (!args.validationGroup.validate().isValid) {
       return
     }
+
+    if (this.deviceService.isMobile()) {
+      notify('Du måste logga in från en dator eller surfplatta', 'error', 1500)
+      return
+    }
+    
 
     this.vars.system = this.vars.system.toLowerCase()
     this.vars.username = this.vars.username.toLowerCase()
