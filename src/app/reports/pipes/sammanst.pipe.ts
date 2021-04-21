@@ -20,7 +20,8 @@ export class SammanstPipe implements PipeTransform {
     let h1 = 0; let h2 = 0;
     let hantering = 0
 
-    const palletVolume = 2112000 
+    //const palletVolume = 2112000 // 80 x 120 x 220 
+    const palletVolume = 2304000 // 80 x 120 x 240
 
     orders.filter(o => o.project.id == project.id).forEach(o => {
       
