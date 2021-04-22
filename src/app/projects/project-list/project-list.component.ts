@@ -48,6 +48,9 @@ export class ProjectListComponent implements OnInit {
       this.rbtext = result
     })
 
+    this.getMailSettings()
+
+
   }
 
   ngOnInit() {
@@ -55,6 +58,11 @@ export class ProjectListComponent implements OnInit {
 
   initProject(e) {
     
+  }
+
+  async getMailSettings() {
+    this.mailSubject = await this.db.getStringSetting('deliversubject')
+    this.mailText = await this.db.getStringSetting('delivermessage')
   }
 
   gotoShop = (e) => {
@@ -146,14 +154,21 @@ export class ProjectListComponent implements OnInit {
     let project = e.row.data
 
     this.mailTo = project.email
-    this.mailSubject = 'Leveransbesked'
-    this.mailText = `Hej ${project.contactName}\n\nEr order har nu lämnat vårt lager.\n\nKollinummer: \n\nMvh\nGrillkol.se`
+    //this.mailSubject = 'Leveransbesked'
+    //this.mailText = `Hej ${project.contactName}\n\nEr order har nu lämnat vårt lager.\n\nKollinummer: \n\nMvh\nGrillkol.se`
+
+    this.mailSubject = (' ' + this.mailSubject).slice(1) // Deep copy
+    this.mailText = (' ' + this.mailText).slice(1)
+
+    this.mailText = this.mailText.replace(/{contactName}/g, project.contactName)
 
     this.modal.create('mailModal', 'content').open()
 
   }
 
   sendMail() {
+
+
 
     let mailCommand = {
       system: 'grillkol',
@@ -192,6 +207,5 @@ export class ProjectListComponent implements OnInit {
     notify('Ordern har skickats till Fortnox', "success", 2000)
 
   }
-
 
 }
