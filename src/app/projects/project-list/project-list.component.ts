@@ -168,8 +168,6 @@ export class ProjectListComponent implements OnInit {
 
   sendMail() {
 
-
-
     let mailCommand = {
       system: 'grillkol',
       sender: 'grillkol@bokad.se',
