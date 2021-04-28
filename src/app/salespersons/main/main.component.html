@@ -13,6 +13,7 @@
         [selectedRowKeys]="selectedRowKeys"
         (onRowUpdated)="updated($event)"
         (onRowInserted)="inserted($event)"
+        (onRowRemoving)="checkRemoveSalesPerson($event)"
         (onRowRemoved)="removed($event)"
         (onInitNewRow)="initSalesPerson($event.data)">
 
@@ -22,7 +23,7 @@
 
         <dxo-selection mode="multiple" [allowSelectAll]="true"></dxo-selection>
 
-        <dxo-editing [selectTextOnEditStart]="true" mode="cell" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true" [useIcons]="true"></dxo-editing>
+        <dxo-editing [selectTextOnEditStart]="true" mode="cell" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true"></dxo-editing>
 
         <dxi-column dataField="name" dataType="string" caption="Namn" ></dxi-column>
         <dxi-column dataField="email" dataType="string" caption="E-post" ></dxi-column>

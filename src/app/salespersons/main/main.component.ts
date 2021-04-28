@@ -124,4 +124,16 @@ export class MainComponent implements OnInit {
 //    }, 3000)
   }
 
+  checkRemoveSalesPerson(e) {
+    e.cancel = (async () => {
+
+
+      let rows = await <any>this.db.sendMessagePromiseData('mget', { system: this.auth.system, table: 'orders', token: this.db.token, condition: { "salesPerson.id": e.key.id }, sort: { } })
+      if (rows.length) throw TypeError('Det finns ordrar på denna person/lag. Kan ej tas bort.')
+
+      return false
+
+    })()
+  }  
+
 }
