@@ -23,7 +23,7 @@ export class MainComponent implements OnInit {
       this.salesPersons = result.data
     })
 
-    this.db.sendMessagePromise('mgetone', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username, active: true }, sort: { } }).then((result: any) => {
+    this.db.sendMessagePromise('mgetone', { system: this.auth.system, table: 'projects', token: this.db.token, condition: { email: this.auth.username }, sort: { } }).then((result: any) => {
       this.project = result
     })
 
