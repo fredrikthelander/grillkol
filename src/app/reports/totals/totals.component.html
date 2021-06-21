@@ -12,6 +12,8 @@
 
     <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="totals">
 
+        <dxo-export [enabled]="true" fileName="totals"></dxo-export>
+
         <dxi-column dataField="name" dataType="string" caption="" width="400"></dxi-column>
         <dxi-column dataField="value" dataType="number" caption="" format="###,##0" width="120"></dxi-column>
 
