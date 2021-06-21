@@ -53,6 +53,12 @@ export class TotalsComponent implements OnInit {
 
   }
 
-  tabChange(e) {}
+  tabChange(e) {
+    if (e.itemIndex == 1) this.getChartData()
+  }
+
+  getChartData() {
+
+  }
 
 }

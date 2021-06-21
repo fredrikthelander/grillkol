@@ -11,6 +11,8 @@ export class OrderListComponent implements OnInit {
 
   dataSource: any = {}
 
+  groupMode = true
+
   orders: Order[] = []
   orderList = []
 
@@ -39,6 +41,7 @@ export class OrderListComponent implements OnInit {
 
           oli.quantity += oi.quantity
           oli.amount += oi.total
+          oli.amountExcl += oi.totalExcl
 
         } else {
 
@@ -46,7 +49,8 @@ export class OrderListComponent implements OnInit {
             idProduct: oi.product.id,
             name: oi.product.name,
             quantity: oi.quantity,
-            amount: oi.total
+            amount: oi.total,
+            amountExcl: oi.totalExcl
           })
 
         }

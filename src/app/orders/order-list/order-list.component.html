@@ -1,6 +1,10 @@
 <div>
 
     <h2>Ordrar</h2>
+    <div style="display: flex; align-items: center;">
+        <div><dx-switch [(value)]="groupMode"></dx-switch></div>
+        <div style="padding-left: 12px;">Gruppera per projekt</div>
+    </div>
 
     <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="dataSource" [masterDetail]="{ enabled: true, template: 'detail' }">
 
@@ -8,22 +12,31 @@
         <dxo-filter-row visible="true"></dxo-filter-row>
         <dxo-paging [pageSize]="20"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 50, 100]"></dxo-pager>
+        <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+        <dxo-export [enabled]="true" fileName="orders"></dxo-export>
 
-        <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175" sortOrder="desc"></dxi-column>
+        <dxi-column dataField="ts" dataType="string" caption="Tidpunkt" width="175" [sortOrder]="groupMode ? null : 'desc'"></dxi-column>
         <dxi-column dataField="orderid" dataType="number" caption="Ordernr" width="80"></dxi-column>
-        <dxi-column dataField="project.name" dataType="string" caption="Projekt" ></dxi-column>
+        <dxi-column dataField="project.name" dataType="string" caption="Projekt" [groupIndex]="groupMode ? 0 : null" [sortOrder]="groupMode ? 'asc' : 'null'"></dxi-column>
         <dxi-column dataField="fnamn" dataType="string" caption="Förnamn" ></dxi-column>
         <dxi-column dataField="enamn" dataType="string" caption="Efternamn" ></dxi-column>
 
         <dxi-column dataField="salesPerson.name" dataType="string" caption="Säljare" ></dxi-column>
 
-        <dxi-column dataField="totalIncl" dataType="number" caption="Belopp" width="100"></dxi-column>
+        <dxi-column dataField="totalIncl" dataType="number" caption="Belopp Inkl" format="###,##0" width="150"></dxi-column>
+        <dxi-column dataField="totalExcl" dataType="number" caption="Belopp Exkl" format="###,##0" width="150"></dxi-column>
 
         <dxo-summary>      
-            <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+
+            <dxi-group-item summaryType="count" displayFormat="{0}" valueFormat="###,##0"></dxi-group-item>
+            <dxi-group-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0" [alignByColumn]="true"></dxi-group-item>
+            <dxi-group-item summaryType="sum" column="totalExcl" displayFormat="{0}" valueFormat="###,##0" [alignByColumn]="true"></dxi-group-item>
+
+            <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+            <dxi-total-item summaryType="sum" column="totalExcl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+
         </dxo-summary> 
 
-        
         <div *dxTemplate="let row of 'detail'">
 
             <dx-data-grid
@@ -47,12 +60,16 @@
 
         <dx-data-grid [dataSource]="orderList">
 
+            <dxo-export [enabled]="true" fileName="products"></dxo-export>
+
             <dxi-column dataField="name" dataType="string" caption="Produkt"></dxi-column>
             <dxi-column dataField="quantity" dataType="number" caption="Antal" sortOrder="desc" width="100"></dxi-column>
-            <dxi-column dataField="amount" dataType="number" caption="Belopp" format="###,##0.00" width="120"></dxi-column>
+            <dxi-column dataField="amount" dataType="number" caption="Belopp Inkl" format="###,##0" width="150"></dxi-column>
+            <dxi-column dataField="amountExcl" dataType="number" caption="Belopp Exkl" format="###,##0" width="150"></dxi-column>
 
             <dxo-summary>      
-                <dxi-total-item summaryType="sum" column="amount" displayFormat="{0}" valueFormat="###,##0.00"></dxi-total-item>
+                <dxi-total-item summaryType="sum" column="amount" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+                <dxi-total-item summaryType="sum" column="amountExcl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
             </dxo-summary> 
     
         </dx-data-grid>
