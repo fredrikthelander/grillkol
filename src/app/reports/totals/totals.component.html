@@ -1,0 +1,26 @@
+<div class="outer">
+    <h2>Totaler 2021</h2>
+</div>
+
+<dx-tabs
+    [dataSource]="tabs"
+    [(selectedIndex)]="selectedTabIndex"
+    (onItemClick)="tabChange($event)"
+></dx-tabs>
+
+<div *ngIf="selectedTabIndex == 0">
+
+    <dx-data-grid #grid [columnAutoWidth]="true" [dataSource]="totals">
+
+        <dxi-column dataField="name" dataType="string" caption="" width="400"></dxi-column>
+        <dxi-column dataField="value" dataType="number" caption="" format="###,##0" width="120"></dxi-column>
+
+    </dx-data-grid> 
+
+    <div style="margin-top: 20px; font-size: 12px;">Samtliga belopp är inklusive moms</div>
+
+</div>
+
+<div *ngIf="selectedTabIndex == 1">
+    
+</div>

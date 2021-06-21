@@ -11,10 +11,11 @@ import { AdminComponent } from './admin/admin.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DistributionComponent } from './distribution/distribution.component';
 import { ProjectSelectorComponent } from './project-selector/project-selector.component';
+import { TotalsComponent } from './totals/totals.component';
 
 
 @NgModule({
-  declarations: [MainComponent, OrderFilterPipe, SammanstPipe, AdminComponent, OrdersComponent, DistributionComponent, ProjectSelectorComponent],
+  declarations: [MainComponent, OrderFilterPipe, SammanstPipe, AdminComponent, OrdersComponent, DistributionComponent, ProjectSelectorComponent, TotalsComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule,

@@ -4,6 +4,7 @@ import { faList } from '@fortawesome/pro-light-svg-icons/faList';
 import { faTasks } from '@fortawesome/pro-light-svg-icons/faTasks';
 import { faChartPie } from '@fortawesome/pro-light-svg-icons/faChartPie';
 import { faUser } from '@fortawesome/pro-light-svg-icons/faUser';
+import { faSigma } from '@fortawesome/pro-light-svg-icons/faSigma';
 
 export const navigation = [
   {
@@ -49,7 +50,7 @@ export const navigation = [
     items: [
       { text: 'Sammanställning ', path: '/reports' },
       { text: 'Ordrar ', path: '/reports/orders' },
-      { text: 'Ordrar per säljare ', path: '/reports/distribution' }      
+      { text: 'Ordrar per säljare ', path: '/reports/distribution' }
     ]
   },
   {
@@ -65,6 +66,11 @@ export const navigation = [
       { text: 'Moms', path: '/settings/vats' },
       { text: 'Användare', path: '/settings/users' }
     ]
+  },
+  {
+    text: 'Totaler',
+    path: '/reports/totals',
+    icon: faSvg(faSigma)
   }
 ];
 
