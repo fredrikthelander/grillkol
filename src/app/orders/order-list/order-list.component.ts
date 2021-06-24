@@ -42,6 +42,7 @@ export class OrderListComponent implements OnInit {
           oli.quantity += oi.quantity
           oli.amount += oi.total
           oli.amountExcl += oi.totalExcl
+          oli.netAmountExcl += (oi.quantity * oi.product.resellerPriceIncl) / (1 + oi.vatPercent / 100)
 
         } else {
 
@@ -50,7 +51,8 @@ export class OrderListComponent implements OnInit {
             name: oi.product.name,
             quantity: oi.quantity,
             amount: oi.total,
-            amountExcl: oi.totalExcl
+            amountExcl: oi.totalExcl,
+            netAmountExcl: (oi.quantity * oi.product.resellerPriceIncl) / (1 + oi.vatPercent / 100)
           })
 
         }
@@ -59,6 +61,17 @@ export class OrderListComponent implements OnInit {
 
     })
 
+  }
+
+  calculateNetAmountExcl(order: Order) {
+
+    let r = 0
+
+    order.items.forEach(oi => {
+      r += (oi.quantity * oi.product.resellerPriceIncl) / (1 + oi.vatPercent / 100)
+    })
+
+    return r
   }
 
 }

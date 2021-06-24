@@ -25,15 +25,18 @@
 
         <dxi-column dataField="totalIncl" dataType="number" caption="Belopp Inkl" format="###,##0" width="150"></dxi-column>
         <dxi-column dataField="totalExcl" dataType="number" caption="Belopp Exkl" format="###,##0" width="150"></dxi-column>
+        <dxi-column dataType="number" caption="Nettobelopp Exkl" format="###,##0" width="150" [calculateCellValue]="calculateNetAmountExcl"></dxi-column>
 
         <dxo-summary>      
 
             <dxi-group-item summaryType="count" displayFormat="{0}" valueFormat="###,##0"></dxi-group-item>
             <dxi-group-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0" [alignByColumn]="true"></dxi-group-item>
             <dxi-group-item summaryType="sum" column="totalExcl" displayFormat="{0}" valueFormat="###,##0" [alignByColumn]="true"></dxi-group-item>
+            <dxi-group-item summaryType="sum" column="Nettobelopp Exkl" displayFormat="{0}" valueFormat="###,##0" [alignByColumn]="true"></dxi-group-item>
 
             <dxi-total-item summaryType="sum" column="totalIncl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
             <dxi-total-item summaryType="sum" column="totalExcl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+            <dxi-total-item summaryType="sum" column="Nettobelopp Exkl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
 
         </dxo-summary> 
 
@@ -64,10 +67,12 @@
             <dxi-column dataField="quantity" dataType="number" caption="Antal" sortOrder="desc" width="100"></dxi-column>
             <dxi-column dataField="amount" dataType="number" caption="Belopp Inkl" format="###,##0" width="150"></dxi-column>
             <dxi-column dataField="amountExcl" dataType="number" caption="Belopp Exkl" format="###,##0" width="150"></dxi-column>
+            <dxi-column dataField="netAmountExcl" dataType="number" caption="Nettobelopp Exkl" format="###,##0" width="150"></dxi-column>
 
             <dxo-summary>      
                 <dxi-total-item summaryType="sum" column="amount" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
                 <dxi-total-item summaryType="sum" column="amountExcl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
+                <dxi-total-item summaryType="sum" column="netAmountExcl" displayFormat="{0}" valueFormat="###,##0"></dxi-total-item>
             </dxo-summary> 
     
         </dx-data-grid>
